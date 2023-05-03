@@ -61,6 +61,13 @@ module.exports = {
     // packages
     // build output is always in dist/packages
     '@nativescript': {
+      // @nativescript/ui-charts
+      'ui-charts': {
+        build: {
+          script: 'nx run ui-charts:build.all',
+          description: '@nativescript/ui-charts: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -71,6 +78,10 @@ module.exports = {
       description: '_____________  Focus (VS Code supported)  _____________',
     },
     focus: {
+      'ui-charts': {
+        script: 'nx run ui-charts:focus',
+        description: 'Focus on @nativescript/ui-charts',
+      },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',
         description: 'Reset Focus',

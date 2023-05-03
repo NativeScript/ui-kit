@@ -5,7 +5,7 @@ npm run setup
 npm start
 ```
 
-- @nativescript
+- [@nativescript/ui-charts](packages/ui-charts/README.md)
 
 # How to use?
 

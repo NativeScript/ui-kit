@@ -4,10 +4,11 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
-    "@nativescript/core": "file:../../node_modules/@nativescript/core"
+    "@nativescript/core": "file:../../node_modules/@nativescript/core",
+    "@nativescript/ui-charts": "file:../../packages/ui-charts"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.4.0",
-    "@nativescript/ios": "~8.4.0"
+    "@nativescript/android": "~8.5.0",
+    "@nativescript/ios": "~8.5.0"
   }
 }

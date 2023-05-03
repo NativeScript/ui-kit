@@ -1,0 +1,36 @@
+{
+  "name": "@nativescript/ui-charts",
+  "version": "0.4.0",
+  "description": "Highcharts iOS and Android SDK for NativeScript",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "ios": "6.0.0",
+      "android": "6.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NativeScript/ui-kit.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "JavaScript",
+    "Android",
+    "iOS",
+    "Charts",
+    "Mobile"
+  ],
+  "author": {
+    "name": "NativeScript",
+    "email": "oss@nativescript.org"
+  },
+  "bugs": {
+    "url": "https://github.com/NativeScript/ui-kit/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/NativeScript/ui-kit",
+  "readmeFilename": "README.md",
+  "bootstrapper": "@nativescript/plugin-seed"
+}

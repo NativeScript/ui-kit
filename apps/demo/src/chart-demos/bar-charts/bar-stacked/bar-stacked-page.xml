@@ -1,0 +1,18 @@
+<Page
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:uc="@nativescript/ui-charts">
+
+    <ActionBar>
+        <Label text="Stacked Bar Chart"></Label>
+        <NavigationButton android.systemIcon="ic_menu_back" tap="goBack" />
+    </ActionBar>
+
+    <ScrollView>
+      <GridLayout>
+        <GridLayout id="main" rows="220, 400,200">
+          <uc:UIChartsView row="1" id="chartView" loaded="chartViewLoaded" />
+        </GridLayout>
+      </GridLayout>
+    </ScrollView>
+</Page>
