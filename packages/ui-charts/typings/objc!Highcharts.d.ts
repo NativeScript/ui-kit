@@ -1,3 +1,19 @@
+declare class HIASTNode extends HIChartsJSONSerializable {
+  static alloc(): HIASTNode; // inherited from NSObject
+
+  static new(): HIASTNode; // inherited from NSObject
+
+  attributes: HISVGAttributes;
+
+  children: NSArray<any>;
+
+  tagName: string;
+
+  textContent: string;
+
+  getParams(): NSDictionary<any, any>;
+}
+
 declare class HIAccessibility extends HIChartsJSONSerializable {
   static alloc(): HIAccessibility; // inherited from NSObject
 
@@ -40,8 +56,6 @@ declare class HIAccessibility extends HIChartsJSONSerializable {
   linkedDescription: string;
 
   point: HIPoint;
-
-  pointDescriptionFormatter: HIFunction;
 
   rangeDescription: string;
 
@@ -93,6 +107,8 @@ declare class HIAccessibilityLegend extends HIChartsJSONSerializable {
 
   legendLabel: string;
 
+  legendLabelNoTitle: string;
+
   getParams(): NSDictionary<any, any>;
 }
 
@@ -102,6 +118,16 @@ declare class HIAccessibilitySeries extends HIChartsJSONSerializable {
   static new(): HIAccessibilitySeries; // inherited from NSObject
 
   definition: string;
+
+  describeSingleSeries: number;
+
+  descriptionFormatter: HIFunction;
+
+  nullPointValue: string;
+
+  pointAnnotationsDescription: string;
+
+  pointDescriptionEnabledThreshold: number;
 
   summary: HISummary;
 
@@ -151,6 +177,8 @@ declare class HIAnimation extends HIChartsJSONSerializable {
 
   static new(): HIAnimation; // inherited from NSObject
 
+  defer: number;
+
   duration: number;
 
   getParams(): NSDictionary<any, any>;
@@ -163,6 +191,8 @@ declare class HIAnimationOptionsObject extends HIChartsJSONSerializable {
 
   complete: HIFunction;
 
+  defer: number;
+
   duration: number;
 
   easing: string;
@@ -172,12 +202,32 @@ declare class HIAnimationOptionsObject extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
+declare class HIAnnotationMockPointOptionsObject extends HIChartsJSONSerializable {
+  static alloc(): HIAnnotationMockPointOptionsObject; // inherited from NSObject
+
+  static new(): HIAnnotationMockPointOptionsObject; // inherited from NSObject
+
+  x: number;
+
+  xAxis: any;
+
+  y: number;
+
+  yAxis: any;
+
+  getParams(): NSDictionary<any, any>;
+}
+
 declare class HIAnnotations extends HIChartsJSONSerializable {
   static alloc(): HIAnnotations; // inherited from NSObject
 
   static new(): HIAnnotations; // inherited from NSObject
 
+  animation: HIAnimationOptionsObject;
+
   controlPointOptions: HIControlPointOptions;
+
+  crop: number;
 
   descriptionMultiplePoints: string;
 
@@ -192,6 +242,10 @@ declare class HIAnnotations extends HIChartsJSONSerializable {
   heading: string;
 
   id: string;
+
+  itemDelimiter: string;
+
+  join: number;
 
   labelOptions: HILabelOptions;
 
@@ -249,7 +303,11 @@ declare class HIAnnotationsOptions extends HIChartsJSONSerializable {
 
   static new(): HIAnnotationsOptions; // inherited from NSObject
 
+  animation: HIAnimationOptionsObject;
+
   controlPointOptions: HIControlPointOptions;
+
+  crop: number;
 
   draggable: string;
 
@@ -296,6 +354,42 @@ declare class HIAnnounceNewData extends HIChartsJSONSerializable {
   seriesAnnounceSingle: string;
 
   getParams(): NSDictionary<any, any>;
+}
+
+declare class HIArcdiagram extends HISeries {
+  static alloc(): HIArcdiagram; // inherited from NSObject
+
+  static new(): HIArcdiagram; // inherited from NSObject
+
+  borderColor: HIColor;
+
+  borderWidth: number;
+
+  centeredLinks: number;
+
+  colorByPoint: number;
+
+  colors: NSArray<HIColor>;
+
+  equalNodes: number;
+
+  levels: NSArray<HILevels>;
+
+  linkOpacity: number;
+
+  linkRadius: number;
+
+  linkWeight: number;
+
+  minLinkWidth: number;
+
+  nodeWidth: number;
+
+  nodes: NSArray<HINodes>;
+
+  offset: string;
+
+  reversed: number;
 }
 
 declare class HIArea extends HISeries {
@@ -367,7 +461,21 @@ declare class HIArrow extends HIChartsJSONSerializable {
 
   static new(): HIArrow; // inherited from NSObject
 
+  attributes: HIAttributes;
+
   children: NSArray<any>;
+
+  tagName: string;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIAttributes extends HIChartsJSONSerializable {
+  static alloc(): HIAttributes; // inherited from NSObject
+
+  static new(): HIAttributes; // inherited from NSObject
+
+  dy: HISVGAttributes;
 
   id: string;
 
@@ -379,27 +487,7 @@ declare class HIArrow extends HIChartsJSONSerializable {
 
   refY: number;
 
-  render: number;
-
-  tagName: string;
-
-  getParams(): NSDictionary<any, any>;
-}
-
-declare class HIAttr extends HIChartsJSONSerializable {
-  static alloc(): HIAttr; // inherited from NSObject
-
-  static new(): HIAttr; // inherited from NSObject
-
-  zIndex: number;
-
-  getParams(): NSDictionary<any, any>;
-}
-
-declare class HIAttributes extends HIChartsJSONSerializable {
-  static alloc(): HIAttributes; // inherited from NSObject
-
-  static new(): HIAttributes; // inherited from NSObject
+  startOffset: number;
 
   zIndex: number;
 
@@ -539,6 +627,8 @@ declare class HIBindings extends HIChartsJSONSerializable {
 
   circleAnnotation: HINavigationBindingsOptionsObject;
 
+  ellipseAnnotation: HINavigationBindingsOptionsObject;
+
   labelAnnotation: HINavigationBindingsOptionsObject;
 
   rectangleAnnotation: HINavigationBindingsOptionsObject;
@@ -556,6 +646,8 @@ declare class HIBoost extends HIChartsJSONSerializable {
   debug: HIDebug;
 
   enabled: number;
+
+  pixelRatio: number;
 
   seriesThreshold: number;
 
@@ -621,6 +713,8 @@ declare class HIBoxplot extends HISeries {
 
   pointWidth: number;
 
+  stemColor: HIColor;
+
   stemDashStyle: string;
 
   stemWidth: number;
@@ -632,6 +726,58 @@ declare class HIBoxplot extends HISeries {
   whiskerLength: any;
 
   whiskerWidth: number;
+}
+
+declare class HIBreadcrumbs extends HIChartsJSONSerializable {
+  static alloc(): HIBreadcrumbs; // inherited from NSObject
+
+  static new(): HIBreadcrumbs; // inherited from NSObject
+
+  buttonSpacing: number;
+
+  buttonTheme: HISVGAttributes;
+
+  events: HIEvents;
+
+  floating: number;
+
+  format: string;
+
+  formatter: HIFunction;
+
+  position: HIBreadcrumbsAlignOptions;
+
+  relativeTo: string;
+
+  rtl: number;
+
+  separator: HISeparator;
+
+  showFullPath: number;
+
+  style: HISVGAttributes;
+
+  useHTML: number;
+
+  zIndex: number;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIBreadcrumbsAlignOptions extends HIChartsJSONSerializable {
+  static alloc(): HIBreadcrumbsAlignOptions; // inherited from NSObject
+
+  static new(): HIBreadcrumbsAlignOptions; // inherited from NSObject
+
+  align: string;
+
+  verticalAlign: string;
+
+  x: number;
+
+  y: number;
+
+  getParams(): NSDictionary<any, any>;
 }
 
 declare class HIBreaks extends HIChartsJSONSerializable {
@@ -789,11 +935,23 @@ declare class HIButtonOptions extends HIChartsJSONSerializable {
 
   theme: HITheme;
 
+  useHTML: number;
+
   verticalAlign: string;
 
   width: number;
 
   y: number;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIButtonTheme extends HIChartsJSONSerializable {
+  static alloc(): HIButtonTheme; // inherited from NSObject
+
+  static new(): HIButtonTheme; // inherited from NSObject
+
+  style: HIStyle;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -893,7 +1051,11 @@ declare class HIChart extends HIChartsJSONSerializable {
 
   static new(): HIChart; // inherited from NSObject
 
+  alignThresholds: number;
+
   alignTicks: number;
+
+  allowMutatingData: number;
 
   animation: HIAnimationOptionsObject;
 
@@ -941,8 +1103,6 @@ declare class HIChart extends HIChartsJSONSerializable {
 
   parallelCoordinates: number;
 
-  pinchType: string;
-
   plotBackgroundColor: HIColor;
 
   plotBackgroundImage: string;
@@ -958,8 +1118,6 @@ declare class HIChart extends HIChartsJSONSerializable {
   reflow: number;
 
   renderTo: string;
-
-  resetZoomButton: HIResetZoomButton;
 
   scrollablePlotArea: HIScrollablePlotArea;
 
@@ -987,9 +1145,7 @@ declare class HIChart extends HIChartsJSONSerializable {
 
   width: any;
 
-  zoomKey: string;
-
-  zoomType: string;
+  zooming: HIZooming;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -1243,6 +1399,28 @@ declare class HICluster extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
+declare class HICollapseButton extends HIChartsJSONSerializable {
+  static alloc(): HICollapseButton; // inherited from NSObject
+
+  static new(): HICollapseButton; // inherited from NSObject
+
+  enabled: number;
+
+  height: number;
+
+  onlyOnHover: number;
+
+  shape: string;
+
+  width: number;
+
+  x: number;
+
+  y: number;
+
+  getParams(): NSDictionary<any, any>;
+}
+
 declare class HIColor extends HIChartsJSONSerializable {
   static alloc(): HIColor; // inherited from NSObject
 
@@ -1253,6 +1431,8 @@ declare class HIColor extends HIChartsJSONSerializable {
   constructor(o: { linearGradient: NSDictionary<any, any>; stops: NSArray<any> | any[] });
 
   constructor(o: { name: string });
+
+  constructor(o: { pattern: HIPatternObject });
 
   constructor(o: { RGBA: number; green: number; blue: number; alpha: number });
 
@@ -1269,6 +1449,8 @@ declare class HIColor extends HIChartsJSONSerializable {
   initWithLinearGradientStops(gradient: NSDictionary<any, any>, stops: NSArray<any> | any[]): this;
 
   initWithName(name: string): this;
+
+  initWithPattern(pattern: HIPatternObject): this;
 
   initWithRGBAGreenBlueAlpha(red: number, green: number, blue: number, alpha: number): this;
 
@@ -1354,6 +1536,8 @@ declare class HIColorAxis extends HIChartsJSONSerializable {
 
   minorTicks: number;
 
+  panningEnabled: number;
+
   reversed: number;
 
   showFirstLabel: number;
@@ -1399,6 +1583,8 @@ declare class HIColorAxis extends HIChartsJSONSerializable {
   units: NSArray<NSArray<any>>;
 
   visible: number;
+
+  zIndex: number;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -1543,6 +1729,20 @@ declare class HICondition extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
+declare class HIConnectorOptions extends HIChartsJSONSerializable {
+  static alloc(): HIConnectorOptions; // inherited from NSObject
+
+  static new(): HIConnectorOptions; // inherited from NSObject
+
+  dashstyle: string;
+
+  stroke: string;
+
+  width: number;
+
+  getParams(): NSDictionary<any, any>;
+}
+
 declare class HIContextButton extends HIChartsJSONSerializable {
   static alloc(): HIContextButton; // inherited from NSObject
 
@@ -1584,6 +1784,8 @@ declare class HIContextButton extends HIChartsJSONSerializable {
 
   titleKey: string;
 
+  useHTML: number;
+
   verticalAlign: string;
 
   width: number;
@@ -1600,11 +1802,13 @@ declare class HIControlPointOptions extends HIChartsJSONSerializable {
 
   static new(): HIControlPointOptions; // inherited from NSObject
 
+  events: NSDictionary<any, any>;
+
   height: number;
 
   positioner: HIFunction;
 
-  style: HIStyle;
+  style: HISVGAttributes;
 
   symbol: string;
 
@@ -1657,6 +1861,8 @@ declare class HICsv extends HIChartsJSONSerializable {
   static alloc(): HICsv; // inherited from NSObject
 
   static new(): HICsv; // inherited from NSObject
+
+  annotations: HIAnnotations;
 
   columnHeaderFormatter: HIFunction;
 
@@ -1728,6 +1934,10 @@ declare class HIData extends HIChartsJSONSerializable {
 
   className: string;
 
+  collapseButton: any;
+
+  collapsed: number;
+
   color: HIColor;
 
   colorIndex: number;
@@ -1780,9 +1990,11 @@ declare class HIData extends HIChartsJSONSerializable {
 
   from: string;
 
+  googleAPIKey: string;
+
   googleSpreadsheetKey: string;
 
-  googleSpreadsheetWorksheet: string;
+  googleSpreadsheetRange: string;
 
   gradientForSides: number;
 
@@ -1790,7 +2002,7 @@ declare class HIData extends HIChartsJSONSerializable {
 
   id: string;
 
-  innerRadius: any;
+  innerRadius: string;
 
   isIntermediateSum: number;
 
@@ -1838,7 +2050,7 @@ declare class HIData extends HIChartsJSONSerializable {
 
   q3: number;
 
-  radius: any;
+  radius: string;
 
   rows: NSArray<NSArray<any>>;
 
@@ -1928,9 +2140,11 @@ declare class HIDataLabels extends HIChartsJSONSerializable {
 
   alternate: number;
 
+  animation: HIAnimationOptionsObject;
+
   attributes: HISVGAttributes;
 
-  backgroundColor: string;
+  backgroundColor: HIColor;
 
   borderColor: HIColor;
 
@@ -1940,7 +2154,7 @@ declare class HIDataLabels extends HIChartsJSONSerializable {
 
   className: string;
 
-  color: HIColor;
+  color: string;
 
   connectorColor: HIColor;
 
@@ -1950,13 +2164,13 @@ declare class HIDataLabels extends HIChartsJSONSerializable {
 
   connectorWidth: number;
 
-  crookDistance: string;
+  crookDistance: number;
 
   crop: number;
 
   defer: number;
 
-  distance: number;
+  distance: any;
 
   enabled: number;
 
@@ -2004,7 +2218,7 @@ declare class HIDataLabels extends HIChartsJSONSerializable {
 
   softConnector: number;
 
-  style: HIStyle;
+  style: HICSSObject;
 
   textPath: HITextPath;
 
@@ -2025,8 +2239,6 @@ declare class HIDataLabels extends HIChartsJSONSerializable {
   yHigh: number;
 
   yLow: number;
-
-  z: number;
 
   zIndex: number;
 
@@ -2140,9 +2352,9 @@ declare class HIDefs extends HIChartsJSONSerializable {
 
   static new(): HIDefs; // inherited from NSObject
 
-  arrow: HISVGDefinitionObject;
+  arrow: HIASTNode;
 
-  reverseArrow: HISVGDefinitionObject;
+  reverseArrow: HIASTNode;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -2178,6 +2390,8 @@ declare class HIDependencywheel extends HISeries {
 
   nodes: NSArray<HINodes>;
 
+  size: any;
+
   startAngle: number;
 }
 
@@ -2195,6 +2409,8 @@ declare class HIDial extends HIChartsJSONSerializable {
   borderColor: HIColor;
 
   borderWidth: number;
+
+  path: NSArray<string>;
 
   radius: string;
 
@@ -2275,20 +2491,6 @@ declare class HIDragHandle extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
-declare class HIDrillUpButton extends HIChartsJSONSerializable {
-  static alloc(): HIDrillUpButton; // inherited from NSObject
-
-  static new(): HIDrillUpButton; // inherited from NSObject
-
-  position: HIAlignObject;
-
-  relativeTo: string;
-
-  theme: any;
-
-  getParams(): NSDictionary<any, any>;
-}
-
 declare class HIDrilldown extends HIChartsJSONSerializable {
   static alloc(): HIDrilldown; // inherited from NSObject
 
@@ -2302,7 +2504,7 @@ declare class HIDrilldown extends HIChartsJSONSerializable {
 
   animation: HIAnimationOptionsObject;
 
-  drillUpButton: HIDrillUpButton;
+  breadcrumbs: HIBreadcrumbs;
 
   series: NSArray<any>;
 
@@ -2329,6 +2531,16 @@ declare class HIDumbbell extends HISeries {
   pointPadding: number;
 
   pointRange: number;
+}
+
+declare class HIEllipseAnnotation extends HIChartsJSONSerializable {
+  static alloc(): HIEllipseAnnotation; // inherited from NSObject
+
+  static new(): HIEllipseAnnotation; // inherited from NSObject
+
+  className: string;
+
+  getParams(): NSDictionary<any, any>;
 }
 
 declare class HIErrorbar extends HISeries {
@@ -2371,6 +2583,8 @@ declare class HIErrorbar extends HISeries {
   pointRange: number;
 
   pointWidth: number;
+
+  stemColor: HIColor;
 
   stemDashStyle: string;
 
@@ -2430,6 +2644,10 @@ declare class HIEvents extends HIChartsJSONSerializable {
 
   exportData: HIFunction;
 
+  fullscreenClose: HIFunction;
+
+  fullscreenOpen: HIFunction;
+
   hide: HIFunction;
 
   legendItemClick: HIFunction;
@@ -2482,6 +2700,8 @@ declare class HIExportData extends HIChartsJSONSerializable {
 
   static new(): HIExportData; // inherited from NSObject
 
+  annotationHeader: string;
+
   categoryDatetimeHeader: string;
 
   categoryHeader: string;
@@ -2498,6 +2718,8 @@ declare class HIExporting extends HIChartsJSONSerializable {
 
   allowHTML: number;
 
+  allowTableSorting: number;
+
   buttons: HIButtons;
 
   chartMenuLabel: string;
@@ -2510,8 +2732,6 @@ declare class HIExporting extends HIChartsJSONSerializable {
 
   error: HIFunction;
 
-  exportRegionLabel: string;
-
   fallbackToExportServer: number;
 
   filename: string;
@@ -2523,6 +2743,8 @@ declare class HIExporting extends HIChartsJSONSerializable {
   menuButtonLabel: string;
 
   menuItemDefinitions: any;
+
+  pdfFont: HIPdfFont;
 
   printMaxWidth: number;
 
@@ -2686,6 +2908,8 @@ declare class HIFunnel extends HISeries {
 
   startAngle: number;
 
+  thickness: number;
+
   width: any;
 }
 
@@ -2803,18 +3027,6 @@ declare class HIGradientColorObject extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
-declare class HIGradientColorStopObject extends HIChartsJSONSerializable {
-  static alloc(): HIGradientColorStopObject; // inherited from NSObject
-
-  static new(): HIGradientColorStopObject; // inherited from NSObject
-
-  one: string;
-
-  zero: number;
-
-  getParams(): NSDictionary<any, any>;
-}
-
 declare class HIGuideBox extends HIChartsJSONSerializable {
   static alloc(): HIGuideBox; // inherited from NSObject
 
@@ -2830,7 +3042,7 @@ declare class HIHalo extends HIChartsJSONSerializable {
 
   static new(): HIHalo; // inherited from NSObject
 
-  attributes: HIAttributes;
+  attributes: HISVGAttributes;
 
   enabled: number;
 
@@ -2845,6 +3057,8 @@ declare class HIHeatmap extends HISeries {
   static alloc(): HIHeatmap; // inherited from NSObject
 
   static new(): HIHeatmap; // inherited from NSObject
+
+  borderRadius: number;
 
   colsize: number;
 
@@ -2926,8 +3140,6 @@ declare class HIHover extends HIChartsJSONSerializable {
 
   color: HIColor;
 
-  connectorWidthPlus: number;
-
   enabled: number;
 
   fillColor: HIColor;
@@ -3005,6 +3217,8 @@ declare class HIItem extends HISeries {
   size: any;
 
   startAngle: number;
+
+  thickness: number;
 }
 
 declare class HIJitter extends HIChartsJSONSerializable {
@@ -3126,6 +3340,8 @@ declare class HILabelOptions extends HIChartsJSONSerializable {
 
   formatter: HIFunction;
 
+  includeInDataExport: number;
+
   overflow: string;
 
   padding: number;
@@ -3184,6 +3400,8 @@ declare class HILabels extends HIChartsJSONSerializable {
 
   className: string;
 
+  clip: number;
+
   crop: number;
 
   distance: any;
@@ -3194,11 +3412,13 @@ declare class HILabels extends HIChartsJSONSerializable {
 
   formatter: HIFunction;
 
+  includeInDataExport: number;
+
   overflow: string;
 
   padding: number;
 
-  point: HIPoint;
+  point: HIAnnotationMockPointOptionsObject;
 
   position3d: string;
 
@@ -3268,15 +3488,17 @@ declare class HILang extends HIChartsJSONSerializable {
 
   downloadXLS: string;
 
-  drillUpText: string;
-
   exitFullscreen: string;
 
   exportData: HIExportData;
 
+  hideData: string;
+
   invalidDate: string;
 
   loading: string;
+
+  mainBreadcrumb: string;
 
   months: NSArray<string>;
 
@@ -3356,7 +3578,7 @@ declare class HILayoutAlgorithm extends HIChartsJSONSerializable {
 
   seriesInteraction: number;
 
-  splitSeries: string;
+  splitSeries: number;
 
   theta: number;
 
@@ -3400,6 +3622,8 @@ declare class HILegend extends HIChartsJSONSerializable {
 
   bubbleLegend: HIBubbleLegend;
 
+  className: string;
+
   enabled: number;
 
   floating: number;
@@ -3430,6 +3654,8 @@ declare class HILegend extends HIChartsJSONSerializable {
 
   legendLabel: string;
 
+  legendLabelNoTitle: string;
+
   margin: number;
 
   maxHeight: number;
@@ -3457,6 +3683,10 @@ declare class HILegend extends HIChartsJSONSerializable {
   title: HITitle;
 
   useHTML: number;
+
+  valueDecimals: number;
+
+  valueSuffix: string;
 
   verticalAlign: string;
 
@@ -3500,6 +3730,8 @@ declare class HILevels extends HIChartsJSONSerializable {
 
   borderWidth: number;
 
+  collapsed: number;
+
   color: HIColor;
 
   colorByPoint: number;
@@ -3517,10 +3749,6 @@ declare class HILevels extends HIChartsJSONSerializable {
   levelSize: any;
 
   linkOpacity: number;
-
-  rotation: number;
-
-  rotationMode: string;
 
   states: HIStates;
 
@@ -3554,9 +3782,23 @@ declare class HILink extends HIChartsJSONSerializable {
 
   static new(): HILink; // inherited from NSObject
 
-  color: string;
+  color: HIColor;
+
+  cursor: string;
+
+  curveFactor: number;
 
   dashStyle: string;
+
+  lineWidth: number;
+
+  offset: number;
+
+  opacity: number;
+
+  radius: number;
+
+  type: string;
 
   width: number;
 
@@ -3567,6 +3809,8 @@ declare class HILinkTextPath extends HIChartsJSONSerializable {
   static alloc(): HILinkTextPath; // inherited from NSObject
 
   static new(): HILinkTextPath; // inherited from NSObject
+
+  attributes: HISVGAttributes;
 
   enabled: number;
 
@@ -3628,7 +3872,7 @@ declare class HIMarker extends HIChartsJSONSerializable {
 
   height: number;
 
-  lineColor: string;
+  lineColor: HIColor;
 
   lineWidth: number;
 
@@ -3693,6 +3937,8 @@ declare class HINavigation extends HIChartsJSONSerializable {
   bindings: HIBindings;
 
   bindingsClassName: string;
+
+  breadcrumbs: HIBreadcrumbs;
 
   buttonOptions: HIButtonOptions;
 
@@ -3792,7 +4038,9 @@ declare class HINodes extends HIChartsJSONSerializable {
 
   name: string;
 
-  offset: any;
+  offsetHorizontal: any;
+
+  offsetVertical: any;
 
   title: string;
 
@@ -3805,6 +4053,20 @@ declare class HINormal extends HIChartsJSONSerializable {
   static new(): HINormal; // inherited from NSObject
 
   animation: HIAnimationOptionsObject;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIOnPoint extends HIChartsJSONSerializable {
+  static alloc(): HIOnPoint; // inherited from NSObject
+
+  static new(): HIOnPoint; // inherited from NSObject
+
+  connectorOptions: HISVGAttributes;
+
+  id: string;
+
+  position: HIPosition;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -3828,7 +4090,7 @@ declare class HIOptions extends HIChartsJSONSerializable {
 
   colorAxis: NSArray<HIColorAxis>;
 
-  colors: NSArray<string>;
+  colors: NSArray<HIColor>;
 
   credits: HICredits;
 
@@ -3916,17 +4178,17 @@ declare class HIOrganization extends HISeries {
 
   hangingIndent: number;
 
+  hangingIndentTranslation: string;
+
   levels: NSArray<HILevels>;
 
-  linkColor: HIColor;
-
-  linkLineWidth: number;
+  link: HILink;
 
   linkOpacity: number;
 
-  linkRadius: number;
-
   minLinkWidth: number;
+
+  minNodeLength: number;
 
   nodePadding: number;
 
@@ -4064,6 +4326,8 @@ declare class HIParallelAxes extends HIChartsJSONSerializable {
 
   pane: number;
 
+  panningEnabled: number;
+
   reversed: number;
 
   reversedStacks: number;
@@ -4117,6 +4381,8 @@ declare class HIParallelAxes extends HIChartsJSONSerializable {
   visible: number;
 
   width: any;
+
+  zIndex: number;
 
   zoomEnabled: number;
 
@@ -4198,7 +4464,7 @@ declare class HIPatternObject extends HIChartsJSONSerializable {
 
   static new(): HIPatternObject; // inherited from NSObject
 
-  animation: HIAnimationOptionsObject;
+  animation: number;
 
   pattern: HIPatternOptionsObject;
 
@@ -4226,7 +4492,7 @@ declare class HIPatternOptionsObject extends HIChartsJSONSerializable {
 
   opacity: number;
 
-  path: HISVGAttributes;
+  path: string;
 
   patternTransform: string;
 
@@ -4235,6 +4501,22 @@ declare class HIPatternOptionsObject extends HIChartsJSONSerializable {
   x: number;
 
   y: number;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIPdfFont extends HIChartsJSONSerializable {
+  static alloc(): HIPdfFont; // inherited from NSObject
+
+  static new(): HIPdfFont; // inherited from NSObject
+
+  bold: string;
+
+  bolditalic: string;
+
+  italic: string;
+
+  normal: string;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -4269,6 +4551,8 @@ declare class HIPie extends HISeries {
   slicedOffset: number;
 
   startAngle: number;
+
+  thickness: number;
 }
 
 declare class HIPivot extends HIChartsJSONSerializable {
@@ -4340,6 +4624,8 @@ declare class HIPlotLines extends HIChartsJSONSerializable {
 
   label: HILabel;
 
+  labels: HILabels;
+
   value: number;
 
   width: number;
@@ -4355,6 +4641,8 @@ declare class HIPlotOptions extends HIChartsJSONSerializable {
   static alloc(): HIPlotOptions; // inherited from NSObject
 
   static new(): HIPlotOptions; // inherited from NSObject
+
+  arcdiagram: HIArcdiagram;
 
   area: HIArea;
 
@@ -4440,6 +4728,8 @@ declare class HIPlotOptions extends HIChartsJSONSerializable {
 
   timeline: HITimeline;
 
+  treegraph: HITreegraph;
+
   treemap: HITreemap;
 
   variablepie: HIVariablepie;
@@ -4466,13 +4756,35 @@ declare class HIPoint extends HIChartsJSONSerializable {
 
   static new(): HIPoint; // inherited from NSObject
 
+  category: string;
+
+  color: HIColor;
+
+  colorIndex: number;
+
   dateFormat: string;
 
   dateFormatter: HIFunction;
 
+  describeNull: number;
+
   descriptionFormatter: HIFunction;
 
   events: HIEvents;
+
+  name: string;
+
+  percentage: number;
+
+  plotX: number;
+
+  plotY: number;
+
+  selected: number;
+
+  sliced: number;
+
+  total: number;
 
   valueDecimals: number;
 
@@ -4482,13 +4794,11 @@ declare class HIPoint extends HIChartsJSONSerializable {
 
   valueSuffix: string;
 
+  visible: number;
+
   x: number;
 
-  xAxis: any;
-
   y: number;
-
-  yAxis: any;
 
   cancelSonify(): void;
 
@@ -4523,22 +4833,6 @@ declare class HIPoint extends HIChartsJSONSerializable {
   updateRedrawAnimation(options: HIPoint, redraw: number, animation: HIAnimationOptionsObject): void;
 }
 
-declare class HIPoints extends HIChartsJSONSerializable {
-  static alloc(): HIPoints; // inherited from NSObject
-
-  static new(): HIPoints; // inherited from NSObject
-
-  x: number;
-
-  xAxis: any;
-
-  y: number;
-
-  yAxis: any;
-
-  getParams(): NSDictionary<any, any>;
-}
-
 declare class HIPolygon extends HISeries {
   static alloc(): HIPolygon; // inherited from NSObject
 
@@ -4554,11 +4848,15 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   addButton: string;
 
-  arrowLine: string;
+  algorithm: string;
+
+  arrowInfinityLine: string;
 
   arrowRay: string;
 
   arrowSegment: string;
+
+  average: string;
 
   background: string;
 
@@ -4572,7 +4870,11 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   borderWidth: string;
 
+  bottomBand: string;
+
   circle: string;
+
+  clearFilter: string;
 
   color: string;
 
@@ -4586,13 +4888,25 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   crosshairY: string;
 
+  decimals: string;
+
+  deviation: string;
+
   editButton: string;
 
   elliott3: string;
 
   elliott5: string;
 
+  ellipse: string;
+
+  factor: string;
+
+  fastAvgPeriod: string;
+
   fibonacci: string;
+
+  fibonacciTimeZones: string;
 
   fill: string;
 
@@ -4604,9 +4918,17 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   height: string;
 
+  highIndex: string;
+
   horizontalLine: string;
 
+  increment: string;
+
+  index: string;
+
   infinityLine: string;
+
+  initialAccelerationFactor: string;
 
   innerBackground: string;
 
@@ -4620,6 +4942,12 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   lines: string;
 
+  longPeriod: string;
+
+  lowIndex: string;
+
+  maxAccelerationFactor: string;
+
   measure: string;
 
   measureX: string;
@@ -4628,7 +4956,13 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   measureY: string;
 
+  multiplier: string;
+
+  multiplierATR: string;
+
   name: string;
+
+  noFilterMatch: string;
 
   outerBackground: string;
 
@@ -4636,7 +4970,19 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   parallelChannel: string;
 
+  period: string;
+
+  periodATR: string;
+
+  periodSenkouSpanB: string;
+
+  periodTenkan: string;
+
+  periods: string;
+
   pitchfork: string;
+
+  ranges: string;
 
   ray: string;
 
@@ -4646,6 +4992,8 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   saveButton: string;
 
+  searchIndicators: string;
+
   segment: string;
 
   series: string;
@@ -4654,7 +5002,15 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   shapes: string;
 
+  shortPeriod: string;
+
+  signalPeriod: string;
+
   simpleShapes: string;
+
+  slowAvgPeriod: string;
+
+  standardDeviation: string;
 
   stroke: string;
 
@@ -4662,7 +5018,11 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   style: string;
 
+  timeCycles: string;
+
   title: string;
+
+  topBand: string;
 
   tunnel: string;
 
@@ -4678,6 +5038,8 @@ declare class HIPopup extends HIChartsJSONSerializable {
 
   volume: string;
 
+  xAxisUnit: string;
+
   getParams(): NSDictionary<any, any>;
 }
 
@@ -4687,6 +5049,10 @@ declare class HIPosition extends HIChartsJSONSerializable {
   static new(): HIPosition; // inherited from NSObject
 
   align: string;
+
+  offsetX: number;
+
+  offsetY: number;
 
   verticalAlign: string;
 
@@ -4722,15 +5088,17 @@ declare class HIPyramid extends HISeries {
 
   minSize: any;
 
-  neckHeight: string;
+  neckHeight: number;
 
-  neckWidth: string;
+  neckWidth: number;
 
   reversed: number;
 
   slicedOffset: number;
 
   startAngle: number;
+
+  thickness: number;
 
   width: any;
 }
@@ -4802,7 +5170,9 @@ declare class HIRangeSelector extends HIChartsJSONSerializable {
 
   static new(): HIRangeSelector; // inherited from NSObject
 
-  buttonText: string;
+  clickButtonAnnouncement: string;
+
+  dropdownLabel: string;
 
   maxInputLabel: string;
 
@@ -4827,10 +5197,10 @@ declare class HIRanges extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
-declare class HIResetZoomButton extends HIChartsJSONSerializable {
-  static alloc(): HIResetZoomButton; // inherited from NSObject
+declare class HIResetButton extends HIChartsJSONSerializable {
+  static alloc(): HIResetButton; // inherited from NSObject
 
-  static new(): HIResetZoomButton; // inherited from NSObject
+  static new(): HIResetButton; // inherited from NSObject
 
   position: HIAlignObject;
 
@@ -4856,17 +5226,7 @@ declare class HIReverseArrow extends HIChartsJSONSerializable {
 
   static new(): HIReverseArrow; // inherited from NSObject
 
-  id: string;
-
-  markerHeight: number;
-
-  markerWidth: number;
-
-  refX: number;
-
-  refY: number;
-
-  render: number;
+  attributes: HIAttributes;
 
   tagName: string;
 
@@ -4918,7 +5278,11 @@ declare class HISVGAttributes extends HIChartsJSONSerializable {
 
   static new(): HISVGAttributes; // inherited from NSObject
 
-  d: NSArray<any>;
+  d: NSArray<string>;
+
+  dx: number;
+
+  dy: number;
 
   fill: HIColor;
 
@@ -4945,20 +5309,6 @@ declare class HISVGAttributes extends HIChartsJSONSerializable {
   translateY: number;
 
   zIndex: number;
-
-  getParams(): NSDictionary<any, any>;
-}
-
-declare class HISVGDefinitionObject extends HIChartsJSONSerializable {
-  static alloc(): HISVGDefinitionObject; // inherited from NSObject
-
-  static new(): HISVGDefinitionObject; // inherited from NSObject
-
-  children: NSArray<any>;
-
-  tagName: string;
-
-  textContent: string;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -5107,6 +5457,18 @@ declare class HISelect extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
+declare class HISeparator extends HIChartsJSONSerializable {
+  static alloc(): HISeparator; // inherited from NSObject
+
+  static new(): HISeparator; // inherited from NSObject
+
+  style: HICSSObject;
+
+  text: string;
+
+  getParams(): NSDictionary<any, any>;
+}
+
 declare class HISeries extends HIChartsJSONSerializable {
   static alloc(): HISeries; // inherited from NSObject
 
@@ -5160,6 +5522,8 @@ declare class HISeries extends HIChartsJSONSerializable {
 
   describeSingleSeries: number;
 
+  descriptionFormat: string;
+
   descriptionFormatter: HIFunction;
 
   dragDrop: HIDragDrop;
@@ -5198,6 +5562,8 @@ declare class HISeries extends HIChartsJSONSerializable {
 
   nullPointValue: string;
 
+  onPoint: HIOnPoint;
+
   opacity: number;
 
   point: HIPoint;
@@ -5215,6 +5581,8 @@ declare class HISeries extends HIChartsJSONSerializable {
   pointPlacement: any;
 
   pointStart: number;
+
+  relativeXValue: number;
 
   selected: number;
 
@@ -5338,6 +5706,8 @@ declare class HISeriesNavigation extends HIChartsJSONSerializable {
 
   pointNavigationEnabledThreshold: number;
 
+  rememberPointFocus: number;
+
   skipNullPoints: number;
 
   getParams(): NSDictionary<any, any>;
@@ -5400,6 +5770,8 @@ declare class HIShapeOptions extends HIChartsJSONSerializable {
 
   r: number;
 
+  ry: number;
+
   snap: number;
 
   src: string;
@@ -5411,6 +5783,10 @@ declare class HIShapeOptions extends HIChartsJSONSerializable {
   type: string;
 
   width: number;
+
+  xAxis: number;
+
+  yAxis: number;
 
   getParams(): NSDictionary<any, any>;
 }
@@ -5430,11 +5806,13 @@ declare class HIShapes extends HIChartsJSONSerializable {
 
   markerStart: string;
 
-  point: HIPoint;
+  point: HIAnnotationMockPointOptionsObject;
 
-  points: NSArray<HIPoints>;
+  points: NSArray<HIAnnotationMockPointOptionsObject>;
 
   r: number;
+
+  ry: number;
 
   snap: number;
 
@@ -5448,6 +5826,10 @@ declare class HIShapes extends HIChartsJSONSerializable {
 
   width: number;
 
+  xAxis: number;
+
+  yAxis: number;
+
   getParams(): NSDictionary<any, any>;
 }
 
@@ -5458,11 +5840,11 @@ declare class HISolidgauge extends HISeries {
 
   colorByPoint: number;
 
-  innerRadius: any;
+  innerRadius: string;
 
   overshoot: number;
 
-  radius: any;
+  radius: string;
 
   rounded: number;
 }
@@ -5493,6 +5875,8 @@ declare class HIStackLabels extends HIChartsJSONSerializable {
   align: string;
 
   allowOverlap: number;
+
+  animation: HIAnimationOptionsObject;
 
   backgroundColor: HIColor;
 
@@ -5574,7 +5958,7 @@ declare class HIStyle extends HIChartsJSONSerializable {
 
   fill: string;
 
-  fontSize: string;
+  fontSize: number;
 
   fontWeight: string;
 
@@ -5688,6 +6072,8 @@ declare class HISunburst extends HISeries {
 
   borderWidth: number;
 
+  breadcrumbs: HIBreadcrumbs;
+
   center: NSArray<any>;
 
   colorByPoint: number;
@@ -5710,7 +6096,7 @@ declare class HISunburst extends HISeries {
 
   startAngle: number;
 
-  traverseUpButton: HITraverseUpButton;
+  thickness: number;
 }
 
 declare class HITable extends HIChartsJSONSerializable {
@@ -5732,6 +6118,8 @@ declare class HITargetOptions extends HIChartsJSONSerializable {
 
   borderColor: HIColor;
 
+  borderRadius: number;
+
   borderWidth: number;
 
   color: HIColor;
@@ -5748,7 +6136,7 @@ declare class HITextPath extends HIChartsJSONSerializable {
 
   static new(): HITextPath; // inherited from NSObject
 
-  attributes: HISVGAttributes;
+  attributes: HIAttributes;
 
   enabled: number;
 
@@ -5776,6 +6164,8 @@ declare class HITilemap extends HISeries {
 
   static new(): HITilemap; // inherited from NSObject
 
+  borderRadius: number;
+
   colsize: number;
 
   nullColor: HIColor;
@@ -5796,6 +6186,8 @@ declare class HITime extends HIChartsJSONSerializable {
 
   getTimezoneOffset: HIFunction;
 
+  moment: HIFunction;
+
   timezone: string;
 
   timezoneOffset: number;
@@ -5813,8 +6205,6 @@ declare class HITimeline extends HISeries {
   colorByPoint: number;
 
   ignoreHiddenPoint: number;
-
-  legendType: string;
 }
 
 declare class HITitle extends HIChartsJSONSerializable {
@@ -5874,7 +6264,7 @@ declare class HITooltip extends HIChartsJSONSerializable {
 
   className: string;
 
-  clusterFormat: any;
+  clusterFormat: string;
 
   dateTimeLabelFormats: HIDateTimeLabelFormats;
 
@@ -5895,6 +6285,8 @@ declare class HITooltip extends HIChartsJSONSerializable {
   headerShape: string;
 
   hideDelay: number;
+
+  linkFormat: string;
 
   nodeFormat: string;
 
@@ -5969,14 +6361,22 @@ declare class HITop extends HIChartsJSONSerializable {
   getParams(): NSDictionary<any, any>;
 }
 
-declare class HITraverseUpButton extends HIChartsJSONSerializable {
-  static alloc(): HITraverseUpButton; // inherited from NSObject
+declare class HITreegraph extends HISeries {
+  static alloc(): HITreegraph; // inherited from NSObject
 
-  static new(): HITraverseUpButton; // inherited from NSObject
+  static new(): HITreegraph; // inherited from NSObject
 
-  position: HIPosition;
+  collapseButton: HICollapseButton;
 
-  getParams(): NSDictionary<any, any>;
+  colorByPoint: number;
+
+  colors: NSArray<HIColor>;
+
+  levels: HILevels;
+
+  link: HILink;
+
+  reversed: number;
 }
 
 declare class HITreemap extends HISeries {
@@ -5988,7 +6388,9 @@ declare class HITreemap extends HISeries {
 
   alternateStartingDirection: number;
 
-  cluster: HICluster;
+  borderRadius: number;
+
+  breadcrumbs: HIBreadcrumbs;
 
   colorByPoint: number;
 
@@ -6007,8 +6409,6 @@ declare class HITreemap extends HISeries {
   levels: NSArray<HILevels>;
 
   sortIndex: number;
-
-  traverseUpButton: HITraverseUpButton;
 }
 
 declare class HIVariablepie extends HISeries {
@@ -6047,6 +6447,8 @@ declare class HIVariablepie extends HISeries {
   slicedOffset: number;
 
   startAngle: number;
+
+  thickness: number;
 
   zMax: number;
 
@@ -6091,10 +6493,6 @@ declare class HIVector extends HISeries {
   static new(): HIVector; // inherited from NSObject
 
   cluster: HICluster;
-
-  rotationOrigin: string;
-
-  vectorLength: number;
 }
 
 declare class HIVenn extends HISeries {
@@ -6220,8 +6618,6 @@ declare class HIWordcloud extends HISeries {
 
   static new(): HIWordcloud; // inherited from NSObject
 
-  allowExtendPlayingField: number;
-
   borderColor: HIColor;
 
   borderRadius: number;
@@ -6344,6 +6740,8 @@ declare class HIXAxis extends HIChartsJSONSerializable {
 
   pane: number;
 
+  panningEnabled: number;
+
   plotBands: NSArray<HIPlotBands>;
 
   plotLines: NSArray<HIPlotLines>;
@@ -6399,6 +6797,8 @@ declare class HIXAxis extends HIChartsJSONSerializable {
   visible: number;
 
   width: any;
+
+  zIndex: number;
 
   zoomEnabled: number;
 
@@ -6582,6 +6982,8 @@ declare class HIYAxis extends HIChartsJSONSerializable {
 
   pane: number;
 
+  panningEnabled: number;
+
   plotBands: NSArray<HIPlotBands>;
 
   plotLines: NSArray<HIPlotLines>;
@@ -6606,7 +7008,7 @@ declare class HIYAxis extends HIChartsJSONSerializable {
 
   startOnTick: number;
 
-  stops: NSArray<HIGradientColorStopObject>;
+  stops: NSArray<any>;
 
   tickAmount: number;
 
@@ -6643,6 +7045,8 @@ declare class HIYAxis extends HIChartsJSONSerializable {
   visible: number;
 
   width: any;
+
+  zIndex: number;
 
   zoomEnabled: number;
 
@@ -6786,6 +7190,8 @@ declare class HIZAxis extends HIChartsJSONSerializable {
 
   pane: number;
 
+  panningEnabled: number;
+
   plotBands: NSArray<HIPlotBands>;
 
   plotLines: NSArray<HIPlotLines>;
@@ -6835,6 +7241,8 @@ declare class HIZAxis extends HIChartsJSONSerializable {
   units: NSArray<NSArray<any>>;
 
   visible: number;
+
+  zIndex: number;
 
   zoomEnabled: number;
 
@@ -6919,6 +7327,24 @@ declare class HIZoom extends HIChartsJSONSerializable {
   mapZoomOut: string;
 
   resetZoomButton: string;
+
+  getParams(): NSDictionary<any, any>;
+}
+
+declare class HIZooming extends HIChartsJSONSerializable {
+  static alloc(): HIZooming; // inherited from NSObject
+
+  static new(): HIZooming; // inherited from NSObject
+
+  key: string;
+
+  pinchType: string;
+
+  resetButton: HIResetButton;
+
+  singleTouch: number;
+
+  type: string;
 
   getParams(): NSDictionary<any, any>;
 }
