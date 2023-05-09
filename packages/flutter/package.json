@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/flutter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Flutter for NativeScript",
   "main": "index",
   "typings": "index.d.ts",
@@ -19,7 +19,9 @@
     "JavaScript",
     "TypeScript",
     "iOS",
-    "Android"
+    "Android",
+    "Flutter",
+    "Dart"
   ],
   "author": {
     "name": "NativeScript",
