@@ -1,10 +1,4 @@
-# @nativescript/\* plugins
-
-```
-npm run setup
-npm start
-```
-
+- [@nativescript/flutter](packages/flutter/README.md)
 - [@nativescript/ui-charts](packages/ui-charts/README.md)
 
 # How to use?
@@ -12,6 +6,10 @@ npm start
 This workspace manages the suite of plugins listed above. 
 
 In general, when in doubt with what to do, just `npm start`.
+
+## Testing Flutter
+
+- Uncomment sections in `tools/assets/App_Resources/iOS/Podfile`
 
 ## How to add a new package to workspace?
 

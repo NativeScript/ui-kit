@@ -6,6 +6,7 @@
     <ScrollView class="h-full">
       <StackLayout>
         <Button text="ui-charts" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="flutter" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

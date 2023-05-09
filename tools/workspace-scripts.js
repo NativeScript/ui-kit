@@ -68,6 +68,13 @@ module.exports = {
           description: '@nativescript/ui-charts: Build',
         },
       },
+      // @nativescript/flutter
+      flutter: {
+        build: {
+          script: 'nx run flutter:build.all',
+          description: '@nativescript/flutter: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -81,6 +88,10 @@ module.exports = {
       'ui-charts': {
         script: 'nx run ui-charts:focus',
         description: 'Focus on @nativescript/ui-charts',
+      },
+      flutter: {
+        script: 'nx run flutter:focus',
+        description: 'Focus on @nativescript/flutter',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

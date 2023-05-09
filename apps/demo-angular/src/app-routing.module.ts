@@ -7,6 +7,7 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'flutter', loadChildren: () => import('./plugin-demos/flutter.module').then((m) => m.FlutterModule) },
   { path: 'ui-charts', loadChildren: () => import('./plugin-demos/ui-charts.module').then((m) => m.UiChartsModule) },
 ];
 

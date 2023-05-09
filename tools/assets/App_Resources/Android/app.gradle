@@ -1,18 +1,20 @@
-// Add your native dependencies here:
-
-// Uncomment to add recyclerview-v7 dependency
-//dependencies {
-//	compile 'com.android.support:recyclerview-v7:+'
-//}
-
 android {
-  compileSdkVersion 32
+  compileSdkVersion 33
+  buildToolsVersion "33.0.0"
   defaultConfig {
-    minSdkVersion 21
-    targetSdkVersion 32
+    minSdkVersion 24
+    targetSdkVersion 33
     generatedDensities = []
+    ndk {
+      // Filter for architectures supported by Flutter.
+      abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+    }
   }
   aaptOptions {
     additionalParameters "--no-version-vectors"
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 }
