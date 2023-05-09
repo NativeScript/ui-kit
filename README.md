@@ -9,7 +9,19 @@ In general, when in doubt with what to do, just `npm start`.
 
 ## Testing Flutter
 
-- Uncomment sections in `tools/assets/App_Resources/iOS/Podfile`
+You will need [Flutter installed](https://docs.flutter.dev/get-started/install).
+
+1. Uncomment sections in:
+   - `tools/assets/App_Resources/iOS/Podfile`
+   - `tools/assets/App_Resources/Android/settings.gradle`
+
+2. To run on Android, build the flutter module first
+
+```
+cd apps/demo/flutter_views/.android
+
+./gradlew Flutter:assemble
+```
 
 ## How to add a new package to workspace?
 
