@@ -22,7 +22,8 @@
     "paths": {
       "@demo/shared": ["tools/demo/index.ts"],
       "@nativescript/*": ["packages/*"],
-      "@nativescript/ui-charts": ["packages/ui-charts/index.d.ts"]
+      "@nativescript/ui-charts": ["packages/ui-charts/index.d.ts"],
+      "@nativescript/flutter": ["packages/flutter/index.d.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

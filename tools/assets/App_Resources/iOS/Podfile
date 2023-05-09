@@ -1,10 +1,21 @@
-platform :ios, '13.0'
+platform :ios, '14.0'
+
+# uncomment to test flutter
+flutter_application_path = '../../flutter_views'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+install_all_flutter_pods(flutter_application_path)
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
       config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
     end
   end
+
+  # uncomment to test flutter
+  flutter_post_install(installer) if defined?(flutter_post_install)
 end
+
+
+

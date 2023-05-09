@@ -5,7 +5,8 @@
   "repository": "<fill-your-repository-here>",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nativescript/ui-charts": "file:../../packages/ui-charts"
+    "@nativescript/ui-charts": "file:../../packages/ui-charts",
+    "@nativescript/flutter": "file:../../packages/flutter"
   },
   "devDependencies": {
     "@nativescript/android": "~8.5.0",

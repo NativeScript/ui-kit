@@ -1,0 +1,12 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page"
+  xmlns:ui="@nativescript/flutter">
+  <Page.actionBar>
+    <ActionBar title="NativeScript + Flutter" icon="" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
+  <GridLayout rows="auto,*,50" class="p-20">
+    <Button row="0" text="Make Flutter Jump" tap="{{ testIt }}" class="btn btn-primary" backgroundColor="orange" marginBottom="20" borderRadius="30"/>
+
+    <ui:Flutter row="1" id="myFlutterView" channel="{{channel}}" loaded="loadedFlutter" ios:borderRadius="30" borderColor="#efefef" borderWidth="1"></ui:Flutter>
+  </GridLayout>
+</Page>
