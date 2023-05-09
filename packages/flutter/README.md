@@ -65,7 +65,60 @@ Add Flutter debug permissions to `App_Resources/iOS/Info.plist`:
 
 #### Android
 
+`App_Resources/Android/app.gradle` should contain the following:
 
+```ts
+android {
+  // ...
+
+  defaultConfig {
+    // ...
+
+    // Add this section:
+    ndk {
+      // Filter for architectures supported by Flutter.
+      abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+    }
+  }
+```
+
+`App_Resources/Android/settings.gradle` (create file if needed) should contain the following:
+
+```ts
+def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
+
+def plugins = new Properties()
+def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
+if (pluginsFile.exists()) {
+    pluginsFile.withReader('UTF-8') { reader -> plugins.load(reader) }
+}
+
+plugins.each { name, path ->
+  def pluginDirectory = flutterProjectRoot.resolve(path).resolve('android').toFile()
+  include ":$name"
+  project(":$name").projectDir = pluginDirectory
+}
+
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+  settingsDir.parentFile,
+  // use the flutter module folder name you created here.
+  // for example, a flutter module called 'flutter_views' exist at root of project
+  '../flutter_views/.android/include_flutter.groovy'
+))
+```
+
+Build the module anytime you want to see your Dart changes reflected in NativeScript:
+
+```bash
+cd flutter_views/.android
+
+# This will build debug mode
+./gradlew Flutter:assemble
+
+# This will build release mode
+./gradlew Flutter:assembleRelease
+```
 
 ### 4. Install @nativescript/flutter
 
@@ -115,6 +168,32 @@ Use `Flutter` anywhere.
 ```xml
 <Flutter id="myFlutterView"></Flutter>
 ```
+
+## Troubleshooting
+
+Common troubleshooting tips:
+
+### Android
+
+Before running Android, you will want to build the flutter module first. Otherwise you may see this error:
+
+```cli
+Transform's input file does not exist: flutter_views/.android/Flutter/build/intermediates/flutter/debug/libs.jar
+```
+
+You can fix by running the following:
+
+```bash
+cd flutter_views/.android
+
+# This will build debug mode
+./gradlew Flutter:assemble
+
+# This will build release mode
+./gradlew Flutter:assembleRelease
+```
+
+
 
 ## License
 
