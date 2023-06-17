@@ -20,14 +20,14 @@
             "input": "packages/ionic-portals/platforms/",
             "output": "./platforms/"
           }
-        ],
-        "dependsOn": [
-          {
-            "target": "build.all",
-            "projects": "dependencies"
-          }
         ]
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        }
+      ]
     },
     "build.all": {
       "executor": "nx:run-commands",
@@ -35,7 +35,7 @@
         "commands": ["node tools/scripts/build-finish.ts ionic-portals"],
         "parallel": false
       },
-      "outputs": ["dist/packages/ionic-portals"],
+      "outputs": ["{workspaceRoot}/dist/packages/ionic-portals"],
       "dependsOn": [
         {
           "target": "build.all",
@@ -60,6 +60,5 @@
         "lintFilePatterns": ["packages/ionic-portals/**/*.ts"]
       }
     }
-  },
-  "tags": []
+  }
 }

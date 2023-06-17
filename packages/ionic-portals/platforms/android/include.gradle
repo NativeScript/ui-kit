@@ -1,0 +1,10 @@
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.ionic:portals:0.7.5'
+    implementation 'io.ionic:liveupdates:0.+'
+}

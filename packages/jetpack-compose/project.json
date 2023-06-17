@@ -35,7 +35,7 @@
         "commands": ["node tools/scripts/build-finish.ts jetpack-compose"],
         "parallel": false
       },
-      "outputs": ["dist/packages/jetpack-compose"],
+      "outputs": ["{workspaceRoot}/dist/packages/jetpack-compose"],
       "dependsOn": [
         {
           "target": "build.all",
