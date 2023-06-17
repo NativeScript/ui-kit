@@ -10,6 +10,15 @@ export class HomeComponent {
       name: 'flutter',
     },
     {
+      name: 'ionic-portals',
+    },
+    {
+      name: 'jetpack-compose',
+    },
+    {
+      name: 'swift-ui',
+    },
+    {
       name: 'ui-charts',
     },
   ];

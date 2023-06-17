@@ -6,7 +6,10 @@
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "@nativescript/ui-charts": "file:../../packages/ui-charts",
-    "@nativescript/flutter": "file:../../packages/flutter"
+    "@nativescript/flutter": "file:../../packages/flutter",
+    "@nativescript/swift-ui": "file:../../packages/swift-ui",
+    "@nativescript/jetpack-compose": "file:../../packages/jetpack-compose",
+    "@nativescript/ionic-portals": "file:../../packages/ionic-portals"
   },
   "devDependencies": {
     "@nativescript/android": "~8.5.0",

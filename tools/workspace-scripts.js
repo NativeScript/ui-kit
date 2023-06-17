@@ -75,6 +75,27 @@ module.exports = {
           description: '@nativescript/flutter: Build',
         },
       },
+      // @nativescript/swift-ui
+      'swift-ui': {
+        build: {
+          script: 'nx run swift-ui:build.all',
+          description: '@nativescript/swift-ui: Build',
+        },
+      },
+      // @nativescript/jetpack-compose
+      'jetpack-compose': {
+        build: {
+          script: 'nx run jetpack-compose:build.all',
+          description: '@nativescript/jetpack-compose: Build',
+        },
+      },
+      // @nativescript/ionic-portals
+      'ionic-portals': {
+        build: {
+          script: 'nx run ionic-portals:build.all',
+          description: '@nativescript/ionic-portals: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -92,6 +113,18 @@ module.exports = {
       flutter: {
         script: 'nx run flutter:focus',
         description: 'Focus on @nativescript/flutter',
+      },
+      'swift-ui': {
+        script: 'nx run swift-ui:focus',
+        description: 'Focus on @nativescript/swift-ui',
+      },
+      'jetpack-compose': {
+        script: 'nx run jetpack-compose:focus',
+        description: 'Focus on @nativescript/jetpack-compose',
+      },
+      'ionic-portals': {
+        script: 'nx run ionic-portals:focus',
+        description: 'Focus on @nativescript/ionic-portals',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

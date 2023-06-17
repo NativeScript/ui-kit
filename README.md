@@ -1,4 +1,7 @@
 - [@nativescript/flutter](packages/flutter/README.md)
+- [@nativescript/ionic-portals](packages/ionic-portals/README.md)
+- [@nativescript/jetpack-compose](packages/jetpack-compose/README.md)
+- [@nativescript/swift-ui](packages/swift-ui/README.md)
 - [@nativescript/ui-charts](packages/ui-charts/README.md)
 
 # How to use?
@@ -22,6 +25,12 @@ cd apps/demo/flutter_views/.android
 
 ./gradlew Flutter:assemble
 ```
+
+### Note about "focus modes"
+
+`npm start` > `focus.{any-plugin}` ENTER will focus the workspace to a single plugin for working on it in isolation.
+
+The swift-ui plugin is currently managed here and we have testing code for it here: https://github.com/NativeScript/ui-kit/blob/main/tools/assets/App_Resources/iOS/src/BasicViewProvider.swift ... however when focusing on any other plugins, you would need to rename those .swift > .off so they aren't included in the demo to work with other plugins. Since the supporting .swift files include SwiftUIProvider which comes from only the swift-ui plugin.
 
 ## How to add a new package to workspace?
 
