@@ -1,12 +1,124 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:sw="@nativescript/swift-ui">
-  <Page.actionBar>
-    <ActionBar title="SwiftUI" icon="" class="action-bar">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page"
+  xmlns:sw="@nativescript/swift-ui">
+  <!-- <Page.actionBar>
+    <ActionBar title="{N} in SwiftUI" icon="" class="action-bar">
     </ActionBar>
-  </Page.actionBar>
-  <StackLayout class="p-20">
-    <sw:SwiftUI swiftId="basicView" data="{{ nativeCount }}" swiftUIEvent="{{ onEvent }}" loaded="{{ loadedSwiftUI }}" height="150"></sw:SwiftUI>
-    <Label row="1" text="{{ 'NativeScript Label: ' + nativeCount.count }}" class="h2" marginTop="60"></Label>
-    <Button row="2" text="NativeScript data bindings: Decrement" tap="{{ updateNativeScriptData }}" class="btn btn-primary m-t-30"></Button>
-    <Button row="3" text="SwiftUI data bindings: Decrement" tap="{{ updateSwiftData }}" class="btn btn-primary"></Button>
-  </StackLayout>
+  </Page.actionBar> -->
+  <GridLayout rows="*" backgroundColor="black">
+    <!-- <sw:SwiftUIView id="test1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" opacity=".9" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout row="1" rows="auto,auto" columns="auto,auto" class="p-20 m-x-20" height="130" verticalAlignment="bottom">
+          <Label text="Hello {N} in SwiftUI" fontSize="{{fontSize}}" fontWeight="bold" class="c-white"></Label>
+          <Button row="1" text="Tap me!" tap="{{onEvent}}" class="text-left c-bg-blue c-white p-5 m-t-10" borderRadius="5"></Button>
+            
+        </GridLayout>
+    </sw:SwiftUIView> -->
+    <sw:SwiftUIView id="test1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
+          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+          <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
+              <StackLayout col="1" verticalAlignment="middle">
+                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="3" verticalAlignment="middle">
+                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="5" verticalAlignment="middle">
+                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+          </GridLayout>         
+        </GridLayout>
+    </sw:SwiftUIView>
+
+    <sw:SwiftUIView id="test2" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
+          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+          <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
+              <StackLayout col="1" verticalAlignment="middle">
+                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="3" verticalAlignment="middle">
+                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="5" verticalAlignment="middle">
+                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+          </GridLayout>
+            
+        </GridLayout>
+    </sw:SwiftUIView>
+
+   <sw:SwiftUIView id="test3" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
+          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+          <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
+              <StackLayout col="1" verticalAlignment="middle">
+                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="3" verticalAlignment="middle">
+                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="5" verticalAlignment="middle">
+                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+          </GridLayout>
+            
+        </GridLayout>
+    </sw:SwiftUIView>
+
+    <sw:SwiftUIView id="test4" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
+          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+          <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
+              <StackLayout col="1" verticalAlignment="middle">
+                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="3" verticalAlignment="middle">
+                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="5" verticalAlignment="middle">
+                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+          </GridLayout>
+            
+        </GridLayout>
+    </sw:SwiftUIView>
+    
+    <sw:SwiftUI swiftId="basicView" iosOverflowSafeArea="true" data="{{ nativeCount }}" swiftUIEvent="{{ onEvent }}" loaded="{{ loadedSwiftUI }}">
+
+    </sw:SwiftUI>
+    
+    <!-- <Label row="2" text="{{ 'NativeScript Label: ' + nativeCount.count }}" class="h2" marginTop="60"></Label>
+    <Button row="3" text="NativeScript data bindings: Decrement" tap="{{ updateNativeScriptData }}" class="btn btn-primary m-t-30"></Button>
+    <Button row="4" text="SwiftUI data bindings: Decrement" tap="{{ updateSwiftData }}" class="btn btn-primary"></Button> -->
+  </GridLayout>
 </Page>

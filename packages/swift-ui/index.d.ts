@@ -1,4 +1,4 @@
-import { EventData } from '@nativescript/core';
+import { EventData, GridLayout } from '@nativescript/core';
 import { SwiftUICommon, BaseUIDataDriver } from './common';
 
 export * from './common';
@@ -18,6 +18,10 @@ export declare class SwiftUI<T = any, K = any> extends SwiftUICommon {
   static swiftUIEventEvent = 'swiftUIEvent';
   updateData(data: K);
   on(name: SwiftUI.swiftUIEventEvent, callback: (args: SwiftUIEventData<T>) => void, thisArg?: any);
+}
+
+export declare class SwiftUIView extends GridLayout {
+  updateData(data: NSDictionary<any, any>): void;
 }
 
 export class UIDataDriver<T extends ISwiftUIProvider, K = unknown, V = unknown> extends BaseUIDataDriver<SwiftUI, K, V> {

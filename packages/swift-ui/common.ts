@@ -1,4 +1,4 @@
-import { View, Property } from '@nativescript/core';
+import { View, Property, ContentView } from '@nativescript/core';
 
 export class SwiftUICommon extends View {
   static swiftUIEventEvent = 'swiftUIEvent';
