@@ -5,8 +5,8 @@
     </ActionBar>
   </Page.actionBar> -->
   <GridLayout rows="*" backgroundColor="black">
-    <!-- <sw:SwiftUIView id="test1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
-        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
+    <!-- <sw:SwiftUIView id="card1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300"></Image>
         <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" opacity=".9" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
         <GridLayout row="1" rows="auto,auto" columns="auto,auto" class="p-20 m-x-20" height="130" verticalAlignment="bottom">
           <Label text="Hello {N} in SwiftUI" fontSize="{{fontSize}}" fontWeight="bold" class="c-white"></Label>
@@ -14,102 +14,130 @@
             
         </GridLayout>
     </sw:SwiftUIView> -->
-    <sw:SwiftUIView id="test1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
-        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
-        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
-        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
-          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+
+
+    <sw:SwiftUIView id="card1" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image id="1cardbg" src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300" loaded="{{loadedCardBg}}"></Image>
+        <Image src="~/images/angular.png" id="1cardlogo" rowSpan="2" stretch="aspectFit" class="logo" loaded="{{loadedLogo}}"></Image>
+        <GridLayout id="1cardblur" row="1" loaded="{{loadedBlurSurface}}" height="110" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout id="1" row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="110" width="352" verticalAlignment="bottom" horizontalAlignment="left" tap="{{tapCard}}">
+          <Label text="Use Angular 'inside' SwiftUI." fontSize="15" class="c-white font-weight-bold text-center" textWrap="true" maxLines="2" opacity=".8"></Label>
           <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
               <StackLayout col="1" verticalAlignment="middle">
-                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Version" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="v16.1" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="3" verticalAlignment="middle">
-                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Language" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="TypeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="5" verticalAlignment="middle">
-                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Tech" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="NativeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
           </GridLayout>         
         </GridLayout>
     </sw:SwiftUIView>
 
-    <sw:SwiftUIView id="test2" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
-        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
-        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
-        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
-          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+    <sw:SwiftUIView id="card2" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image id="2cardbg" src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300" loaded="{{loadedCardBg}}"></Image>
+        <Image src="~/images/react.png" id="2cardlogo" rowSpan="2" stretch="aspectFit" class="logo react" loaded="{{loadedLogo}}"></Image>
+        <GridLayout id="2cardbg" row="1" loaded="{{loadedBlurSurface}}" height="110" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout id="2" row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="110" width="352" verticalAlignment="bottom" horizontalAlignment="left" tap="{{tapCard}}">
+          <Label text="Use React 'inside' SwiftUI." fontSize="15" class="c-white font-weight-bold text-center" textWrap="true" maxLines="2" opacity=".8"></Label>
           <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
               <StackLayout col="1" verticalAlignment="middle">
-                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Version" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="v18.2" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="3" verticalAlignment="middle">
-                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Language" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="JavaScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="5" verticalAlignment="middle">
-                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Tech" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="NativeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
-          </GridLayout>
-            
+          </GridLayout>         
         </GridLayout>
     </sw:SwiftUIView>
 
-   <sw:SwiftUIView id="test3" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
-        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
-        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
-        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
-          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+    <sw:SwiftUIView id="card3" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image id="3cardbg" src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300" loaded="{{loadedCardBg}}"></Image>
+        <Image src="~/images/solid.png" id="3cardlogo" rowSpan="2" stretch="aspectFit" class="logo solid" loaded="{{loadedLogo}}"></Image>
+        <GridLayout id="3cardbg" row="1" loaded="{{loadedBlurSurface}}" height="110" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout id="3" row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="110" width="352" verticalAlignment="bottom" horizontalAlignment="left" tap="{{tapCard}}">
+          <Label text="Use Solid 'inside' SwiftUI." fontSize="15" class="c-white font-weight-bold text-center" textWrap="true" maxLines="2" opacity=".8"></Label>
           <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
               <StackLayout col="1" verticalAlignment="middle">
-                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Version" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="v1.7" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="3" verticalAlignment="middle">
-                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Language" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="TypeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="5" verticalAlignment="middle">
-                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Tech" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="NativeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
-          </GridLayout>
-            
+          </GridLayout>         
         </GridLayout>
     </sw:SwiftUIView>
 
-    <sw:SwiftUIView id="test4" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
-        <Image src="~/images/mengto_1.png" rowSpan="2" stretch="aspectFill" height="300"></Image>
-        <GridLayout row="1" loaded="{{loadedBlurSurface}}" height="130" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
-        <GridLayout row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="130" width="352" verticalAlignment="bottom" horizontalAlignment="left">
-          <Label text="Use Angular, Vue, Solid, Svelte and React 'inside' SwiftUI." fontSize="15" class="c-white" textWrap="true" maxLines="2" opacity=".8"></Label>
+    <sw:SwiftUIView id="card4" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image id="4cardbg" src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300" loaded="{{loadedCardBg}}"></Image>
+        <Image src="~/images/svelte.png" id="4cardlogo" rowSpan="2" stretch="aspectFit" class="logo svelte" loaded="{{loadedLogo}}"></Image>
+        <GridLayout id="4cardbg" row="1" loaded="{{loadedBlurSurface}}" height="110" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout id="4" row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="110" width="352" verticalAlignment="bottom" horizontalAlignment="left" tap="{{tapCard}}">
+          <Label text="Use Svelte 'inside' SwiftUI." fontSize="15" class="c-white font-weight-bold text-center" textWrap="true" maxLines="2" opacity=".8"></Label>
           <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
               <StackLayout col="1" verticalAlignment="middle">
-                  <Label text="Size" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="816x1456" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Version" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="v4.0" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="3" verticalAlignment="middle">
-                  <Label text="Type" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Upscale" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Language" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="JavaScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
               <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
               <StackLayout col="5" verticalAlignment="middle">
-                  <Label text="Date" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
-                  <Label text="Today 5:19" fontSize="14" class="c-white m-t-2"></Label>
+                  <Label text="Tech" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="NativeScript" fontSize="14" class="c-white m-t-2"></Label>
               </StackLayout>
-          </GridLayout>
-            
+          </GridLayout>         
+        </GridLayout>
+    </sw:SwiftUIView>
+
+    <sw:SwiftUIView id="card5" rows="auto,auto" iosOverflowSafeAreaEnabled="false" borderRadius="10">
+        <Image id="5cardbg" src="~/images/card_bg.jpg" rowSpan="2" stretch="aspectFill" height="300" loaded="{{loadedCardBg}}"></Image>
+        <Image src="~/images/vue.png" id="5cardlogo" rowSpan="2" stretch="aspectFit" class="logo vue" loaded="{{loadedLogo}}"></Image>
+        <GridLayout id="5cardbg" row="1" loaded="{{loadedBlurSurface}}" height="110" class="m-x-20" width="332" verticalAlignment="bottom" horizontalAlignment="left" borderTopLeftRadius="10" borderTopRightRadius="10"></GridLayout>
+        <GridLayout id="5" row="1" rows="auto,auto" class="p-20" paddingLeft="40" height="110" width="352" verticalAlignment="bottom" horizontalAlignment="left" tap="{{tapCard}}">
+          <Label text="Use Vue 'inside' SwiftUI." fontSize="15" class="c-white font-weight-bold text-center" textWrap="true" maxLines="2" opacity=".8"></Label>
+          <GridLayout row="1" rows="auto" columns="*,auto,auto,auto,auto,auto,*" class="m-t-10">
+              <StackLayout col="1" verticalAlignment="middle">
+                  <Label text="Version" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="v3.3" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="2" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="3" verticalAlignment="middle">
+                  <Label text="Language" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="TypeScript" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+              <ContentView col="4" width="1" height="40" class="c-bg-white m-x-10" opacity=".2"></ContentView>
+              <StackLayout col="5" verticalAlignment="middle">
+                  <Label text="Tech" fontSize="14" class="c-white font-weight-bold" opacity=".5"></Label>
+                  <Label text="NativeScript" fontSize="14" class="c-white m-t-2"></Label>
+              </StackLayout>
+          </GridLayout>         
         </GridLayout>
     </sw:SwiftUIView>
     

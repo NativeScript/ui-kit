@@ -1,2 +1,33 @@
 @import 'nativescript-theme-core/scss/light';
 @import 'nativescript-theme-core/scss/index';
+
+.logo {
+  horizontal-align: left;
+  height: 150;
+  margin-left: 108;
+  margin-top: 15;
+  vertical-align: top;
+
+  &.react {
+    height: 120;
+    margin-top: 25;
+  }
+
+  &.solid {
+    height: 135;
+    margin-top: 20;
+    margin-left: 110;
+  }
+
+  &.svelte {
+    height: 135;
+    margin-top: 25;
+    margin-left: 117;
+  }
+
+  &.vue {
+    height: 130;
+    margin-top: 25;
+    // margin-left: 110;
+  }
+}

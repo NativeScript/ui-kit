@@ -21,10 +21,10 @@ struct BasicView: View {
                 .scrollTransition { content, phase in
                     content
                         .rotation3D(.degrees(phase.isIdentity ? 0 : 60), axis: (x: -1, y: 1, z: 0), perspective: 0.5)
-                        .rotationEffect(.degrees(phase.isIdentity ? 0 : -30))
+                        .rotationEffect(.degrees(phase.isIdent   ity ? 0 : -30))
                         .offset(x: phase.isIdentity ? 0 : -200)
                         .blur(radius: phase.isIdentity ? 0 : 10)
-                        .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                        .scaleEffect(phase.isIdentity ? 1 : 0.7)
                 }
         }
     }
@@ -47,10 +47,11 @@ var cards: [TestCard] = [
     // Card(title: "Morning", text: "modern architecture, an isometric tiny house, cute illustration, minimalist, vector art, sunset view --q 2 --v 5.1", image: Image(.image9)),
     // Card(title: "Day", text: "modern architecture, an isometric tiny house, cute illustration, minimalist, vector art, sunset view --q 2 --v 5.1", image: Image(.image12))
 
-    TestCard(text: "3D House"),
-    TestCard(text: "Sunset"),
-    TestCard(text: "Sunrise"),
-    TestCard(text: "Blue Hour"),
+    TestCard(text: "Angular"),
+    TestCard(text: "React"),
+    TestCard(text: "Solid"),
+    TestCard(text: "Svelte"),
+    TestCard(text: "Vue"),
     // TestCard(text: "Night"),
     // TestCard(text: "Morning"),
     // TestCard(text: "Day")

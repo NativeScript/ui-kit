@@ -37,7 +37,7 @@ struct NativeScriptView: UIViewRepresentable {
   
     func makeUIView(context: Context) -> UIKitContainerView {
         print("makeUIView \(id)")
-       let containerView = NativeScriptViewRegistry.get(id: "test\(String(NativeScriptViewRegistry.cnt))") ?? UIKitContainerView()
+       let containerView = NativeScriptViewRegistry.get(id: "card\(String(NativeScriptViewRegistry.cnt))") ?? UIKitContainerView()
         NativeScriptViewRegistry.cnt = NativeScriptViewRegistry.cnt + 1
         // let containerView = UIKitContainerView()
         // NativeScriptViewRegistry.register(id: id, containerView: containerView)
