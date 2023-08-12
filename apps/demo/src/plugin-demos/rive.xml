@@ -1,0 +1,19 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" backgroundColor="black">
+
+  <ActionBar backgroundColor="black" color="white">
+    <Label text="Rive Examples"></Label>
+    <NavigationButton text="Back"/>
+  </ActionBar>
+
+  <ScrollView>
+    <StackLayout class="p-10">
+      <Button text="Button" id="button" tap="{{viewExample}}" class="t-18 c-white m-t-10" />
+      <Button text="Compass" id="compass" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+      <Button text="Cart" id="folder" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+      <Button text="Vehicles" id="https://cdn.rive.app/animations/vehicles.riv" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+      <Button text="Sith de Mayo" id="sith-de-mayo" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+      <Button text="Timer" id="timer-ios" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+      <Button text="Heart Like" id="heart-like" tap="{{viewExample}}" class="t-18 m-t-10 c-white" />
+    </StackLayout>
+  </ScrollView>
+</Page>
