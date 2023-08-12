@@ -1,0 +1,25 @@
+<Page navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:rive="@nativescript/rive">
+
+    <Page.actionBar>
+        <ActionBar title="@nativescript/rive" icon="" backgroundColor="{{backgroundColor}}" color="white">
+        </ActionBar>
+    </Page.actionBar>
+    <GridLayout rows="*,*" backgroundColor="{{backgroundColor}}">
+        <rive:RiveView src="{{filename}}" artboard="{{artboard}}" stateMachine="{{stateMachine}}" input="{{input}}" inputValue="{{inputValue}}" autoPlay="true" onStateChanged="{{onStateChanged}}" loaded="{{loadedPlayer}}" loop="0" class="w-full h-full" iosOverflowSafeArea="true" scaleX="{{scaleX}}" scaleY="{{scaleY}}" />
+
+        <GridLayout row="1" class="p-20 w-full" horizontalAlignment="center" iosOverflowSafeArea="false">
+
+            <Repeater items="{{ inputs }}" class="w-full">
+                <Repeater.itemTemplate>
+                    <GridLayout row="60" columns="*,auto" padding="10" class="w-full" height="60">
+                        <Label text="{{ name }}" class="c-white" />
+                        <Switch col="1" id="{{name}}" checked="{{value}}" checkedChange="{{inputChanged}}" />
+                    </GridLayout>
+                </Repeater.itemTemplate>
+            </Repeater>
+
+        </GridLayout>
+    </GridLayout>
+</Page>

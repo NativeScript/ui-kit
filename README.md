@@ -1,6 +1,7 @@
 - [@nativescript/flutter](packages/flutter/README.md)
 - [@nativescript/ionic-portals](packages/ionic-portals/README.md)
 - [@nativescript/jetpack-compose](packages/jetpack-compose/README.md)
+- [@nativescript/rive](packages/rive/README.md)
 - [@nativescript/swift-ui](packages/swift-ui/README.md)
 - [@nativescript/ui-charts](packages/ui-charts/README.md)
 

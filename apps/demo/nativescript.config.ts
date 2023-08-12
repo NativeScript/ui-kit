@@ -17,4 +17,14 @@ export default {
       script: '../../tools/scripts/before-prepare.js',
     },
   ],
+  ios: {
+    SPMPackages: [
+      {
+        name: 'RiveRuntime',
+        libs: ['RiveRuntime'],
+        repositoryURL: 'https://github.com/rive-app/rive-ios.git',
+        version: '5.0.0',
+      },
+    ],
+  },
 } as NativeScriptConfig;

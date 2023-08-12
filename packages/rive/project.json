@@ -1,0 +1,65 @@
+{
+  "name": "rive",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/rive",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/rive",
+        "tsConfig": "packages/rive/tsconfig.json",
+        "packageJson": "packages/rive/package.json",
+        "main": "packages/rive/index.d.ts",
+        "assets": [
+          "packages/rive/*.md",
+          "packages/rive/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/rive/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts rive"],
+        "parallel": false
+      },
+      "outputs": ["dist/packages/rive"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages rive"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/rive/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
