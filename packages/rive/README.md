@@ -154,7 +154,7 @@ function loadedRive(args) {
 
 When configuring your Android app for Rive you may run into the following issues. Here's some solutions.
 
-- Error 1
+### Potential Error 1
 
 ```
 Execution failed for task ':app:checkDebugDuplicateClasses'.
@@ -174,7 +174,7 @@ dependencies {
 }
 ```
 
-- Error 2
+### Potential Error 2
 
 ```bash
 Execution failed for task ':app:mergeDebugNativeLibs'.
@@ -188,26 +188,31 @@ Add this section to `app.gradle` android section:
 
 ```bash
 android {
-    // other configurations
-
-    packagingOptions {
-        pickFirst 'lib/armeabi-v7a/libRSSupport.so'
-        pickFirst 'lib/arm64-v8a/libRSSupport.so'
-        pickFirst 'lib/x86_64/libRSSupport.so'
-        pickFirst 'lib/x86/libRSSupport.so'
-        pickFirst 'lib/armeabi-v7a/librsjni.so'
-        pickFirst 'lib/arm64-v8a/librsjni.so'
-        pickFirst 'lib/x86_64/librsjni.so'
-        pickFirst 'lib/x86/librsjni.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/librsjni_androidx.so'
-        pickFirst 'lib/arm64-v8a/librsjni_androidx.so'
-        pickFirst 'lib/x86_64/librsjni_androidx.so'
-        pickFirst 'lib/x86/librsjni_androidx.so'
+  …
+  packagingOptions {
+      pickFirst "lib/x86/libc++_shared.so"
+      pickFirst "lib/x86_64/libc++_shared.so"
+      pickFirst "lib/armeabi-v7a/libc++_shared.so"
+      pickFirst "lib/arm64-v8a/libc++_shared.so"
   }
+  …
+}
+```
+
+### Potential Error 3
+
+```bash
+This version (1.2.0-alpha05) of the Compose Compiler requires Kotlin version 1.6.10 but you appear to be using Kotlin version 1.7.10 which is not known to be compatible.  Please fix your configuration (or `suppressKotlinVersionCompatibilityCheck` but don't say I didn't warn you!).
+```
+
+**Solution**
+
+Add a `before-plugins.gradle` file next to your app.gradle containing the following:
+
+```
+ext {
+    gradlePluginVersion = "7.3.1"
+    kotlinVersion = "1.6.10"
 }
 ```
 

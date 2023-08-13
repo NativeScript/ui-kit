@@ -247,8 +247,8 @@ export class RiveView extends RiveViewBase {
 
   private addListener() {
     if (!this.listener) {
-      this.listener = new Listener(new WeakRef(this));
       // todo investigate.
+      // this.listener = new Listener(new WeakRef(this));
       //this.nativeViewProtected.getController().registerListener(this.listener);
     }
   }
