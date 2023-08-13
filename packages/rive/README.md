@@ -62,6 +62,24 @@ For Android, add this provider to your `AndroidManifest.xml` inside the `applica
         </provider>
 ```
 
+#### Gradle settings
+
+Add this to your `app.gradle` inside the `android` section:
+
+```yml
+kotlinOptions {
+    jvmTarget = '1.8'
+}
+```
+
+Ensure your gradle settings are setup to use Kotlin by adding a `gradle.properties` file (right next to your `app.gradle`) with the following:
+
+```yml
+useKotlin=true
+```
+
+## RiveView
+
 Use `RiveView`:
 
 ```xml
@@ -73,7 +91,7 @@ Use `RiveView`:
 </Page>
 ```
 
-When using flavors, you can just register the element for usage in your markup:
+When using flavors, you can register the element for usage in your markup:
 
 ```ts
 import { RiveView } from '@nativescript/rive'
@@ -131,6 +149,67 @@ function loadedRive(args) {
 }
 ```
 
+
+## Troubleshooting
+
+When configuring your Android app for Rive you may run into the following issues. Here's some solutions.
+
+- Error 1
+
+```
+Execution failed for task ':app:checkDebugDuplicateClasses'.
+Duplicate class kotlin.collections.jdk8.CollectionsJDK8Kt found in modules jetified-kotlin-stdlib-1.8.21 (org.jetbrains.kotlin:kotlin-stdlib:1.8.21) and jetified-kotlin-stdlib-jdk8-1.6.21 (org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21)
+Duplicate class kotlin.internal.jdk7.JDK7PlatformImplementations found in modules jetified-kotlin-stdlib-1.8.21 (org.jetbrains.kotlin:kotlin-stdlib:1.8.21) and jetified-kotlin-stdlib-jdk7-1.6.21 (org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21)
+```
+
+**Solution**
+
+Add the following dependency constraints to the top of your `app.gradle` above the android section:
+```
+dependencies {
+    constraints {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21" 
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21"
+    }
+}
+```
+
+- Error 2
+
+```bash
+Execution failed for task ':app:mergeDebugNativeLibs'.
+2 files found with path 'lib/arm64-v8a/libc++_shared.so' from inputs:
+ - /Users/you/.gradle/caches/transforms-3/fed290951dd20dba6bd42d7106bb3f26/transformed/jetified-rive-android-8.1.3/jni/arm64-v8a/libc++_shared.so
+```
+
+**Solution**
+
+Add this section to `app.gradle` android section:
+
+```bash
+android {
+    // other configurations
+
+    packagingOptions {
+        pickFirst 'lib/armeabi-v7a/libRSSupport.so'
+        pickFirst 'lib/arm64-v8a/libRSSupport.so'
+        pickFirst 'lib/x86_64/libRSSupport.so'
+        pickFirst 'lib/x86/libRSSupport.so'
+        pickFirst 'lib/armeabi-v7a/librsjni.so'
+        pickFirst 'lib/arm64-v8a/librsjni.so'
+        pickFirst 'lib/x86_64/librsjni.so'
+        pickFirst 'lib/x86/librsjni.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/librsjni_androidx.so'
+        pickFirst 'lib/arm64-v8a/librsjni_androidx.so'
+        pickFirst 'lib/x86_64/librsjni_androidx.so'
+        pickFirst 'lib/x86/librsjni_androidx.so'
+  }
+}
+```
 
 ## License
 

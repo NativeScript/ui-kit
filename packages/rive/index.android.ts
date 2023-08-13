@@ -47,6 +47,8 @@ export class RiveView extends RiveViewBase {
 
   constructor() {
     super();
+    console.log('here?');
+    console.log('app.rive.runtime.kotlin.RiveAnimationView:', app.rive.runtime.kotlin.RiveAnimationView);
     this.events = new RiveEvents(this);
   }
 
