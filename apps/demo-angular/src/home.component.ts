@@ -7,22 +7,7 @@ import { Component } from '@angular/core';
 export class HomeComponent {
   demos = [
     {
-      name: 'flutter',
-    },
-    {
-      name: 'ionic-portals',
-    },
-    {
-      name: 'jetpack-compose',
-    },
-    {
       name: 'rive',
-    },
-    {
-      name: 'swift-ui',
-    },
-    {
-      name: 'ui-charts',
     },
   ];
 }
