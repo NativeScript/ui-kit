@@ -16,6 +16,9 @@ export class HomeComponent {
       name: 'jetpack-compose',
     },
     {
+      name: 'rive',
+    },
+    {
       name: 'swift-ui',
     },
     {
