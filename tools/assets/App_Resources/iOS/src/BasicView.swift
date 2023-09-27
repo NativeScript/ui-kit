@@ -1,5 +1,5 @@
 import UIKit
-import SwiftUI 
+import SwiftUI
 
 struct BasicView: View {
     
@@ -20,8 +20,8 @@ struct BasicView: View {
             NativeScriptView(id: card.$id, data: card.$data).frame(maxWidth: .infinity).frame(height: 300)
                 .scrollTransition { content, phase in
                     content
-                        .rotation3D(.degrees(phase.isIdentity ? 0 : 60), axis: (x: -1, y: 1, z: 0), perspective: 0.5)
-                        .rotationEffect(.degrees(phase.isIdent   ity ? 0 : -30))
+                        .rotation3DEffect(.degrees(phase.isIdentity ? 0 : 60), axis: (x: -1, y: 1, z: 0), perspective: 0.5)
+                        .rotationEffect(.degrees(phase.isIdentity ? 0 : -30))
                         .offset(x: phase.isIdentity ? 0 : -200)
                         .blur(radius: phase.isIdentity ? 0 : 10)
                         .scaleEffect(phase.isIdentity ? 1 : 0.7)
