@@ -13,7 +13,7 @@
     "@nativescript/ui-charts": "file:../../packages/ui-charts"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.5.0",
-    "@nativescript/ios": "~8.5.0"
+    "@nativescript/android": "~8.6.0",
+    "@nativescript/ios": "~8.6.0"
   }
 }
