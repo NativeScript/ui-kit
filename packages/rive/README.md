@@ -21,7 +21,7 @@ ios: {
             name: 'RiveRuntime',
             libs: ['RiveRuntime'],
             repositoryURL: 'https://github.com/rive-app/rive-ios.git',
-            version: '5.0.0',
+            version: '5.7.0',
         },
     ],
 },
@@ -64,12 +64,18 @@ For Android, add this provider to your `AndroidManifest.xml` inside the `applica
 
 #### Gradle settings
 
+You will need to target Android 34 or later.
 Add this to your `app.gradle` inside the `android` section:
 
 ```yml
-kotlinOptions {
-    jvmTarget = '1.8'
-}
+android {
+  compileSdkVersion 34
+  buildToolsVersion "34.0.0"
+  defaultConfig {
+    minSdkVersion 24
+    targetSdkVersion 34
+    // ...
+  }
 ```
 
 Ensure your gradle settings are setup to use Kotlin by adding a `gradle.properties` file (right next to your `app.gradle`) with the following:

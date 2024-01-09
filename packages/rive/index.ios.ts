@@ -46,14 +46,14 @@ export class RiveView extends RiveViewBase {
       // TODO: fix typings in 8.5.1 to includes these new file apis
       // const bytes = await file.readBufferAsync();
       const bytes = interop.bufferFromData(NSData.dataWithContentsOfFile(file.path));
-      this.riveFile = RiveFile.alloc().initWithBytesByteLengthError(<any>bytes, bytes.byteLength);
+      this.riveFile = RiveFile.alloc().initWithBytesByteLengthLoadCdnError(<any>bytes, bytes.byteLength, false);
       this._init();
     } else if (src.startsWith(Utils.RESOURCE_PREFIX)) {
       this.fileName = src.replace(Utils.RESOURCE_PREFIX, '').replace('.riv', '');
       this._init();
     } else if (src.startsWith('http')) {
       this.riveFileDelegate = RiveFileDelegateImpl.initWithOwner(new WeakRef(this));
-      this.riveFile = RiveFile.alloc().initWithHttpUrlWithDelegate(src, <RiveFileDelegate>(<unknown>this.riveFileDelegate));
+      this.riveFile = RiveFile.alloc().initWithHttpUrlLoadCdnWithDelegate(src, false, <RiveFileDelegate>(<unknown>this.riveFileDelegate));
     } else {
       console.log('[ui-rive] File not supported');
     }

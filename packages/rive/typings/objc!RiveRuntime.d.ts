@@ -1,3 +1,73 @@
+declare class CDNFileAssetLoader extends RiveFileAssetLoader {
+  static alloc(): CDNFileAssetLoader; // inherited from NSObject
+
+  static new(): CDNFileAssetLoader; // inherited from NSObject
+}
+
+declare class CustomFileAssetLoader extends RiveFileAssetLoader {
+  static alloc(): CustomFileAssetLoader; // inherited from NSObject
+
+  static new(): CustomFileAssetLoader; // inherited from NSObject
+
+  loadAsset: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean;
+
+  constructor(o: { loader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
+
+  initWithLoader(loader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
+}
+
+declare class FPSCounterView extends UILabel {
+  static alloc(): FPSCounterView; // inherited from NSObject
+
+  static appearance(): FPSCounterView; // inherited from UIAppearance
+
+  static appearanceForTraitCollection(trait: UITraitCollection): FPSCounterView; // inherited from UIAppearance
+
+  static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): FPSCounterView; // inherited from UIAppearance
+
+  static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): FPSCounterView; // inherited from UIAppearance
+
+  static appearanceWhenContainedIn(ContainerClass: typeof NSObject): FPSCounterView; // inherited from UIAppearance
+
+  static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): FPSCounterView; // inherited from UIAppearance
+
+  static new(): FPSCounterView; // inherited from NSObject
+}
+
+declare class FallbackFileAssetLoader extends RiveFileAssetLoader {
+  static alloc(): FallbackFileAssetLoader; // inherited from NSObject
+
+  static new(): FallbackFileAssetLoader; // inherited from NSObject
+
+  addLoader(loader: RiveFileAssetLoader): void;
+}
+
+declare class RenderContextManager extends NSObject {
+  static alloc(): RenderContextManager; // inherited from NSObject
+
+  static new(): RenderContextManager; // inherited from NSObject
+
+  static shared(): RenderContextManager;
+
+  defaultRenderer: RendererType;
+
+  getCGFactory(): RiveFactory;
+
+  getDefaultFactory(): RiveFactory;
+
+  getRiveRendererFactory(): RiveFactory;
+
+  getSkiaFactory(): RiveFactory;
+}
+
+declare const enum RendererType {
+  skiaRenderer = 0,
+
+  riveRenderer = 1,
+
+  cgRenderer = 2,
+}
+
 declare const enum RiveAlignment {
   topLeft = 0,
 
@@ -106,10 +176,42 @@ declare const enum RiveErrorCode {
 
 declare var RiveErrorDomain: string;
 
+declare class RiveEvent extends NSObject {
+  static alloc(): RiveEvent; // inherited from NSObject
+
+  static new(): RiveEvent; // inherited from NSObject
+
+  delay(): number;
+
+  name(): string;
+
+  properties(): NSDictionary<string, any>;
+
+  type(): number;
+}
+
+declare class RiveEventReport extends NSObject {
+  static alloc(): RiveEventReport; // inherited from NSObject
+
+  static new(): RiveEventReport; // inherited from NSObject
+
+  secondsDelay(): number;
+}
+
 declare class RiveExitState extends RiveLayerState {
   static alloc(): RiveExitState; // inherited from NSObject
 
   static new(): RiveExitState; // inherited from NSObject
+}
+
+declare class RiveFactory extends NSObject {
+  static alloc(): RiveFactory; // inherited from NSObject
+
+  static new(): RiveFactory; // inherited from NSObject
+
+  decodeFont(data: NSData): RiveFont;
+
+  decodeImage(data: NSData): RiveRenderImage;
 }
 
 declare class RiveFile extends NSObject {
@@ -125,15 +227,29 @@ declare class RiveFile extends NSObject {
 
   static readonly minorVersion: number;
 
-  constructor(o: { byteArray: NSArray<any> | any[] });
+  constructor(o: { byteArray: NSArray<any> | any[]; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
 
-  constructor(o: { bytes: string | interop.Pointer | interop.Reference<any>; byteLength: number });
+  constructor(o: { byteArray: NSArray<any> | any[]; loadCdn: boolean });
 
-  constructor(o: { httpUrl: string; withDelegate: RiveFileDelegate });
+  constructor(o: { bytes: string | interop.Pointer | interop.Reference<any>; byteLength: number; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
 
-  constructor(o: { resource: string });
+  constructor(o: { bytes: string | interop.Pointer | interop.Reference<any>; byteLength: number; loadCdn: boolean });
 
-  constructor(o: { resource: string; withExtension: string });
+  constructor(o: { data: NSData; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
+
+  constructor(o: { data: NSData; loadCdn: boolean });
+
+  constructor(o: { httpUrl: string; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean; withDelegate: RiveFileDelegate });
+
+  constructor(o: { httpUrl: string; loadCdn: boolean; withDelegate: RiveFileDelegate });
+
+  constructor(o: { resource: string; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
+
+  constructor(o: { resource: string; loadCdn: boolean });
+
+  constructor(o: { resource: string; withExtension: string; loadCdn: boolean; customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean });
+
+  constructor(o: { resource: string; withExtension: string; loadCdn: boolean });
 
   artboard(): RiveArtboard;
 
@@ -145,15 +261,53 @@ declare class RiveFile extends NSObject {
 
   artboardNames(): NSArray<string>;
 
-  initWithByteArrayError(bytes: NSArray<any> | any[]): this;
+  initWithByteArrayLoadCdnCustomAssetLoaderError(bytes: NSArray<any> | any[], cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
 
-  initWithBytesByteLengthError(bytes: string | interop.Pointer | interop.Reference<any>, length: number): this;
+  initWithByteArrayLoadCdnError(bytes: NSArray<any> | any[], cdn: boolean): this;
 
-  initWithHttpUrlWithDelegate(url: string, delegate: RiveFileDelegate): this;
+  initWithBytesByteLengthLoadCdnCustomAssetLoaderError(bytes: string | interop.Pointer | interop.Reference<any>, length: number, cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
 
-  initWithResourceError(resourceName: string): this;
+  initWithBytesByteLengthLoadCdnError(bytes: string | interop.Pointer | interop.Reference<any>, length: number, cdn: boolean): this;
 
-  initWithResourceWithExtensionError(resourceName: string, extension: string): this;
+  initWithDataLoadCdnCustomAssetLoaderError(bytes: NSData, cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
+
+  initWithDataLoadCdnError(bytes: NSData, cdn: boolean): this;
+
+  initWithHttpUrlLoadCdnCustomAssetLoaderWithDelegate(url: string, cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean, delegate: RiveFileDelegate): this;
+
+  initWithHttpUrlLoadCdnWithDelegate(url: string, cdn: boolean, delegate: RiveFileDelegate): this;
+
+  initWithResourceLoadCdnCustomAssetLoaderError(resourceName: string, cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
+
+  initWithResourceLoadCdnError(resourceName: string, cdn: boolean): this;
+
+  initWithResourceWithExtensionLoadCdnCustomAssetLoaderError(resourceName: string, extension: string, cdn: boolean, customAssetLoader: (p1: RiveFileAsset, p2: NSData, p3: RiveFactory) => boolean): this;
+
+  initWithResourceWithExtensionLoadCdnError(resourceName: string, extension: string, cdn: boolean): this;
+}
+
+declare class RiveFileAsset extends NSObject {
+  static alloc(): RiveFileAsset; // inherited from NSObject
+
+  static new(): RiveFileAsset; // inherited from NSObject
+
+  cdnBaseUrl(): string;
+
+  cdnUuid(): string;
+
+  fileExtension(): string;
+
+  name(): string;
+
+  uniqueFilename(): string;
+}
+
+declare class RiveFileAssetLoader extends NSObject {
+  static alloc(): RiveFileAssetLoader; // inherited from NSObject
+
+  static new(): RiveFileAssetLoader; // inherited from NSObject
+
+  loadContentsWithAssetAndDataAndFactory(asset: RiveFileAsset, data: NSData, factory: RiveFactory): boolean;
 }
 
 interface RiveFileDelegate extends NSObjectProtocol {
@@ -177,6 +331,34 @@ declare const enum RiveFit {
   scaleDown = 5,
 
   noFit = 6,
+}
+
+declare class RiveFont extends NSObject {
+  static alloc(): RiveFont; // inherited from NSObject
+
+  static new(): RiveFont; // inherited from NSObject
+}
+
+declare class RiveFontAsset extends RiveFileAsset {
+  static alloc(): RiveFontAsset; // inherited from NSObject
+
+  static new(): RiveFontAsset; // inherited from NSObject
+
+  font(font: RiveFont): void;
+}
+
+declare class RiveGeneralEvent extends RiveEvent {
+  static alloc(): RiveGeneralEvent; // inherited from NSObject
+
+  static new(): RiveGeneralEvent; // inherited from NSObject
+}
+
+declare class RiveImageAsset extends RiveFileAsset {
+  static alloc(): RiveImageAsset; // inherited from NSObject
+
+  static new(): RiveImageAsset; // inherited from NSObject
+
+  renderImage(image: RiveRenderImage): void;
 }
 
 declare class RiveLayerState extends NSObject {
@@ -243,6 +425,22 @@ declare const enum RiveLoop {
   autoLoop = 3,
 }
 
+declare class RiveOpenUrlEvent extends RiveEvent {
+  static alloc(): RiveOpenUrlEvent; // inherited from NSObject
+
+  static new(): RiveOpenUrlEvent; // inherited from NSObject
+
+  target(): string;
+
+  url(): string;
+}
+
+declare class RiveRenderImage extends NSObject {
+  static alloc(): RiveRenderImage; // inherited from NSObject
+
+  static new(): RiveRenderImage; // inherited from NSObject
+}
+
 declare class RiveRenderer extends NSObject {
   static alloc(): RiveRenderer; // inherited from NSObject
 
@@ -281,6 +479,12 @@ declare class RiveRendererView extends MTKView {
   drawWithArtboard(artboard: RiveArtboard): void;
 
   isPaused(): boolean;
+
+  restore(): void;
+
+  save(): void;
+
+  transformXyYxYyTxTy(xx: number, xy: number, yx: number, yy: number, tx: number, ty: number): void;
 }
 
 declare var RiveRuntimeVersionNumber: number;
@@ -330,6 +534,8 @@ declare class RiveSMITrigger extends RiveSMIInput {
 }
 
 interface RiveStateMachineDelegate {
+  onRiveEventReceivedOnRiveEvent?(riveEvent: RiveEvent): void;
+
   stateMachineDidChangeState?(stateMachine: RiveStateMachineInstance, stateName: string): void;
 
   stateMachineReceivedInput?(stateMachine: RiveStateMachineInstance, input: StateMachineInput): void;
@@ -370,6 +576,10 @@ declare class RiveStateMachineInstance extends NSObject {
   layerCount(): number;
 
   name(): string;
+
+  reportedEventAt(index: number): RiveEvent;
+
+  reportedEventCount(): number;
 
   stateChangedCount(): number;
 
@@ -448,6 +658,8 @@ declare class RiveViewModel extends NSObject implements RiveFileDelegate, RiveSt
   isKindOfClass(aClass: typeof NSObject): boolean;
 
   isMemberOfClass(aClass: typeof NSObject): boolean;
+
+  onRiveEventReceivedOnRiveEvent(riveEvent: RiveEvent): void;
 
   performSelector(aSelector: string): any;
 
