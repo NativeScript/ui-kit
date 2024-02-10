@@ -2,33 +2,35 @@
 
 ## Contents
 
-* [Intro](#intro)
-* [Installation](#installation)
-* [Enable Ionic Portals in your app](#enable-ionic-portals-in-your-app)
-	* [Get a Portal API Key](#1-get-a-portal-api-key)
-	* [Register portals on app boot](#2-register-portals)
-	* [Add portals view to markup](#3-add-portals-view-to-markup)
-		* [Core](#core)
-		* [Angular](#angular)
-		* [Vue](#vue)
-		* [Svelte](#svelte)
-	* [Send events from NativeScript to any web portal](#send-events-from-nativescript-to-any-web-portal)
-	* [Subscribe to events sent from web portals](#subscribe-to-events-sent-from-web-portals)
-	* [Unsubscribe to events sent from web portals](#unsubscribe-from-events-sent-from-web-portals)
-* [IonicPortalManager API](#ionicportalmanager-api)
-	* [register()](#register)
-	* [setInitialContext()](#setinitialcontext)
-	* [sendAndroidPlugins](#setandroidplugins)
-	* [publishTopic()](#publishtopic)
-	* [subscribeToTopic()](#subscribetotopic)
-	* [unsubscribeFromTopic()](#unsubscribefromtopic)
-	* [configureLiveUpdates()](#configureliveupdates)
-	* [syncNow()](#syncnow)
-	* [getLastSync()](#getlastsync)
-* [Using Capacitor Plugins with Ionic Portals](#using-capacitor-plugins-with-ionic-portals)
-* [Notes](#notes)
-* [Additional Resources](#additional-resources)
-* [License](#license)
+- [@nativescript/ionic-portals](#nativescriptionic-portals)
+	- [Contents](#contents)
+	- [Intro](#intro)
+	- [Installation](#installation)
+	- [Enable Ionic portals in your app](#enable-ionic-portals-in-your-app)
+		- [1. Get a Portal API Key](#1-get-a-portal-api-key)
+		- [2. Register portals](#2-register-portals)
+		- [3. Add portals view to markup](#3-add-portals-view-to-markup)
+			- [Core](#core)
+			- [Angular](#angular)
+			- [Vue](#vue)
+			- [Svelte](#svelte)
+		- [Send events from NativeScript to any web portal](#send-events-from-nativescript-to-any-web-portal)
+			- [Subscribe to events sent from web portals](#subscribe-to-events-sent-from-web-portals)
+			- [Unsubscribe from events sent from web portals](#unsubscribe-from-events-sent-from-web-portals)
+	- [IonicPortalManager API](#ionicportalmanager-api)
+		- [register()](#register)
+		- [setInitialContext()](#setinitialcontext)
+		- [setAndroidPlugins()](#setandroidplugins)
+		- [publishTopic()](#publishtopic)
+		- [subscribeToTopic()](#subscribetotopic)
+		- [unsubscribeFromTopic()](#unsubscribefromtopic)
+		- [configureLiveUpdates()](#configureliveupdates)
+		- [syncNow()](#syncnow)
+		- [getLastSync()](#getlastsync)
+	- [Using Capacitor Plugins with Ionic Portals](#using-capacitor-plugins-with-ionic-portals)
+	- [Notes](#notes)
+	- [Additional Resources](#additional-resources)
+	- [License](#license)
 
 ## Intro
 
@@ -36,7 +38,7 @@ A plugin that allows you to use [Ionic Portals](https://ionic.io/docs/portals) i
 
 > Ionic Portals are supercharged native WebView components for iOS and Android that let you add web-based experiences to native mobile apps.
 
-![Ionic Portal View](/packages/ionic-portals/images/ionic-portal-ios.png)
+![Ionic Portal View](https://raw.githubusercontent.com/NativeScript/ui-kit/main/packages/ionic-portals/images/ionic-portal-ios.png)
 
 ## Installation
 

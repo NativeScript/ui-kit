@@ -1,9 +1,16 @@
+dependencies {
+    constraints {
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21" 
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21"
+    }
+}
+
 android {
-  compileSdkVersion 33
-  buildToolsVersion "33.0.0"
+  compileSdkVersion 34
+  buildToolsVersion "34.0.0"
   defaultConfig {
     minSdkVersion 24
-    targetSdkVersion 33
+    targetSdkVersion 34
     generatedDensities = []
     ndk {
       // Filter for architectures supported by Flutter.
@@ -13,8 +20,10 @@ android {
   aaptOptions {
     additionalParameters "--no-version-vectors"
   }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+  packagingOptions {
+      pickFirst "lib/x86/libc++_shared.so"
+      pickFirst "lib/x86_64/libc++_shared.so"
+      pickFirst "lib/armeabi-v7a/libc++_shared.so"
+      pickFirst "lib/arm64-v8a/libc++_shared.so"
   }
 }

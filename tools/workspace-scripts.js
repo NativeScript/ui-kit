@@ -96,6 +96,13 @@ module.exports = {
           description: '@nativescript/ionic-portals: Build',
         },
       },
+      // @nativescript/rive
+      rive: {
+        build: {
+          script: 'nx run rive:build.all',
+          description: '@nativescript/rive: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -125,6 +132,10 @@ module.exports = {
       'ionic-portals': {
         script: 'nx run ionic-portals:focus',
         description: 'Focus on @nativescript/ionic-portals',
+      },
+      rive: {
+        script: 'nx run rive:focus',
+        description: 'Focus on @nativescript/rive',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

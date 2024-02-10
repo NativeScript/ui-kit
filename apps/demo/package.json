@@ -5,14 +5,15 @@
   "repository": "<fill-your-repository-here>",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nativescript/ui-charts": "file:../../packages/ui-charts",
+    "@nativescript/rive": "file:../../packages/rive",
     "@nativescript/flutter": "file:../../packages/flutter",
-    "@nativescript/swift-ui": "file:../../packages/swift-ui",
+    "@nativescript/ionic-portals": "file:../../packages/ionic-portals",
     "@nativescript/jetpack-compose": "file:../../packages/jetpack-compose",
-    "@nativescript/ionic-portals": "file:../../packages/ionic-portals"
+    "@nativescript/swift-ui": "file:../../packages/swift-ui",
+    "@nativescript/ui-charts": "file:../../packages/ui-charts"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.5.0",
-    "@nativescript/ios": "~8.5.0"
+    "@nativescript/android": "~8.6.0",
+    "@nativescript/ios": "~8.6.0"
   }
 }
