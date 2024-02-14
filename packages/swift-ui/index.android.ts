@@ -1,4 +1,4 @@
-import { SwiftUICommon } from './common';
+import { OpenSceneOptions, SwiftUICommon } from './common';
 export * from './common';
 
 export function registerSwiftUI() {
@@ -8,3 +8,7 @@ export function registerSwiftUI() {
 export class SwiftUI extends SwiftUICommon {}
 
 export class UIDataDriver {}
+
+export function openScene(options: OpenSceneOptions) {}
+
+export function updateScene(options: OpenSceneOptions) {}

@@ -3,17 +3,23 @@
 Use SwiftUI with NativeScript.
 
 ## Contents
-* [Installation](#installation)
-* [Usage](#usage)
-  1. [Create your SwiftUI view](#1-create-your-swiftui-view)
-  2. [Create your SwiftUI view Provider](#2-create-your-swiftui-view-provider)
-  3. [Register your SwiftUI with an identifier and use it in the markup](#3-register-your-swiftui-with-an-identifier-and-use-it-in-markup)
-    * [Core](#core)
-    * [Generate Types](#generate-types)
-    * [SwiftUI with Angular](#swiftui-with-angular)
-    * [SwiftUI with Vue](#swiftui-with-vue)
-    * [SwiftUI with React](#swiftui-with-react)
-    
+- [@nativescript/swift-ui](#nativescriptswift-ui)
+  - [Contents](#contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [1. Create your SwiftUI view](#1-create-your-swiftui-view)
+    - [2. Create your SwiftUI view Provider](#2-create-your-swiftui-view-provider)
+    - [3. Register your SwiftUI with an identifier and use it in markup](#3-register-your-swiftui-with-an-identifier-and-use-it-in-markup)
+      - [Core](#core)
+      - [Generate Types](#generate-types)
+      - [SwiftUI with Angular](#swiftui-with-angular)
+      - [SwiftUI with Vue](#swiftui-with-vue)
+      - [SwiftUI with React](#swiftui-with-react)
+  - [Open Multiple Scenes](#open-multiple-scenes)
+    - [Passing contextual data to scenes](#passing-contextual-data-to-scenes)
+    - [Dismissing scenes](#dismissing-scenes)
+  - [Credits](#credits)
+  - [License](#license)
 
 ## Installation
 
@@ -217,6 +223,109 @@ Then use it in markup as follows:
 
 </stackLayout>
 ```
+
+## Open Multiple Scenes
+
+When using a SwiftUI App Lifecycle setup for your NativeScript app, *the default with* [visionOS](https://docs.nativescript.org/guide/visionos) *development*, you can enable multiple scenes in your `Info.plist` with the following:
+
+```xml
+<key>UIApplicationSceneManifest</key>
+<dict>
+  <key>UIApplicationPreferredDefaultSceneSessionRole</key>
+  <string>UIWindowSceneSessionRoleApplication</string>
+  <key>UIApplicationSupportsMultipleScenes</key>
+  <true/>
+  <key>UISceneConfigurations</key>
+  <dict/>
+</dict>
+```
+
+You can now use `openScene` or `updateScene` to interact with multiple scenes, for example:
+
+```swift
+@main
+struct NativeScriptApp: App {
+  @State private var immersionStyle: ImmersionStyle = .mixed
+  
+  var body: some Scene {
+    NativeScriptMainWindow()
+
+    WindowGroup(id: "NeatView") {
+        NeatView()
+    }
+    .windowStyle(.plain)
+
+    ImmersiveSpace(id: "NeatImmersive") {
+        NeatImmersive()
+    }
+    .immersionStyle(selection: $immersionStyle, in: .mixed, .full)
+  }
+}
+```
+
+You could open the `WindowGroup` with:
+
+```ts
+import { openScene } from "@nativescript/swift-ui";
+
+openScene({
+  id: "NeatView",
+});
+```
+
+And you could open the `ImmersizeSpace` with:
+
+```ts
+import { openScene } from "@nativescript/swift-ui";
+
+openScene({
+  id: "NeatImmersive",
+  isImmersive: true
+});
+```
+
+You could update either scene with:
+
+```ts
+import { updateScene } from "@nativescript/swift-ui";
+
+updateScene({
+  id: "NeatView",
+  // You can pass contextual data into your scenes as well
+  data: {
+    title: 'Updated Title'
+  }
+});
+```
+
+### Passing contextual data to scenes
+
+You can use the `onReceive` modifier in SwiftUI to handle any data passed to your scenes.
+
+For example, anytime `updateScene` is called dispatches a Notification which can be picked up and data handled:
+
+```swift
+struct NeatView: View {
+  @State var context: NativeScriptSceneContext?
+
+  var body: some View {
+    ZStack {
+      // more neat views here
+    }.onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NativeScriptUpdateScene")), perform: { obj in
+      context = NativeScriptSceneRegistry.shared.getContextForId(id: "NeatView")
+
+      let title = context!.data["title"] as! String 
+
+      // use your updated title!           
+    })
+  }
+}
+```
+
+### Dismissing scenes
+
+Any call to `openScene` for a Scene which is already open will dismiss it so it works as an open/dismiss toggle.
+
 ## Credits
 
 <img src="https://raw.githubusercontent.com/valor-software/.github/d947b8547a9d5a6021e4f6af7b1df816c1c5f268/profile/valor-logo%20for-light.png#gh-light-mode-only" alt="Valor Software" width="200" />

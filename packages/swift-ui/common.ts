@@ -29,3 +29,19 @@ export const swiftIdProperty = new Property<SwiftUICommon, string>({
 });
 
 swiftIdProperty.register(SwiftUICommon);
+
+export interface OpenSceneOptions {
+  /**
+   * The id of the scene to open
+   */
+  id: string;
+  /**
+   * Whether the scene is immersive or not.
+   * Only set this when you know the WindowGroup is defined with immersive style.
+   */
+  isImmersive?: boolean;
+  /**
+   * Any data bindings to pass to the scene.
+   */
+  data?: any;
+}

@@ -34,6 +34,16 @@
         }
       ]
     },
+    "vision": {
+      "executor": "@nativescript/nx:build",
+      "inputs": ["default", "^production"],
+      "outputs": [],
+      "options": {
+        "platform": "vision",
+        "noHmr": true,
+        "debug": false
+      }
+    },
     "android": {
       "executor": "@nativescript/nx:build",
       "options": {

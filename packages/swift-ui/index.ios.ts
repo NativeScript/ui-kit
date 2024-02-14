@@ -1,4 +1,4 @@
-import { dataProperty, SwiftUICommon, BaseUIDataDriver } from './common';
+import { dataProperty, SwiftUICommon, BaseUIDataDriver, OpenSceneOptions } from './common';
 import type { ISwiftUIProvider, RegistryCallback } from '.';
 import { Utils } from '@nativescript/core';
 export * from './common';
@@ -81,4 +81,19 @@ export class SwiftUI extends SwiftUICommon {
   updateData(data: Record<string, any>) {
     this.driver?.updateData?.(data);
   }
+}
+
+export function openScene(options: OpenSceneOptions) {
+  updateSceneData('NativeScriptOpenScene', options);
+}
+
+export function updateScene(options: OpenSceneOptions) {
+  updateSceneData('NativeScriptUpdateScene', options);
+}
+
+function updateSceneData(eventName: string, options: OpenSceneOptions) {
+  if (options.data) {
+    NativeScriptSceneRegistry.shared.updateDataWithIdUpdates(options.id, options.data);
+  }
+  NSNotificationCenter.defaultCenter.postNotificationNameObjectUserInfo(eventName, null, Utils.dataSerialize({ type: options.id, isImmersive: options.isImmersive }));
 }

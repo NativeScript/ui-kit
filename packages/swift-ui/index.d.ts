@@ -1,5 +1,5 @@
 import { EventData } from '@nativescript/core';
-import { SwiftUICommon, BaseUIDataDriver } from './common';
+import { SwiftUICommon, BaseUIDataDriver, OpenSceneOptions } from './common';
 
 export * from './common';
 
@@ -29,3 +29,7 @@ export class UIDataDriver<T extends ISwiftUIProvider, K = unknown, V = unknown> 
 }
 
 export type RegistryCallback = (view: SwiftUI) => BaseUIDataDriver<SwiftUI>;
+
+export function openScene(options: OpenSceneOptions) {}
+
+export function updateScene(options: OpenSceneOptions) {}

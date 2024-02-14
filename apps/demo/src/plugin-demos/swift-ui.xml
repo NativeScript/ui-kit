@@ -5,8 +5,10 @@
   </Page.actionBar>
   <StackLayout class="p-20">
     <sw:SwiftUI swiftId="basicView" data="{{ nativeCount }}" swiftUIEvent="{{ onEvent }}" loaded="{{ loadedSwiftUI }}" height="150"></sw:SwiftUI>
-    <Label row="1" text="{{ 'NativeScript Label: ' + nativeCount.count }}" class="h2" marginTop="60"></Label>
-    <Button row="2" text="NativeScript data bindings: Decrement" tap="{{ updateNativeScriptData }}" class="btn btn-primary m-t-30"></Button>
-    <Button row="3" text="SwiftUI data bindings: Decrement" tap="{{ updateSwiftData }}" class="btn btn-primary"></Button>
+    <Label text="{{ 'NativeScript Label: ' + nativeCount.count }}" class="h2" marginTop="60"></Label>
+    <Button text="NativeScript data bindings: Decrement" tap="{{ updateNativeScriptData }}" class="btn btn-primary m-t-30"></Button>
+    <Button text="SwiftUI data bindings: Decrement" tap="{{ updateSwiftData }}" class="btn btn-primary"></Button>
+    <ContentView margin="8 0 8" backgroundColor="#efefef" width="100%" height="1"></ContentView>
+    <Button text="Open Scene" tap="{{ openSceneWithOptions }}" class="btn btn-primary"></Button>
   </StackLayout>
 </Page>

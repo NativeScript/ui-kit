@@ -28,3 +28,43 @@ extension SwiftUIProvider {
         return UIHostingController(rootView: content)
     }
 }
+
+struct NativeScriptSceneContext {
+    // Scene id
+    var id = ""
+    // Context data
+    var data = Dictionary<String, Any>()
+}
+@objc open class NativeScriptSceneRegistry: NSObject {
+    var data: [NativeScriptSceneContext] = []
+    @objc static var shared = NativeScriptSceneRegistry()
+    @objc public func updateData(id: String, updates: NSDictionary) {
+        let index = data.firstIndex(where: { $0.id == id })
+        if (index != nil) {
+            data.remove(at: index!)
+        }
+        data.append(NativeScriptSceneContext(id: id, data: updates.nsToSwiftDictionary))
+    }
+    func getContextForId(id: String) -> NativeScriptSceneContext? {
+        let context = data.filter({ $0.id == id}).first
+        if (context != nil) {
+            return context!
+        }
+        return nil
+    }
+}
+
+extension NSDictionary {
+    var nsToSwiftDictionary: Dictionary<String, Any> {
+        var swiftDictionary = Dictionary<String, Any>()
+
+        for key : Any in self.allKeys {
+            let stringKey = key as! String
+            if let keyValue = self.value(forKey: stringKey){
+                swiftDictionary[stringKey] = keyValue
+            }
+        }
+
+        return swiftDictionary
+    }
+}
