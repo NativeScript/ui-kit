@@ -11,14 +11,16 @@ declare var SwiftUIProvider: {
   prototype: SwiftUIProvider;
 };
 
-declare class NativeScriptSceneRegistry extends NSObject {
-  static alloc(): NativeScriptSceneRegistry; // inherited from NSObject
+declare class NativeScriptWindowFactory extends NSObject {
+  static alloc(): NativeScriptWindowFactory; // inherited from NSObject
 
-  static new(): NativeScriptSceneRegistry; // inherited from NSObject
+  static new(): NativeScriptWindowFactory; // inherited from NSObject
 
-  static setShared(value: NativeScriptSceneRegistry): void;
+  static setShared(value: NativeScriptWindowFactory): void;
 
-  static shared: NativeScriptSceneRegistry;
+  static shared: NativeScriptWindowFactory;
 
   updateDataWithIdUpdates(id: string, updates: NSDictionary<any, any>): void;
+
+  removeWindowWithId(id: string): void;
 }

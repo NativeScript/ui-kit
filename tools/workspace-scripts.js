@@ -30,6 +30,10 @@ module.exports = {
           script: 'nx run demo:ios',
           description: '⚆  Run iOS  ',
         },
+        vision: {
+          script: 'nx run demo:vision',
+          description: '⚆  Run visionOS  🥽',
+        },
         android: {
           script: 'nx run demo:android',
           description: '⚆  Run Android  🤖',
