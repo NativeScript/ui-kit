@@ -17,7 +17,7 @@ Use SwiftUI with NativeScript.
       - [SwiftUI with React](#swiftui-with-react)
   - [Open Multiple Scenes](#open-multiple-scenes)
     - [Passing contextual data to scenes](#passing-contextual-data-to-scenes)
-    - [Dismissing scenes](#dismissing-scenes)
+    - [Closing windows](#closing-windows)
   - [Credits](#credits)
   - [License](#license)
 
@@ -240,7 +240,7 @@ When using a SwiftUI App Lifecycle setup for your NativeScript app, *the default
 </dict>
 ```
 
-You can now use `openScene` or `updateScene` to interact with multiple scenes, for example:
+You can now use `WindowManager` (for use with standard Windows) or `XR` (for use with immersive spaces) to interact with multiple scenes, for example:
 
 ```swift
 @main
@@ -266,53 +266,58 @@ struct NativeScriptApp: App {
 You could open the `WindowGroup` with:
 
 ```ts
-import { openScene } from "@nativescript/swift-ui";
+import { WindowManager } from "@nativescript/swift-ui";
 
-openScene({
-  id: "NeatView",
+WindowManager.getWindow("NeatView").open();
 });
 ```
 
-And you could open the `ImmersizeSpace` with:
+And you could open the `ImmersiveSpace` with:
 
 ```ts
-import { openScene } from "@nativescript/swift-ui";
+import { XR } from "@nativescript/swift-ui";
 
-openScene({
-  id: "NeatImmersive",
-  isImmersive: true
-});
+XR.requestSession("NeatImmersive");
 ```
 
 You could update either scene with:
 
 ```ts
-import { updateScene } from "@nativescript/swift-ui";
+import { WindowManager } from "@nativescript/swift-ui";
 
-updateScene({
-  id: "NeatView",
-  // You can pass contextual data into your scenes as well
-  data: {
-    title: 'Updated Title'
-  }
+// Option A: inline
+WindowManager.getWindow("NeatView").update({
+  title: 'Updated Title'
+});
+
+// Option B: reference
+const neatView = WindowManager.getWindow("NeatView");
+
+neatView.update({
+  title: 'Updated Title'
+});
+
+// Both options work with XR/Immersive Spaces as well, for example:
+WindowManager.getWindow("NeatImmersive").update({
+  salutation: 'Hello World'
 });
 ```
 
 ### Passing contextual data to scenes
 
-You can use the `onReceive` modifier in SwiftUI to handle any data passed to your scenes.
+You can use the `onReceive` modifier in SwiftUI to handle any data passed to your windows.
 
-For example, anytime `updateScene` is called dispatches a Notification which can be picked up and data handled:
+For example, anytime `WindowManager.getWindow("Window_ID").update(...)` is called, a Notification is dispatched which can be picked up for data to be handled:
 
 ```swift
 struct NeatView: View {
-  @State var context: NativeScriptSceneContext?
+  @State var context: NativeScriptWindowContext?
 
   var body: some View {
     ZStack {
       // more neat views here
-    }.onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NativeScriptUpdateScene")), perform: { obj in
-      context = NativeScriptSceneRegistry.shared.getContextForId(id: "NeatView")
+    }.onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NativeScriptWindowUpdate")), perform: { obj in
+      context = NativeScriptWindowFactory.shared.getContextForId(id: "NeatView")
 
       let title = context!.data["title"] as! String 
 
@@ -322,11 +327,16 @@ struct NeatView: View {
 }
 ```
 
-### Dismissing scenes
+### Closing windows
 
-Any call to `openScene` for a Scene which is already open will dismiss it so it works as an open/dismiss toggle.
+`WindowManager.getWindow("NeatView").close()` for a Window which is already open will close it.
+
+`XR.endSession()` for an Immersive Space which is already open will close it.
+
 
 ## Credits
+
+- WindowManager and XR APIs were established with the Callstack team. Shoutout to: [Oskar Kwaśniewski](https://github.com/okwasniewski).
 
 <img src="https://raw.githubusercontent.com/valor-software/.github/d947b8547a9d5a6021e4f6af7b1df816c1c5f268/profile/valor-logo%20for-light.png#gh-light-mode-only" alt="Valor Software" width="200" />
 
