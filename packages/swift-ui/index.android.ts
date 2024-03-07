@@ -26,7 +26,8 @@ export class WindowManager {
   }
 }
 
-// Note: Impl for Android can be provided
+// Note: Stub for Android
+// best moved to @nativescript/ui in future when core is split up
 export class NativeScriptWindow implements NativeScriptWindowCommon {
   id: string;
   isImmersize?: boolean;
@@ -49,7 +50,8 @@ export class NativeScriptWindow implements NativeScriptWindowCommon {
   }
 }
 
-// Note: Impl for Android can be provided
+// Note: Stub for Android
+// best moved to @nativescript/ui in future when core is split up
 export class XR {
   static currentSessionId: string;
   static requestSession(sessionId: string, props?: any): Promise<void> {
