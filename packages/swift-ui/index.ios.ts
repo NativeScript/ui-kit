@@ -85,12 +85,12 @@ export class SwiftUI extends SwiftUICommon {
 
 export class WindowManager {
   static currentWindows: { [key: string]: NativeScriptWindow };
-  static getWindow(id: string, isImmersize?: boolean): NativeScriptWindow {
+  static getWindow(id: string, isImmersive?: boolean): NativeScriptWindow {
     if (!WindowManager.currentWindows) {
       WindowManager.currentWindows = {};
     }
     if (!WindowManager.currentWindows[id]) {
-      WindowManager.currentWindows[id] = new NativeScriptWindow(id, isImmersize);
+      WindowManager.currentWindows[id] = new NativeScriptWindow(id, isImmersive);
     }
     return WindowManager.currentWindows[id];
   }
@@ -102,11 +102,11 @@ export class WindowManager {
 
 export class NativeScriptWindow implements NativeScriptWindowCommon {
   id: string;
-  isImmersize?: boolean;
+  isImmersive?: boolean;
 
-  constructor(id: string, isImmersize?: boolean) {
+  constructor(id: string, isImmersive?: boolean) {
     this.id = id;
-    this.isImmersize = isImmersize;
+    this.isImmersive = isImmersive;
   }
 
   open(props?: any): Promise<void> {
@@ -136,7 +136,7 @@ export class NativeScriptWindow implements NativeScriptWindowCommon {
     if (props) {
       NativeScriptWindowFactory.shared.updateDataWithIdUpdates(this.id, props);
     }
-    NSNotificationCenter.defaultCenter.postNotificationNameObjectUserInfo(eventName, null, Utils.dataSerialize({ type: this.id, isImmersive: this.isImmersize }));
+    NSNotificationCenter.defaultCenter.postNotificationNameObjectUserInfo(eventName, null, Utils.dataSerialize({ type: this.id, isImmersive: this.isImmersive }));
   }
 }
 

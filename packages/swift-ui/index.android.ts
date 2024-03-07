@@ -11,12 +11,12 @@ export class UIDataDriver {}
 
 export class WindowManager {
   static currentWindows: { [key: string]: NativeScriptWindow };
-  static getWindow(id: string, isImmersize?: boolean): NativeScriptWindow {
+  static getWindow(id: string, isImmersive?: boolean): NativeScriptWindow {
     if (!WindowManager.currentWindows) {
       WindowManager.currentWindows = {};
     }
     if (!WindowManager.currentWindows[id]) {
-      WindowManager.currentWindows[id] = new NativeScriptWindow(id, isImmersize);
+      WindowManager.currentWindows[id] = new NativeScriptWindow(id, isImmersive);
     }
     return WindowManager.currentWindows[id];
   }
@@ -30,11 +30,11 @@ export class WindowManager {
 // best moved to @nativescript/ui in future when core is split up
 export class NativeScriptWindow implements NativeScriptWindowCommon {
   id: string;
-  isImmersize?: boolean;
+  isImmersive?: boolean;
 
-  constructor(id: string, isImmersize?: boolean) {
+  constructor(id: string, isImmersive?: boolean) {
     this.id = id;
-    this.isImmersize = isImmersize;
+    this.isImmersive = isImmersive;
   }
 
   open(props?: any): Promise<void> {

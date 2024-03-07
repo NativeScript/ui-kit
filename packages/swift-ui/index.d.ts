@@ -34,13 +34,13 @@ export declare class WindowManager {
   static currentWindows: {
     [key: string]: NativeScriptWindow;
   };
-  static getWindow(id: string, isImmersize?: boolean): NativeScriptWindow;
+  static getWindow(id: string, isImmersive?: boolean): NativeScriptWindow;
   static supportsMultipleScenes(): boolean;
 }
 export declare class NativeScriptWindow implements NativeScriptWindowCommon {
   id: string;
-  isImmersize?: boolean;
-  constructor(id: string, isImmersize?: boolean);
+  isImmersive?: boolean;
+  constructor(id: string, isImmersive?: boolean);
   open(props?: any): Promise<void>;
   close(): Promise<void>;
   update(props?: any): Promise<void>;
