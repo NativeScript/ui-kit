@@ -11,7 +11,8 @@
       "@nativescript/ionic-portals": ["../../packages/ionic-portals/index.d.ts"],
       "@nativescript/jetpack-compose": ["../../packages/jetpack-compose/index.d.ts"],
       "@nativescript/rive": ["../../packages/rive/index.d.ts"],
-      "@nativescript/ui-charts": ["../../packages/ui-charts/index.d.ts"]
+      "@nativescript/ui-charts": ["../../packages/ui-charts/index.d.ts"],
+      "@nativescript/*": ["../../packages/*"]
     }
   }
 }

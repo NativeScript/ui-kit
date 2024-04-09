@@ -12,5 +12,6 @@
     "url": "https://github.com/NativeScript/ui-kit/issues"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/NativeScript/ui-kit"
+  "homepage": "https://github.com/NativeScript/ui-kit",
+  "name": "@nativescript"
 }
