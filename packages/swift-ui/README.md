@@ -3,17 +3,23 @@
 Use SwiftUI with NativeScript.
 
 ## Contents
-* [Installation](#installation)
-* [Usage](#usage)
-  1. [Create your SwiftUI view](#1-create-your-swiftui-view)
-  2. [Create your SwiftUI view Provider](#2-create-your-swiftui-view-provider)
-  3. [Register your SwiftUI with an identifier and use it in the markup](#3-register-your-swiftui-with-an-identifier-and-use-it-in-markup)
-    * [Core](#core)
-    * [Generate Types](#generate-types)
-    * [SwiftUI with Angular](#swiftui-with-angular)
-    * [SwiftUI with Vue](#swiftui-with-vue)
-    * [SwiftUI with React](#swiftui-with-react)
-    
+- [@nativescript/swift-ui](#nativescriptswift-ui)
+  - [Contents](#contents)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [1. Create your SwiftUI view](#1-create-your-swiftui-view)
+    - [2. Create your SwiftUI view Provider](#2-create-your-swiftui-view-provider)
+    - [3. Register your SwiftUI with an identifier and use it in markup](#3-register-your-swiftui-with-an-identifier-and-use-it-in-markup)
+      - [Core](#core)
+      - [Generate Types](#generate-types)
+      - [SwiftUI with Angular](#swiftui-with-angular)
+      - [SwiftUI with Vue](#swiftui-with-vue)
+      - [SwiftUI with React](#swiftui-with-react)
+  - [Open Multiple Scenes](#open-multiple-scenes)
+    - [Passing contextual data to scenes](#passing-contextual-data-to-scenes)
+    - [Closing windows](#closing-windows)
+  - [Credits](#credits)
+  - [License](#license)
 
 ## Installation
 
@@ -104,13 +110,12 @@ import {
 declare const SampleViewProvider: any;
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
 
 registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 Then insert it in any layout as follows:
 
@@ -139,12 +144,11 @@ import { SwiftUI } from '@nativescript/swift-ui'
 registerElement('SwiftUI', () => SwiftUI)
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 
 It can now be used within any Angular component, eg:
@@ -162,12 +166,11 @@ Register SwiftUI follows:
 registerElement("SwiftUIView", ()=> require("@nativescript/swift-ui").SwiftUI)
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 Then use it in markup as follows:
 
@@ -185,12 +188,12 @@ Register SwiftUI follows:
 
 ```ts
 registerSwiftUI("sampleView", (view) =>
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
 
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 
 interface SwiftUIViewAttributes extends ViewAttributes{
 swiftId: string
@@ -217,7 +220,120 @@ Then use it in markup as follows:
 
 </stackLayout>
 ```
+
+## Open Multiple Scenes
+
+When using a SwiftUI App Lifecycle setup for your NativeScript app, *the default with* [visionOS](https://docs.nativescript.org/guide/visionos) *development*, you can enable multiple scenes in your `Info.plist` with the following:
+
+```xml
+<key>UIApplicationSceneManifest</key>
+<dict>
+  <key>UIApplicationPreferredDefaultSceneSessionRole</key>
+  <string>UIWindowSceneSessionRoleApplication</string>
+  <key>UIApplicationSupportsMultipleScenes</key>
+  <true/>
+  <key>UISceneConfigurations</key>
+  <dict/>
+</dict>
+```
+
+You can now use `WindowManager` (for use with standard Windows) or `XR` (for use with immersive spaces) to interact with multiple scenes, for example:
+
+```swift
+@main
+struct NativeScriptApp: App {
+  @State private var immersionStyle: ImmersionStyle = .mixed
+  
+  var body: some Scene {
+    NativeScriptMainWindow()
+
+    WindowGroup(id: "NeatView") {
+        NeatView()
+    }
+    .windowStyle(.plain)
+
+    ImmersiveSpace(id: "NeatImmersive") {
+        NeatImmersive()
+    }
+    .immersionStyle(selection: $immersionStyle, in: .mixed, .full)
+  }
+}
+```
+
+You could open the `WindowGroup` with:
+
+```ts
+import { WindowManager } from "@nativescript/swift-ui";
+
+WindowManager.getWindow("NeatView").open();
+});
+```
+
+And you could open the `ImmersiveSpace` with:
+
+```ts
+import { XR } from "@nativescript/swift-ui";
+
+XR.requestSession("NeatImmersive");
+```
+
+You could update either scene with:
+
+```ts
+import { WindowManager } from "@nativescript/swift-ui";
+
+// Option A: inline
+WindowManager.getWindow("NeatView").update({
+  title: 'Updated Title'
+});
+
+// Option B: reference
+const neatView = WindowManager.getWindow("NeatView");
+
+neatView.update({
+  title: 'Updated Title'
+});
+
+// Both options work with XR/Immersive Spaces as well, for example:
+WindowManager.getWindow("NeatImmersive").update({
+  salutation: 'Hello World'
+});
+```
+
+### Passing contextual data to scenes
+
+You can use the `onReceive` modifier in SwiftUI to handle any data passed to your windows.
+
+For example, anytime `WindowManager.getWindow("Window_ID").update(...)` is called, a Notification is dispatched which can be picked up for data to be handled:
+
+```swift
+struct NeatView: View {
+  @State var context: NativeScriptWindowContext?
+
+  var body: some View {
+    ZStack {
+      // more neat views here
+    }.onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("NativeScriptWindowUpdate")), perform: { obj in
+      context = NativeScriptWindowFactory.shared.getContextForId(id: "NeatView")
+
+      let title = context!.data["title"] as! String 
+
+      // use your updated title!           
+    })
+  }
+}
+```
+
+### Closing windows
+
+`WindowManager.getWindow("NeatView").close()` for a Window which is already open will close it.
+
+`XR.endSession()` for an Immersive Space which is already open will close it.
+
+
 ## Credits
+
+- WindowManager and XR APIs were established with the Callstack team. Shoutout to: [Oskar Kwaśniewski](https://github.com/okwasniewski).
 
 <img src="https://raw.githubusercontent.com/valor-software/.github/d947b8547a9d5a6021e4f6af7b1df816c1c5f268/profile/valor-logo%20for-light.png#gh-light-mode-only" alt="Valor Software" width="200" />
 

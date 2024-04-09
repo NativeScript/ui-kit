@@ -1,4 +1,4 @@
-import { dataProperty, SwiftUICommon, BaseUIDataDriver } from './common';
+import { dataProperty, SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
 import type { ISwiftUIProvider, RegistryCallback } from '.';
 import { Utils } from '@nativescript/core';
 export * from './common';
@@ -80,5 +80,80 @@ export class SwiftUI extends SwiftUICommon {
 
   updateData(data: Record<string, any>) {
     this.driver?.updateData?.(data);
+  }
+}
+
+export class WindowManager {
+  static currentWindows: { [key: string]: NativeScriptWindow };
+  static getWindow(id: string, isImmersive?: boolean): NativeScriptWindow {
+    if (!WindowManager.currentWindows) {
+      WindowManager.currentWindows = {};
+    }
+    if (!WindowManager.currentWindows[id]) {
+      WindowManager.currentWindows[id] = new NativeScriptWindow(id, isImmersive);
+    }
+    return WindowManager.currentWindows[id];
+  }
+
+  static supportsMultipleScenes(): boolean {
+    return UIApplication.sharedApplication.supportsMultipleScenes;
+  }
+}
+
+export class NativeScriptWindow implements NativeScriptWindowCommon {
+  id: string;
+  isImmersive?: boolean;
+
+  constructor(id: string, isImmersive?: boolean) {
+    this.id = id;
+    this.isImmersive = isImmersive;
+  }
+
+  open(props?: any): Promise<void> {
+    if (WindowManager.currentWindows[this.id]) {
+      this._updateWindowData('NativeScriptWindowOpen', props);
+    }
+    return Promise.resolve();
+  }
+
+  close(): Promise<void> {
+    if (WindowManager.currentWindows[this.id]) {
+      this._updateWindowData('NativeScriptWindowClose');
+      NativeScriptWindowFactory.shared.removeWindowWithId(this.id);
+      delete WindowManager.currentWindows[this.id];
+    }
+    return Promise.resolve();
+  }
+
+  update(props?: any): Promise<void> {
+    if (WindowManager.currentWindows[this.id]) {
+      this._updateWindowData('NativeScriptWindowUpdate', props);
+    }
+    return Promise.resolve();
+  }
+
+  private _updateWindowData(eventName: string, props?: any) {
+    if (props) {
+      NativeScriptWindowFactory.shared.updateDataWithIdUpdates(this.id, props);
+    }
+    NSNotificationCenter.defaultCenter.postNotificationNameObjectUserInfo(eventName, null, Utils.dataSerialize({ type: this.id, isImmersive: this.isImmersive }));
+  }
+}
+
+export class XR {
+  static currentSessionId: string;
+  static requestSession(sessionId: string, props?: any): Promise<void> {
+    if (!XR.currentSessionId) {
+      XR.currentSessionId = sessionId;
+      WindowManager.getWindow(sessionId, true).open(props);
+    }
+    return Promise.resolve();
+  }
+  static endSession(): Promise<void> {
+    if (XR.currentSessionId) {
+      WindowManager.getWindow(XR.currentSessionId, true).close();
+      XR.currentSessionId = null;
+    }
+    return Promise.resolve();
   }
 }

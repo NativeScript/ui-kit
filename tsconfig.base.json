@@ -21,7 +21,6 @@
     ],
     "paths": {
       "@demo/shared": ["tools/demo/index.ts"],
-      "@nativescript/*": ["packages/*"],
       "@nativescript/flutter": ["packages/flutter/index.d.ts"],
       "@nativescript/ionic-portals": ["packages/ionic-portals/index.d.ts"],
       "@nativescript/jetpack-compose": ["packages/jetpack-compose/index.d.ts"],

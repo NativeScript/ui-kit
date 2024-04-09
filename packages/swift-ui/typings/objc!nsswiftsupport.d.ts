@@ -10,3 +10,17 @@ interface SwiftUIProvider {
 declare var SwiftUIProvider: {
   prototype: SwiftUIProvider;
 };
+
+declare class NativeScriptWindowFactory extends NSObject {
+  static alloc(): NativeScriptWindowFactory; // inherited from NSObject
+
+  static new(): NativeScriptWindowFactory; // inherited from NSObject
+
+  static setShared(value: NativeScriptWindowFactory): void;
+
+  static shared: NativeScriptWindowFactory;
+
+  updateDataWithIdUpdates(id: string, updates: NSDictionary<any, any>): void;
+
+  removeWindowWithId(id: string): void;
+}

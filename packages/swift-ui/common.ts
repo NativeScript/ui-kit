@@ -29,3 +29,13 @@ export const swiftIdProperty = new Property<SwiftUICommon, string>({
 });
 
 swiftIdProperty.register(SwiftUICommon);
+
+export interface NativeScriptWindowCommon {
+  id: string;
+
+  open(props?: any): Promise<void>;
+
+  close(): Promise<void>;
+
+  update(props?: any): Promise<void>;
+}

@@ -1,5 +1,5 @@
 import { EventData } from '@nativescript/core';
-import { SwiftUICommon, BaseUIDataDriver } from './common';
+import { SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
 
 export * from './common';
 
@@ -29,3 +29,24 @@ export class UIDataDriver<T extends ISwiftUIProvider, K = unknown, V = unknown> 
 }
 
 export type RegistryCallback = (view: SwiftUI) => BaseUIDataDriver<SwiftUI>;
+
+export declare class WindowManager {
+  static currentWindows: {
+    [key: string]: NativeScriptWindow;
+  };
+  static getWindow(id: string, isImmersive?: boolean): NativeScriptWindow;
+  static supportsMultipleScenes(): boolean;
+}
+export declare class NativeScriptWindow implements NativeScriptWindowCommon {
+  id: string;
+  isImmersive?: boolean;
+  constructor(id: string, isImmersive?: boolean);
+  open(props?: any): Promise<void>;
+  close(): Promise<void>;
+  update(props?: any): Promise<void>;
+}
+export declare class XR {
+  static currentSessionId: string;
+  static requestSession(sessionId: string, props?: any): Promise<void>;
+  static endSession(): Promise<void>;
+}
