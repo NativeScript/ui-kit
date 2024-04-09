@@ -110,13 +110,12 @@ import {
 declare const SampleViewProvider: any;
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
 
 registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 Then insert it in any layout as follows:
 
@@ -145,12 +144,11 @@ import { SwiftUI } from '@nativescript/swift-ui'
 registerElement('SwiftUI', () => SwiftUI)
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 
 It can now be used within any Angular component, eg:
@@ -168,12 +166,11 @@ Register SwiftUI follows:
 registerElement("SwiftUIView", ()=> require("@nativescript/swift-ui").SwiftUI)
 
 registerSwiftUI("sampleView", (view) =>
-
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 ```
 Then use it in markup as follows:
 
@@ -191,12 +188,12 @@ Register SwiftUI follows:
 
 ```ts
 registerSwiftUI("sampleView", (view) =>
-    new UIDataDriver(SampleViewProvider.alloc().init(), view)
-  );
+  new UIDataDriver(SampleViewProvider.alloc().init(), view)
+);
 
-  registerSwiftUI("barChart", (view) =>
-    new UIDataDriver(BarChartProvider.alloc().init(), view)
-  );
+registerSwiftUI("barChart", (view) =>
+  new UIDataDriver(BarChartProvider.alloc().init(), view)
+);
 
 interface SwiftUIViewAttributes extends ViewAttributes{
 swiftId: string
