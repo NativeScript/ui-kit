@@ -2,4 +2,8 @@
 
 /dist
 /coverage
+/apps/demo/flutter_views
+/tools/assets
 native-src
+
+/.nx/cache
