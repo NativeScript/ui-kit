@@ -3,9 +3,10 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "packages/ui-charts",
+  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "outputPath": "dist/packages/ui-charts",
         "tsConfig": "packages/ui-charts/tsconfig.json",
@@ -35,15 +36,14 @@
         "commands": ["node tools/scripts/build-finish.ts ui-charts"],
         "parallel": false
       },
-      "outputs": ["dist/packages/ui-charts"],
+      "outputs": ["{workspaceRoot}/dist/packages/ui-charts"],
       "dependsOn": [
         {
           "target": "build.all",
-          "projects": "dependencies"
+          "dependencies": true
         },
         {
-          "target": "build",
-          "projects": "self"
+          "target": "build"
         }
       ]
     },
@@ -55,11 +55,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["packages/ui-charts/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": []
+  }
 }
