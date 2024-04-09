@@ -84,16 +84,20 @@ struct NativeScriptView: View {
     var view: NativeScriptViewRepresentable?
     
     var body: some View {
-        view.onChange(of: scenePhase) {
-            if scenePhase == .inactive {
-                print("Inactive")
-            } else if scenePhase == .active {
-                print("Active")
-            } else if scenePhase == .background {
-                print("Background")
-                // window closed here!
-                view!.dispose()
+        if #available(iOS 17.0, *) {
+            view.onChange(of: scenePhase) {
+                if scenePhase == .inactive {
+                    print("Inactive")
+                } else if scenePhase == .active {
+                    print("Active")
+                } else if scenePhase == .background {
+                    print("Background")
+                    // window closed here!
+                    view!.dispose()
+                }
             }
+        } else {
+            view
         }
     }
     
