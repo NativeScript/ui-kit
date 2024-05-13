@@ -32,6 +32,9 @@ export class Flutter extends FlutterCommon {
     if (!this.id) {
       throw new Error(`Flutter requires an 'id' property set to match your Dart entry point name.`);
     }
+    if (!flutterEngineGroup) {
+      throw new Error(`Ensure you have called @nativescript/flutter 'init' from you main bootstrap file.`);
+    }
     this._engine = flutterEngineGroup.makeEngineWithEntrypointLibraryURI(this.id, null);
     GeneratedPluginRegistrant.registerWithRegistry(this._engine);
     this._flutterViewController = FlutterViewController.alloc().initWithEngineNibNameBundle(this._engine, null, null);

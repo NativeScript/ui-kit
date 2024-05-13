@@ -69,8 +69,9 @@ export class Flutter extends FlutterCommon {
       throw new Error(`Ensure you have called @nativescript/flutter 'init' from you main bootstrap file.`);
     }
     this._flutterEngine = flutterEngineGroup.createAndRunEngine(Utils.android.getApplicationContext(), new io.flutter.embedding.engine.dart.DartExecutor.DartEntrypoint(null, this.id), null);
-
-    // io.flutter.embedding.engine.FlutterEngineCache.getInstance().put(this.id, this._flutterEngine);
+    // cache the engine
+    io.flutter.embedding.engine.FlutterEngineCache.getInstance().put(this.id, this._flutterEngine);
+    // register for plugins
     io.flutter.embedding.engine.plugins.util.GeneratedPluginRegister.registerGeneratedPlugins(this._flutterEngine);
 
     this._platformChannel = new io.flutter.plugin.common.BasicMessageChannel(this._flutterEngine.getDartExecutor().getBinaryMessenger(), 'nativescript', io.flutter.plugin.common.StringCodec.INSTANCE);
@@ -88,8 +89,7 @@ export class Flutter extends FlutterCommon {
     this.nativeViewProtected.setId(this._androidViewId);
 
     const fm = this._getFragmentManager() as androidx.fragment.app.FragmentManager;
-    const engineFragmentBuilder = io.flutter.embedding.android.FlutterFragment.withNewEngine();
-    engineFragmentBuilder.dartEntrypoint(this.id);
+    const engineFragmentBuilder = io.flutter.embedding.android.FlutterFragment.withCachedEngine(this.id);
     this._fragment = engineFragmentBuilder.build();
 
     const name = makeFragmentName(this._androidViewId);
