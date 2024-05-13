@@ -6,17 +6,13 @@ function makeFragmentName(viewId: number): string {
 }
 
 let initialized = false;
-let flutterEngine: io.flutter.embedding.engine.FlutterEngine;
+let flutterEngineGroup: io.flutter.embedding.engine.FlutterEngineGroup;
 const ReplyMethod = io.flutter.plugin.common.BasicMessageChannel.Reply<string>;
 
 export function init() {
   if (!initialized) {
     initialized = true;
-
-    flutterEngine = new io.flutter.embedding.engine.FlutterEngine(Utils.android.getApplicationContext());
-    flutterEngine.getDartExecutor().executeDartEntrypoint(io.flutter.embedding.engine.dart.DartExecutor.DartEntrypoint.createDefault());
-    io.flutter.embedding.engine.FlutterEngineCache.getInstance().put('default_nativescript', flutterEngine);
-    io.flutter.embedding.engine.plugins.util.GeneratedPluginRegister.registerGeneratedPlugins(flutterEngine);
+    flutterEngineGroup = new io.flutter.embedding.engine.FlutterEngineGroup(Utils.android.getApplicationContext());
   }
 }
 
@@ -59,13 +55,25 @@ class BasicMessageChannelHandler extends java.lang.Object implements io.flutter.
 }
 
 export class Flutter extends FlutterCommon {
-  private _fragment: io.flutter.embedding.android.FlutterFragment.CachedEngineFragmentBuilder;
+  private _flutterEngine: io.flutter.embedding.engine.FlutterEngine;
+  private _fragment: io.flutter.embedding.android.FlutterFragment;
   private _platformChannel: io.flutter.plugin.common.BasicMessageChannel<string>;
   private _listener: BasicMessageChannelHandler;
   private _androidViewId: number = -1;
 
   createNativeView() {
-    this._platformChannel = new io.flutter.plugin.common.BasicMessageChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), 'nativescript', io.flutter.plugin.common.StringCodec.INSTANCE);
+    if (!this.id) {
+      throw new Error(`Flutter requires an 'id' property set to match your Dart entry point name.`);
+    }
+    if (!flutterEngineGroup) {
+      throw new Error(`Ensure you have called @nativescript/flutter 'init' from you main bootstrap file.`);
+    }
+    this._flutterEngine = flutterEngineGroup.createAndRunEngine(Utils.android.getApplicationContext(), new io.flutter.embedding.engine.dart.DartExecutor.DartEntrypoint(null, this.id), null);
+
+    // io.flutter.embedding.engine.FlutterEngineCache.getInstance().put(this.id, this._flutterEngine);
+    io.flutter.embedding.engine.plugins.util.GeneratedPluginRegister.registerGeneratedPlugins(this._flutterEngine);
+
+    this._platformChannel = new io.flutter.plugin.common.BasicMessageChannel(this._flutterEngine.getDartExecutor().getBinaryMessenger(), 'nativescript', io.flutter.plugin.common.StringCodec.INSTANCE);
     this._listener = BasicMessageChannelHandler.initWithOwner(new WeakRef(this));
     this._platformChannel.setMessageHandler(this._listener);
     return new android.widget.FrameLayout(this._context);
@@ -80,7 +88,9 @@ export class Flutter extends FlutterCommon {
     this.nativeViewProtected.setId(this._androidViewId);
 
     const fm = this._getFragmentManager() as androidx.fragment.app.FragmentManager;
-    this._fragment = io.flutter.embedding.android.FlutterFragment.withCachedEngine('default_nativescript').build() as any;
+    const engineFragmentBuilder = io.flutter.embedding.android.FlutterFragment.withNewEngine();
+    engineFragmentBuilder.dartEntrypoint(this.id);
+    this._fragment = engineFragmentBuilder.build();
 
     const name = makeFragmentName(this._androidViewId);
     const tr = fm.beginTransaction();
