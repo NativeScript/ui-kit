@@ -1,4 +1,4 @@
-import { SwiftUICommon, NativeScriptWindowCommon } from './common';
+import { SwiftUICommon, NativeScriptWindowCommon, CustomViewLifeCycle } from './common';
 export * from './common';
 
 export function registerSwiftUI() {
@@ -6,6 +6,10 @@ export function registerSwiftUI() {
 }
 
 export class SwiftUI extends SwiftUICommon {}
+
+export class SwiftUIManager {
+  static registerNativeScriptViews(views: { [key: string]: any }, viewLifeCycle?: CustomViewLifeCycle) {}
+}
 
 export class UIDataDriver {}
 

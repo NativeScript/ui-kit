@@ -20,6 +20,10 @@ export declare class SwiftUI<T = any, K = any> extends SwiftUICommon {
   on(name: SwiftUI.swiftUIEventEvent, callback: (args: SwiftUIEventData<T>) => void, thisArg?: any);
 }
 
+export declare class SwiftUIManager {
+  static registerNativeScriptViews(views: { [key: string]: any }, viewLifeCycle?: CustomViewLifeCycle);
+}
+
 export class UIDataDriver<T extends ISwiftUIProvider, K = unknown, V = unknown> extends BaseUIDataDriver<SwiftUI, K, V> {
   constructor(swiftUIProvider: T, view: SwiftUI);
   onEvent(data: ReceivedDataType): void;
