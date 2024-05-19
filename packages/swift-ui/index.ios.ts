@@ -1,12 +1,15 @@
-import { dataProperty, SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
 import type { ISwiftUIProvider, RegistryCallback } from '.';
-import { Utils } from '@nativescript/core';
+import { dataProperty, SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon, NativeScriptViewHelper, CustomViewLifeCycle } from './common';
+import { Utils, View } from '@nativescript/core';
 export * from './common';
 
-const registry = new Map<string, RegistryCallback>();
+let registeredSwiftUIViews: Map<string, RegistryCallback>;
 
 export function registerSwiftUI(id: string, callback: RegistryCallback) {
-  registry.set(id, callback);
+  if (!registeredSwiftUIViews) {
+    registeredSwiftUIViews = new Map<string, RegistryCallback>();
+  }
+  registeredSwiftUIViews.set(id, callback);
 }
 
 export class UIDataDriver extends BaseUIDataDriver<SwiftUI> {
@@ -40,7 +43,7 @@ export class SwiftUI extends SwiftUICommon {
   private driver: BaseUIDataDriver;
 
   createNativeView() {
-    const generator = registry.get(this.swiftId);
+    const generator = registeredSwiftUIViews.get(this.swiftId);
 
     if (!generator) {
       console.warn('view not registered:', this.swiftId);
@@ -80,6 +83,64 @@ export class SwiftUI extends SwiftUICommon {
 
   updateData(data: Record<string, any>) {
     this.driver?.updateData?.(data);
+  }
+}
+
+// Possible NativeScriptView's by id
+let registeredNativeScriptViews: Map<string, any>;
+// NativeScriptView's by id which have been created and in use
+let createdNativeScriptViews: Map<string, View>;
+// Any custom lifecycle needed for views when paired with flavors
+let customViewLifeCycle: CustomViewLifeCycle;
+export class SwiftUIManager {
+  /**
+   * Register NativeScript Views by id for usage within SwiftUI
+   * @param views map of id to NativeScript View
+   */
+  static registerNativeScriptViews(views: { [key: string]: any }, viewLifeCycle?: CustomViewLifeCycle) {
+    if (!registeredNativeScriptViews) {
+      registeredNativeScriptViews = new Map();
+      // ensure view lifecycle is setup with @nativescript/core factory
+      NativeScriptViewFactory.shared.viewCreator = (id: string) => {
+        // console.log("viewCreator:", id);
+        // Each view is created with a unique instance id, with the registered id as the prefix for easy lookup
+        const registerId = id.split('-')[0];
+        if (registeredNativeScriptViews.has(registerId)) {
+          let view: View;
+          if (customViewLifeCycle) {
+            view = customViewLifeCycle.create(id, registeredNativeScriptViews.get(registerId));
+          } else {
+            c;
+            // TODO: xml view creation fallback
+          }
+
+          if (!createdNativeScriptViews) {
+            createdNativeScriptViews = new Map();
+          }
+          createdNativeScriptViews.set(id, view);
+          NativeScriptViewFactory.shared.views.setObjectForKey(NativeScriptViewHelper.generateNativeView(view, {}), id);
+        }
+      };
+      NativeScriptViewFactory.shared.viewDestroyer = (id: string) => {
+        // console.log("viewDestroyer:", id);
+        const view = createdNativeScriptViews?.get(id);
+        if (view) {
+          if (customViewLifeCycle) {
+            customViewLifeCycle.destroy(id);
+          }
+          NativeScriptViewHelper.disposeView(view);
+          createdNativeScriptViews.delete(id);
+          NativeScriptViewFactory.shared.views.removeObjectForKey(id);
+        }
+      };
+    }
+    if (viewLifeCycle) {
+      customViewLifeCycle = viewLifeCycle;
+    }
+    const entries = Object.entries(views);
+    entries.forEach((entry) => {
+      registeredNativeScriptViews.set(entry[0], entry[1]);
+    });
   }
 }
 

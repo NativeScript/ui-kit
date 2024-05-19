@@ -102,8 +102,8 @@ struct NativeScriptView: View {
     }
     
    init(id: String) {
-       self.id = id
-       view = NativeScriptViewRepresentable(id: id)
+        // Each representable gets a unique instance id
+        view = NativeScriptViewRepresentable(id: id + "-" + UUID().uuidString)
    }
 }
 

@@ -24,3 +24,11 @@ declare class NativeScriptWindowFactory extends NSObject {
 
   removeWindowWithId(id: string): void;
 }
+
+// Provided by @nativescript/core since 8.7
+declare class NativeScriptViewFactory extends NSObject {
+  static shared: NativeScriptViewFactory;
+  views: NSMutableDictionary<string, any>;
+  viewCreator: (id: string) => void;
+  viewDestroyer: (id: string) => void;
+}

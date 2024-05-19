@@ -1,5 +1,12 @@
 import { View, Property } from '@nativescript/core';
 
+export * from './view-helper';
+
+/**
+ * Custom view lifecycle for flavor integrations.
+ */
+export type CustomViewLifeCycle = { create: (id: string, component: any) => View; destroy: (id: string) => void };
+
 export class SwiftUICommon extends View {
   static swiftUIEventEvent = 'swiftUIEvent';
   data: any;
