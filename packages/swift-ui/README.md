@@ -18,6 +18,7 @@ Use SwiftUI with NativeScript.
   - [Open Multiple Scenes](#open-multiple-scenes)
     - [Passing contextual data to scenes](#passing-contextual-data-to-scenes)
     - [Closing windows](#closing-windows)
+  - [Use NativeScriptView inside SwiftUI](#use-nativescriptview-inside-swiftui)
   - [Credits](#credits)
   - [License](#license)
 
@@ -33,6 +34,8 @@ For example, you can add this line to your `App_Resources/iOS/build.xcconfig`:
 ```
 IPHONEOS_DEPLOYMENT_TARGET = 13.0
 ```
+
+> **Note**: If you would like to use `NativeScriptView` inside SwiftUI, you should target 14.0 minimum.
 
 ## Usage
 ![SwiftUI Source Files Example](/packages/swift-ui/swift-ui-source-files-example.png)
@@ -330,6 +333,40 @@ struct NeatView: View {
 
 `XR.endSession()` for an Immersive Space which is already open will close it.
 
+
+## Use NativeScriptView inside SwiftUI
+
+You can also use NativeScript view layouts and components inside SwiftUI when targeting iOS 14.0 minimum.
+
+Add this line to your `App_Resources/iOS/build.xcconfig`:
+
+```
+IPHONEOS_DEPLOYMENT_TARGET = 14.0
+```
+
+You can now register as many NativeScript views by an id for usage:
+
+```ts
+import { SwiftUIManager } from '@nativescript/swift-ui';
+
+SwiftUIManager.registerNativeScriptViews({
+  Video: SceneVideoComponent
+});
+```
+
+This will allow `SceneVideoComponent`, a NativeScript view component, to be used inside any SwiftUI component:
+
+```swift
+struct ContentView: View {
+
+    var body: some View {
+
+        ZStack {
+            NativeScriptView(id: "Video")
+        }
+    }
+}
+```
 
 ## Credits
 

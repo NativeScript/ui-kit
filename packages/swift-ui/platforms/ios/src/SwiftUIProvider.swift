@@ -75,6 +75,7 @@ extension NSDictionary {
     }
 }
 
+@available(iOS 14.0, *)
 struct NativeScriptView: View {
    
     @State var id: String = ""

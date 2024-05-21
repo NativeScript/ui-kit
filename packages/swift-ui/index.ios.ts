@@ -110,7 +110,6 @@ export class SwiftUIManager {
           if (customViewLifeCycle) {
             view = customViewLifeCycle.create(id, registeredNativeScriptViews.get(registerId));
           } else {
-            c;
             // TODO: xml view creation fallback
           }
 
