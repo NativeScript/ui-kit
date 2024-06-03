@@ -63,21 +63,21 @@ struct NativeScriptWindowContext {
 extension NSDictionary {
     var nsToSwiftDictionary: Dictionary<String, Any> {
         var swiftDictionary = Dictionary<String, Any>()
-
+        
         for key : Any in self.allKeys {
             let stringKey = key as! String
             if let keyValue = self.value(forKey: stringKey){
                 swiftDictionary[stringKey] = keyValue
             }
         }
-
+        
         return swiftDictionary
     }
 }
 
 @available(iOS 14.0, *)
 struct NativeScriptView: View {
-   
+    
     @State var id: String = ""
     @State private var updates = 0
     @Environment(\.scenePhase) private var scenePhase
@@ -102,10 +102,10 @@ struct NativeScriptView: View {
         }
     }
     
-   init(id: String) {
+    init(id: String) {
         // Each representable gets a unique instance id
         view = NativeScriptViewRepresentable(id: id + "-" + UUID().uuidString)
-   }
+    }
 }
 
 struct NativeScriptViewRepresentable: UIViewRepresentable {
@@ -114,13 +114,13 @@ struct NativeScriptViewRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
         return NativeScriptViewFactory.shared!.getViewById(id)
     }
-     func updateUIView(_ uiView: UIView, context: Context) {
-//         print("updateUIView \(context)")
-         uiView.tag = updates
+    func updateUIView(_ uiView: UIView, context: Context) {
+        //         print("updateUIView \(context)")
+        uiView.tag = updates
     }
     
     func dispose() {
-//        print("NativeScriptViewRepresentable dispose \(id)")
+        //        print("NativeScriptViewRepresentable dispose \(id)")
         NativeScriptViewFactory.shared!.viewDestroyer!(id)
     }
 }

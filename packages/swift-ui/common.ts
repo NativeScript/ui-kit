@@ -1,4 +1,4 @@
-import { View, Property } from '@nativescript/core';
+import { View, Property, Utils } from '@nativescript/core';
 
 export * from './view-helper';
 
@@ -46,3 +46,78 @@ export interface NativeScriptWindowCommon {
 
   update(props?: any): Promise<void>;
 }
+
+export type SwiftUIComponentModifiers = Array<{ [key: string]: any }>;
+export type BaseSwiftUIComponentProps = {
+  children?: Array<UIView>;
+  modifiers?: SwiftUIComponentModifiers;
+};
+const modifiersProperty = new Property<SwiftUIViewBase, SwiftUIComponentModifiers>({
+  name: 'modifiers',
+});
+
+export class SwiftUIViewBase extends View {
+  provider: UIViewController & any;
+  props: BaseSwiftUIComponentProps & any = {
+    children: [],
+    modifiers: [],
+  };
+
+  constructor() {
+    super();
+    this.initProps();
+  }
+
+  initNativeView() {
+    this.provider.onEvent = (data) => {
+      this.notify({
+        eventName: 'onEvent',
+        data: Utils.dataDeserialize(data),
+      });
+    };
+    this.updateData();
+  }
+
+  initProps(props: any = {}) {
+    this.props = {
+      children: [],
+      modifiers: [],
+      ...props,
+    };
+  }
+  [modifiersProperty.setNative](value: any) {
+    this.props.modifiers = value;
+    this.updateData();
+  }
+  updateModifiers(modifiers: Array<{ [key: string]: any }>, force?: boolean) {
+    if (force) {
+      // just accept as-is, helps when duplicates are desired and order needs to be guaranteed
+      this.props.modifiers = modifiers;
+    } else {
+      for (const modifier of modifiers) {
+        const keys = Object.keys(modifier);
+        for (const key of keys) {
+          const value = modifier[key];
+          const index = this.props.modifiers.findIndex((m) => !!m[key]);
+          if (index > -1) {
+            // update existing modifier
+            this.props.modifiers[index][key] = value;
+            this.props.modifiers = [...this.props.modifiers];
+          } else {
+            const newModifier = {};
+            newModifier[key] = value;
+            // console.log('value:', value);
+            this.props.modifiers.push(newModifier);
+          }
+        }
+      }
+    }
+    this.updateData();
+  }
+
+  updateData() {
+    this.provider.updateDataWithData(this.props);
+  }
+}
+
+modifiersProperty.register(SwiftUIViewBase);
