@@ -2,6 +2,7 @@ import { EventData } from '@nativescript/core';
 import { SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
 
 export * from './common';
+export * from './components';
 
 export declare function registerSwiftUI(id: string, callback: RegistryCallback);
 export declare interface SwiftUIEventData<T> extends EventData {

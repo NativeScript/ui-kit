@@ -2,6 +2,7 @@ import type { ISwiftUIProvider, RegistryCallback } from '.';
 import { dataProperty, SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon, NativeScriptViewHelper, CustomViewLifeCycle } from './common';
 import { Utils, View } from '@nativescript/core';
 export * from './common';
+export * from './components';
 
 let registeredSwiftUIViews: Map<string, RegistryCallback>;
 

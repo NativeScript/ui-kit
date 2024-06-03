@@ -1,5 +1,6 @@
 import { SwiftUICommon, NativeScriptWindowCommon, CustomViewLifeCycle } from './common';
 export * from './common';
+export * from './components';
 
 export function registerSwiftUI() {
   // noop
