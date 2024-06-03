@@ -236,7 +236,9 @@ struct NativeScriptViewModifiers: ViewModifier {
                         }
                     case "fixedSize":
                         if let fixedSize = value as? Bool {
-                            view = AnyView(view.fixedSize())
+                            if (fixedSize) {
+                                view = AnyView(view.fixedSize())
+                            }
                         } else if let fixedSize = value as? [String: Any] {
                             if let horizontal = fixedSize["horizontal"] as? Bool, let vertical = fixedSize["vertical"] as? Bool {
                                 view = AnyView(view.fixedSize(horizontal: horizontal, vertical: vertical))
