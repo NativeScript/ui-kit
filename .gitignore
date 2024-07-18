@@ -52,3 +52,4 @@ tools/assets/App_Resources/Android/src/main/assets/ionicWebStart
 tools/assets/App_Resources/iOS/ionicWebModal
 tools/assets/App_Resources/Android/src/main/assets/ionicWebModal
 .nx/cache
+.nx/workspace-data
