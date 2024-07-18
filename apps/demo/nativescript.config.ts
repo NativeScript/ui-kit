@@ -25,6 +25,20 @@ export default {
         repositoryURL: 'https://github.com/rive-app/rive-ios.git',
         version: '5.10.0',
       },
+      {
+        name: 'SwiftUIWinterCG',
+        libs: ['SwiftUIWinterCG'],
+        path: '/Users/nstudio/Documents/github/NathanWalker/swift-ui-winter-cg',
+      },
+    ],
+  },
+  visionos: {
+    SPMPackages: [
+      {
+        name: 'SwiftUIWinterCG',
+        libs: ['SwiftUIWinterCG'],
+        path: '/Users/nstudio/Documents/github/NathanWalker/swift-ui-winter-cg',
+      },
     ],
   },
 } as NativeScriptConfig;

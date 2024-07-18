@@ -1,4 +1,4 @@
-import { Property, Utils, View, knownFolders, path } from '@nativescript/core';
+import { Property, Utils, knownFolders, path } from '@nativescript/core';
 import { BaseSwiftUIComponentProps, SwiftUIViewBase } from '../../common';
 
 const srcProperty = new Property<Model3D, string>({

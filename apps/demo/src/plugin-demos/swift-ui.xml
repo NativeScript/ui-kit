@@ -1,4 +1,5 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:sw="@nativescript/swift-ui">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page"
+  xmlns:sw="@nativescript/swift-ui">
   <Page.actionBar>
     <ActionBar title="SwiftUI" icon="" class="action-bar">
     </ActionBar>
@@ -11,6 +12,15 @@
     <ContentView margin="8 0 8" backgroundColor="#efefef" width="100%" height="1"></ContentView>
     <Label text="This following is testable from Vision Pro." class="h4" textAlignment="center" marginTop="20" textWrap="true"></Label>
     <Button text="Open Separate Window" tap="{{ openSceneWithOptions }}" class="btn btn-primary"></Button>
-    <sw:Model3D src="https://developer.apple.com/augmented-reality/quick-look/models/stratocaster/fender_stratocaster.usdz" />
+    <visionos>
+      <sw:Model3D src="https://developer.apple.com/augmented-reality/quick-look/models/stratocaster/fender_stratocaster.usdz" />
+    </visionos>
+    <GridLayout class="p-20" rows="auto" columns="*,auto,auto,*">
+      <sw:Text col="1" text="{{ stepperCount }}" fontSize="18" color="black" modifiers="{{ stepperCountModifiers }}" backgroundColor="green" height="150"></sw:Text>
+      <sw:Stepper col="2" swiftUIEvent="{{ swiftUIChange }}" backgroundColor="blue" height="150"></sw:Stepper>
+      <!-- <TextField placeholder="Hi Owen" height="150"></TextField>
+
+  <Shape type="Ellipse" cornerRadius="32" height="100" fill="red"></Shape> -->
+    </GridLayout>
   </StackLayout>
 </Page>

@@ -7,4 +7,20 @@ export function navigatingTo(args: EventData) {
   page.bindingContext = new DemoModel();
 }
 
-export class DemoModel extends DemoSharedSwiftUi {}
+export class DemoModel extends DemoSharedSwiftUi {
+  stepperCount = 1;
+
+  stepperCountModifiers = [
+    { contentTransition: 'numericText' },
+    {
+      animation: {
+        type: 'spring',
+        value: 2,
+      },
+    },
+  ];
+
+  swiftUIChange(args) {
+    console.log('swiftUIEvent:', args?.data?.onValueChange);
+  }
+}

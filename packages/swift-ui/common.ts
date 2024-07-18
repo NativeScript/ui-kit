@@ -70,6 +70,7 @@ export class SwiftUIViewBase extends View {
 
   initNativeView() {
     this.provider.onEvent = (data) => {
+      console.log('onEvent data:', data);
       this.notify({
         eventName: 'onEvent',
         data: Utils.dataDeserialize(data),

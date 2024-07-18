@@ -3,9 +3,9 @@ import SwiftUI
 import SwiftUIWinterCG
 
 @objc
-class Model3DViewProvider: UIViewController, SwiftUIProvider {
-    private var props = Model3DProps()
-    private var swiftUI: Model3DView?
+class ShapeViewProvider: UIViewController, SwiftUIProvider {
+    private var props = ShapeProps()
+    private var swiftUI: ShapeCGView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,20 +29,21 @@ class Model3DViewProvider: UIViewController, SwiftUIProvider {
             let key = k as! String
             let v = data.object(forKey: key)
             if (v != nil) {
-                if (key == "name") {
-                    props.name = v as? String
-                } else if (key == "url") {
-                    props.url = v as? String
-                } else if (key == "depth") {
-                    props.depth = v as! CGFloat
+                if (key == "type") {
+                    props.type = v as! String
+                } else if (key == "cornerRadius") {
+                    props.cornerRadius = v as! CGFloat
+                } else if (key == "cornerRadii") {
+                    props.cornerRadii = v as? NSDictionary
                 } else if (key == "modifiers") {
                     props.modifiers = v as! NSArray
                 }
             }
         }
         
+        
         if (self.swiftUI == nil) {
-            swiftUI = Model3DView(props: props)
+            swiftUI = ShapeCGView(props: props)
             setupSwiftUIView(content: swiftUI)
         } else {
             // engage data binding right away

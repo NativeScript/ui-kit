@@ -4,7 +4,13 @@
     "paths": {
       "~/*": ["src/*"],
       "@demo/shared": ["tools/demo/index.ts"],
-      "@nativescript/*": ["../../dist/packages/*"]
+      "@nativescript/*": ["../../dist/packages/*"],
+      "@nativescript/swift-ui": ["../../packages/swift-ui/index.d.ts"],
+      "@nativescript/flutter": ["../../packages/flutter/index.d.ts"],
+      "@nativescript/ionic-portals": ["../../packages/ionic-portals/index.d.ts"],
+      "@nativescript/jetpack-compose": ["../../packages/jetpack-compose/index.d.ts"],
+      "@nativescript/rive": ["../../packages/rive/index.d.ts"],
+      "@nativescript/ui-charts": ["../../packages/ui-charts/index.d.ts"]
     }
   },
   "files": ["./references.d.ts", "./src/main.ts", "./src/polyfills.ts"],

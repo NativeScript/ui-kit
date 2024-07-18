@@ -2,11 +2,11 @@
   "main": "./src/main.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nativescript/rive": "file:../../dist/packages/rive",
+    "@nativescript/swift-ui": "file:../../dist/packages/swift-ui",
     "@nativescript/flutter": "file:../../dist/packages/flutter",
     "@nativescript/ionic-portals": "file:../../dist/packages/ionic-portals",
     "@nativescript/jetpack-compose": "file:../../dist/packages/jetpack-compose",
-    "@nativescript/swift-ui": "file:../../dist/packages/swift-ui",
+    "@nativescript/rive": "file:../../dist/packages/rive",
     "@nativescript/ui-charts": "file:../../dist/packages/ui-charts"
   },
   "devDependencies": {

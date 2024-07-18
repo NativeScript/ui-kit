@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "**/apps/demo": false,
+    "**/apps/demo-angular": false,
+    "**/packages/flutter": false,
+    "**/packages/ionic-portals": false,
+    "**/packages/jetpack-compose": false,
+    "**/packages/rive": false,
+    "**/packages/swift-ui": false,
+    "**/packages/ui-charts": false
+  },
+  "search.exclude": {
+    "**/apps/demo": false,
+    "**/apps/demo-angular": false,
+    "**/packages/flutter": false,
+    "**/packages/ionic-portals": false,
+    "**/packages/jetpack-compose": false,
+    "**/packages/rive": false,
+    "**/packages/swift-ui": false,
+    "**/packages/ui-charts": false
+  }
+}
