@@ -18,7 +18,7 @@ class ShapeViewProvider: UIViewController, SwiftUIProvider {
     public override func viewDidLoad() {
         super.viewDidLoad()
         props.onEvent = { data in
-            self.onEvent!(data)
+            self.onEvent!(data as NSDictionary)
         }
     }
     
@@ -36,7 +36,7 @@ class ShapeViewProvider: UIViewController, SwiftUIProvider {
                 } else if (key == "cornerRadii") {
                     props.cornerRadii = v as? NSDictionary
                 } else if (key == "modifiers") {
-                    props.modifiers = v as! NSArray
+                    props.modifiers = v as! [[String : Any]]
                 }
             }
         }

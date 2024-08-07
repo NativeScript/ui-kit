@@ -4,10 +4,12 @@ import { SwiftUIViewBase } from '../common';
 
 const textProperty = new Property<TextField, string>({
   name: 'text',
+  valueConverter: (v) => `${v || ''}`,
 });
 
 const placeholderProperty = new Property<TextField, string>({
   name: 'placeholder',
+  valueConverter: (v) => `${v || ''}`,
 });
 
 type TextFieldType = 'textfield' | 'securefield' | 'texteditor';

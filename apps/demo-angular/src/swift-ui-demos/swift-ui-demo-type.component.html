@@ -1,0 +1,48 @@
+<ActionBar [title]="'SwiftUI ' + titleDisplay()" class="action-bar">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+</ActionBar>
+
+@switch (title()) { @case('text') {
+<ListView [items]="textItems" [sections]="textSections" listStyle="insetGrouped">
+  <ng-template let-item="item">
+    <GridLayout class="px-4 py-3 bg-white" marginRight="40">
+      <Text [text]="item.label" [modifiers]="item.modifiers" class="h-[30] h-left text-left"></Text>
+    </GridLayout>
+  </ng-template>
+</ListView>
+} @case('buttons') {
+<ListView [items]="buttonItems" [sections]="buttonSection" listStyle="insetGrouped">
+  <ng-template let-item="item">
+    <GridLayout class="p-2 bg-white h-[80]" columns="*" marginRight="40">
+      <SUIButton [title]="item.buttonTitle" [modifiers]="item.buttonModifiers" (swiftUIEvent)="buttonTap($event)" class="h-[65]">
+        <SUILabel [title]="item.labelTitle" [systemImage]="item.systemImage" class="h-[65]" [modifiers]="item.labelModifiers" [visibility]="item.labelTitle ? 'visible' : 'hidden'"></SUILabel>
+      </SUIButton>
+    </GridLayout>
+  </ng-template>
+</ListView>
+} @case('colors') {
+<ListView [items]="colorItems" [sections]="colorSection" listStyle="insetGrouped">
+  <ng-template let-item="item">
+    <GridLayout class="p-6 bg-white h-[60]" columns="auto,*" marginRight="40">
+      <Color width="25" height="25" [color]="item.color" [modifiers]="item.modifiers" class="ml-2"></Color>
+      <Text col="1" [text]="item.label" class="h-left text-left"></Text>
+    </GridLayout>
+  </ng-template>
+</ListView>
+} @case('controls') {
+<GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*">
+  <Text col="1" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="rounded-l-full bg-gray-200 h-[100] mb-2"></Text>
+  <Stepper col="2" class="rounded-r-full h-center text-center bg-pink-100 h-[100] mb-2" (swiftUIEvent)="demoShared.swiftUIChange($event)"></Stepper>
+  <SUITextField row="1" col="1" placeholder="Hi Owen" class="h-[100]"></SUITextField>
+
+  <Shape row="1" col="2" type="Ellipse" cornerRadius="32" class="h-[100]" fill="red"></Shape>
+</GridLayout>
+} @case('lists') {
+<GridLayout paddingTop="1">
+  <!-- TODO: check safe area overflow, goes under actionbar when enabled so need small padding -->
+  <List [sections]="listSectionsInset" iosOverflowSafeArea="true"></List>
+</GridLayout>
+} @default {
+<GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*"> </GridLayout>
+
+} }

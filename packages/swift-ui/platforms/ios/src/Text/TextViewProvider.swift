@@ -18,7 +18,7 @@ class TextViewProvider: UIViewController, SwiftUIProvider {
     public override func viewDidLoad() {
         super.viewDidLoad()
         props.onEvent = { data in
-            self.onEvent!(data)
+            self.onEvent!(data as NSDictionary)
         }
     }
     
@@ -34,7 +34,7 @@ class TextViewProvider: UIViewController, SwiftUIProvider {
                 } else if (key == "text") {
                     props.text = v as! String
                 } else if (key == "modifiers") {
-                    props.modifiers = v as! NSArray
+                    props.modifiers = v as! [[String : Any]]
                 }
             }
         }

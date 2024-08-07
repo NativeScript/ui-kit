@@ -1,0 +1,12 @@
+<ActionBar title="SwiftUI Components" class="action-bar">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
+</ActionBar>
+
+<ListView [items]="items" [sections]="sections" listStyle="insetGrouped">
+  <ng-template let-item="item">
+    <GridLayout columns="*,auto" [nsRouterLink]="['/swift-ui-demo-type', item.id]" class="px-4 py-3 bg-white" marginRight="40">
+      <Label [text]="item.title" class="text-blue-500"></Label>
+      <Image col="1" class="w-3 h-3" src="sys://chevron.right" tintColor="#9ca3af"></Image>
+    </GridLayout>
+  </ng-template>
+</ListView>

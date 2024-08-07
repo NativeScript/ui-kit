@@ -3,9 +3,9 @@ import SwiftUI
 import SwiftUIWinterCG
 
 @objc
-class ButtonProvider: UIViewController, SwiftUIProvider {
-    private var props = ButtonProps()
-    private var swiftUI: ButtonView?
+class ColorProvider: UIViewController, SwiftUIProvider {
+    private var props = ColorProps()
+    private var swiftUI: ColorView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,19 +29,17 @@ class ButtonProvider: UIViewController, SwiftUIProvider {
             let key = k as! String
             let v = data.object(forKey: key)
             if (v != nil) {
-                if (key == "children") {
-                    props.children = v as? [UIView]
-                } else if (key == "title") {
-                    props.title = v as? String
+                if (key == "color") {
+                    props.color = v as! String
                 } else if (key == "modifiers") {
                     props.modifiers = v as! [[String : Any]]
-                } 
+                }
             }
         }
         
         
         if (self.swiftUI == nil) {
-            swiftUI = ButtonView(props: props)
+            swiftUI = ColorView(props: props)
             setupSwiftUIView(content: swiftUI)
         } else {
             // engage data binding right away

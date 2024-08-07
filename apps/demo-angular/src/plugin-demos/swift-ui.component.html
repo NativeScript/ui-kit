@@ -1,7 +1,16 @@
 <ActionBar title="SwiftUI" class="action-bar"> </ActionBar>
-<StackLayout class="p-20">
-  <SwiftUI swiftId="basicView" [data]="demoShared.nativeCount" (swiftUIEvent)="demoShared.onEvent($event)" (loaded)="demoShared.loadedSwiftUI($event)" height="150"></SwiftUI>
-  <Label row="1" [text]="'NativeScript Label: ' + demoShared.nativeCount.count" class="h2" marginTop="60"></Label>
-  <Button row="2" text="NativeScript data bindings: Decrement" (tap)="demoShared.updateNativeScriptData()" class="btn btn-primary m-t-30"></Button>
-  <Button row="3" text="SwiftUI data bindings: Decrement" (tap)="demoShared.updateSwiftData()" class="btn btn-primary"></Button>
+<StackLayout class="p-6">
+  <SwiftUI swiftId="basicView" [data]="demoShared.nativeCount" (swiftUIEvent)="demoShared.onEvent($event)" (loaded)="demoShared.loadedSwiftUI($event)" height="100"></SwiftUI>
+  <Label [text]="'NativeScript Label: ' + demoShared.nativeCount.count" class="text-center my-2"></Label>
+  <Button text="NativeScript data bindings: Decrement" (tap)="demoShared.updateNativeScriptData()" class="bg-blue-500 rounded-full text-white p-2 my-2"></Button>
+  <Button text="SwiftUI data bindings: Decrement" (tap)="demoShared.updateSwiftData()" class="bg-blue-500 rounded-full text-white p-2 mb-2"></Button>
+
+  <ContentView margin="8 0 8" backgroundColor="#efefef" width="100%" height="1"></ContentView>
+  <Label text="The following is testable on visionOS:" class="h4" textAlignment="center" marginTop="20" textWrap="true"></Label>
+  <Button text="Open Separate Window" (tap)="demoShared.openSceneWithOptions()" class="btn btn-primary"></Button>
+  <visionos>
+    <sw:Model3D src="https://developer.apple.com/augmented-reality/quick-look/models/stratocaster/fender_stratocaster.usdz" />
+  </visionos>
+  <ContentView margin="8 0 8" backgroundColor="#efefef" width="100%" height="1"></ContentView>
+  <Button text="View SwiftUI Components" (tap)="viewComponents()" class="bg-blue-500 rounded-full text-white p-2 my-2"></Button>
 </StackLayout>

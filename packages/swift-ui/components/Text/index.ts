@@ -14,7 +14,7 @@ export class Text extends SwiftUIViewBase {
   }
 
   [textProperty.setNative](value: string) {
-    this.props.text = value;
+    this.props.text = `${Utils.isUndefined(value) ? '' : value}`;
     this.updateData();
   }
 }

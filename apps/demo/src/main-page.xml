@@ -2,15 +2,15 @@
   <Page.actionBar>
     <ActionBar title="Plugin Demos" icon="" class="action-bar"/>
   </Page.actionBar>
-  <StackLayout class="p-20">
+  <StackLayout class="p-6">
     <ScrollView class="h-full">
       <StackLayout>
-        <Button text="flutter" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-        <Button text="ionic-portals" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-        <Button text="jetpack-compose" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-        <Button text="rive" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-        <Button text="swift-ui" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-        <Button text="ui-charts" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="flutter" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
+        <Button text="ionic-portals" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
+        <Button text="jetpack-compose" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
+        <Button text="rive" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
+        <Button text="swift-ui" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
+        <Button text="ui-charts" tap="{{ viewDemo }}" class="bg-blue-500 rounded-full text-white p-4 mb-4"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

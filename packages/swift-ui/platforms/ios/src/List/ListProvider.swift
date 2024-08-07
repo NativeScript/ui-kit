@@ -3,9 +3,9 @@ import SwiftUI
 import SwiftUIWinterCG
 
 @objc
-class ButtonProvider: UIViewController, SwiftUIProvider {
-    private var props = ButtonProps()
-    private var swiftUI: ButtonView?
+class ListProvider: UIViewController, SwiftUIProvider {
+    private var props = ListProps()
+    private var swiftUI: ListView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,8 +31,14 @@ class ButtonProvider: UIViewController, SwiftUIProvider {
             if (v != nil) {
                 if (key == "children") {
                     props.children = v as? [UIView]
-                } else if (key == "title") {
-                    props.title = v as? String
+                } else if (key == "sections") {
+                    let sections = (v as! [[String: Any]]).map { section in
+                        let children = (section["children"] as! [[String: Any]]).map { child in
+                            ListItem(title: child["title"] as! String)
+                        }
+                        return SectionItem(header: section["header"] as? String ?? "", footer: section["footer"] as? String ?? "", children: children)
+                    }
+                    props.sections = sections
                 } else if (key == "modifiers") {
                     props.modifiers = v as! [[String : Any]]
                 } 
@@ -41,7 +47,7 @@ class ButtonProvider: UIViewController, SwiftUIProvider {
         
         
         if (self.swiftUI == nil) {
-            swiftUI = ButtonView(props: props)
+            swiftUI = ListView(props: props)
             setupSwiftUIView(content: swiftUI)
         } else {
             // engage data binding right away

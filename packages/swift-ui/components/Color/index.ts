@@ -1,21 +1,20 @@
 // @ts-nocheck
 import { LayoutBase, Property, Utils, View, ViewBase } from '@nativescript/core';
 import { AutoLayoutView, SwiftUI } from '../..';
-import { SwiftUILayoutBase, SwiftUIViewBase } from '../common';
+import { SwiftUILayoutBase } from '../common';
 
-export const titleProperty = new Property<Button, string>({
-  name: 'title',
-  valueConverter: (v) => `${v || ''}`,
+export const colorProperty = new Property<Color, string>({
+  name: 'color',
 });
 
-export class Button extends SwiftUIViewBase {
+export class Color extends SwiftUILayoutBase {
   provider: UIViewController;
   props = {
     children: [],
   };
 
   createNativeView() {
-    this.provider = ButtonProvider.new();
+    this.provider = ColorProvider.new();
     return this.provider.view;
   }
   initNativeView() {
@@ -28,17 +27,12 @@ export class Button extends SwiftUIViewBase {
     this.updateData();
   }
 
-  _addViewToNativeVisualTree(view: ViewBase, atIndex?: number): boolean {
-    this.props.children.push(view.nativeViewProtected);
-    this.updateData();
-    return true;
-  }
-  [titleProperty.setNative](value: string) {
-    this.props.title = value;
+  [colorProperty.setNative](value: string) {
+    this.props.color = value;
     this.updateData();
   }
   updateData() {
     this.provider.updateDataWithData(this.props);
   }
 }
-titleProperty.register(Button);
+colorProperty.register(Color);

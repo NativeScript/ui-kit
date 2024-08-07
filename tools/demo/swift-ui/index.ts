@@ -3,7 +3,7 @@ import { UIDataDriver, registerSwiftUI, SwiftUI, SwiftUIEventData, WindowManager
 
 declare const BasicViewProvider: any;
 
-registerSwiftUI('basicView', (view) => new UIDataDriver(BasicViewProvider.alloc().init(), view));
+registerSwiftUI('basicView', (view: any) => new UIDataDriver(BasicViewProvider.alloc().init(), view));
 
 interface CountData {
   count: number;
@@ -17,6 +17,34 @@ export class DemoSharedSwiftUi extends DemoSharedBase {
 
   loadedSwiftUI(args) {
     this.swiftui = args.object;
+  }
+
+  stepperCount = 0;
+
+  stepperCountModifiers = [
+    { contentTransition: 'numericText' },
+    {
+      animation: {
+        type: 'spring',
+        value: 0,
+      },
+    },
+  ];
+
+  swiftUIChange(args) {
+    console.log('swiftUIEvent:', args?.data?.onValueChange);
+    this.stepperCount = Number(args?.data?.onValueChange);
+    this.notifyPropertyChange('stepperCount', this.stepperCount);
+    this.stepperCountModifiers = [
+      { contentTransition: 'numericText' },
+      {
+        animation: {
+          type: 'spring',
+          value: this.stepperCount,
+        },
+      },
+    ];
+    this.notifyPropertyChange('stepperCountModifiers', this.stepperCountModifiers);
   }
 
   onEvent(evt: SwiftUIEventData<CountData>) {

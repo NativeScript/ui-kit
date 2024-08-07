@@ -4,8 +4,7 @@
     "paths": {
       "~/*": ["src/*"],
       "@demo/shared": ["tools/demo/index.ts"],
-      "@nativescript/*": ["../../dist/packages/*"],
-      "@nativescript/swift-ui": ["../../packages/swift-ui/index.d.ts"],
+      "@nativescript/swift-ui": ["packages/swift-ui/index.ios.ts"],
       "@nativescript/flutter": ["../../packages/flutter/index.d.ts"],
       "@nativescript/ionic-portals": ["../../packages/ionic-portals/index.d.ts"],
       "@nativescript/jetpack-compose": ["../../packages/jetpack-compose/index.d.ts"],
@@ -14,5 +13,5 @@
     }
   },
   "files": ["./references.d.ts", "./src/main.ts", "./src/polyfills.ts"],
-  "include": ["../../packages/**/references.d.ts"]
+  "include": ["../../packages/**/references.d.ts", "../../packages/swift-ui/**/*.ts"]
 }

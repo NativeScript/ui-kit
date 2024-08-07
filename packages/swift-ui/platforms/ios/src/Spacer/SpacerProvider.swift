@@ -18,7 +18,7 @@ class SpacerProvider: UIViewController, SwiftUIProvider {
     public override func viewDidLoad() {
         super.viewDidLoad()
         props.onEvent = { data in
-            self.onEvent!(data)
+            self.onEvent!(data as NSDictionary)
         }
     }
     

@@ -15,6 +15,7 @@
   "devDependencies": {
     "@nativescript/android": "~8.8.0",
     "@nativescript/ios": "~8.8.0",
-    "@nativescript/visionos": "~8.8.0"
+    "@nativescript/visionos": "~8.8.0",
+    "@nativescript/tailwind": "^2.1.0"
   }
 }

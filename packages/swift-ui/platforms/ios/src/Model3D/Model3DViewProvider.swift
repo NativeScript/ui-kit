@@ -18,7 +18,7 @@ class Model3DViewProvider: UIViewController, SwiftUIProvider {
     public override func viewDidLoad() {
         super.viewDidLoad()
         props.onEvent = { data in
-            self.onEvent!(data)
+            self.onEvent!(data as NSDictionary)
         }
     }
     
@@ -36,7 +36,7 @@ class Model3DViewProvider: UIViewController, SwiftUIProvider {
                 } else if (key == "depth") {
                     props.depth = v as! CGFloat
                 } else if (key == "modifiers") {
-                    props.modifiers = v as! NSArray
+                    props.modifiers = v as! [[String : Any]]
                 }
             }
         }

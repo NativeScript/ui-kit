@@ -1,6 +1,12 @@
-import { View, Property, Utils } from '@nativescript/core';
+import { EventData, View, Property, Utils } from '@nativescript/core';
 
 export * from './view-helper';
+
+export type RegistryCallback = (view: SwiftUICommon) => BaseUIDataDriver<SwiftUICommon>;
+export declare function registerSwiftUI(id: string, callback: RegistryCallback);
+export declare interface SwiftUIEventData<T> extends EventData {
+  data: T;
+}
 
 /**
  * Custom view lifecycle for flavor integrations.
@@ -70,7 +76,6 @@ export class SwiftUIViewBase extends View {
 
   initNativeView() {
     this.provider.onEvent = (data) => {
-      console.log('onEvent data:', data);
       this.notify({
         eventName: 'onEvent',
         data: Utils.dataDeserialize(data),

@@ -1,13 +1,8 @@
-import { EventData } from '@nativescript/core';
-import { SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
+import type { EventData } from '@nativescript/core';
+import type { SwiftUICommon, BaseUIDataDriver, NativeScriptWindowCommon } from './common';
 
 export * from './common';
 export * from './components';
-
-export declare function registerSwiftUI(id: string, callback: RegistryCallback);
-export declare interface SwiftUIEventData<T> extends EventData {
-  data: T;
-}
 
 export declare interface ISwiftUIProvider {
   view: UIView;
@@ -32,8 +27,6 @@ export class UIDataDriver<T extends ISwiftUIProvider, K = unknown, V = unknown> 
   createNativeView(): UIView;
   registerEvents(callback: (data: ReceivedDataType) => void): void;
 }
-
-export type RegistryCallback = (view: SwiftUI) => BaseUIDataDriver<SwiftUI>;
 
 export declare class WindowManager {
   static currentWindows: {

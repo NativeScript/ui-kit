@@ -4,8 +4,8 @@
     <ActionBar title="SwiftUI" icon="" class="action-bar">
     </ActionBar>
   </Page.actionBar>
-  <StackLayout class="p-20">
-    <sw:SwiftUI swiftId="basicView" data="{{ nativeCount }}" swiftUIEvent="{{ onEvent }}" loaded="{{ loadedSwiftUI }}" height="150"></sw:SwiftUI>
+  <StackLayout class="p-2">
+    <sw:SwiftUI swiftId="basicView" data="{{ nativeCount }}" swiftUIEvent="{{ onEvent }}" loaded="{{ loadedSwiftUI }}" height="100"></sw:SwiftUI>
     <Label text="{{ 'NativeScript Label: ' + nativeCount.count }}" class="h2" marginTop="60"></Label>
     <Button text="NativeScript data bindings: Decrement" tap="{{ updateNativeScriptData }}" class="btn btn-primary m-t-30"></Button>
     <Button text="SwiftUI data bindings: Decrement" tap="{{ updateSwiftData }}" class="btn btn-primary"></Button>
@@ -15,9 +15,9 @@
     <visionos>
       <sw:Model3D src="https://developer.apple.com/augmented-reality/quick-look/models/stratocaster/fender_stratocaster.usdz" />
     </visionos>
-    <GridLayout class="p-20" rows="auto" columns="*,auto,auto,*">
-      <sw:Text col="1" text="{{ stepperCount }}" fontSize="18" color="black" modifiers="{{ stepperCountModifiers }}" backgroundColor="green" height="150"></sw:Text>
-      <sw:Stepper col="2" swiftUIEvent="{{ swiftUIChange }}" backgroundColor="blue" height="150"></sw:Stepper>
+    <GridLayout class="p-20" rows="auto" columns="*,120,120,*">
+      <sw:Text col="1" text="{{ stepperCount }}" fontSize="18" fontWeight="bold" color="white" modifiers="{{ stepperCountModifiers }}" backgroundColor="green" height="150" class="rounded-l-full"></sw:Text>
+      <sw:Stepper col="2" swiftUIEvent="{{ swiftUIChange }}" backgroundColor="pink" height="150" class="rounded-r-full"></sw:Stepper>
       <!-- <TextField placeholder="Hi Owen" height="150"></TextField>
 
   <Shape type="Ellipse" cornerRadius="32" height="100" fill="red"></Shape> -->
