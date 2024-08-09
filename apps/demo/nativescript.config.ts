@@ -23,7 +23,7 @@ export default {
         name: 'RiveRuntime',
         libs: ['RiveRuntime'],
         repositoryURL: 'https://github.com/rive-app/rive-ios.git',
-        version: '5.10.0',
+        version: '6.0.0',
       },
       {
         name: 'SwiftUIWinterCG',

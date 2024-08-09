@@ -1,8 +1,24 @@
 import { DemoSharedBase } from '../utils';
-import { JetpackComposeEventData } from '@nativescript/jetpack-compose';
+import { ComposeDataDriver, JetpackComposeEventData, registerJetpackCompose } from '@nativescript/jetpack-compose';
 import { PropertyChangeData } from '@nativescript/core';
 
+declare var com;
+
+/**
+ * Comment/Uncomment various examples to try them out
+ */
+// const example = 'basic';
+// registerJetpackCompose('jetpackCompose', (view) => new ComposeDataDriver(new com.example.BasicView(), view));
+// const example = 'colorpicker';
+// registerJetpackCompose('jetpackCompose', (view) => new ComposeDataDriver(new com.example.ColorPicker(), view));
+const example = 'hearts';
+if (__ANDROID__) {
+  // @ts-ignore
+  registerJetpackCompose('jetpackCompose', (view) => new ComposeDataDriver(new com.example.FlyingHearts(), view));
+}
+
 export class DemoSharedJetpackCompose extends DemoSharedBase {
+  activeExample = example;
   text = '';
 
   backgroundColor = 'white';

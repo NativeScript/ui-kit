@@ -1,4 +1,8 @@
-import { Observable, Property, View } from '@nativescript/core';
+import { EventData, Observable, Property, View } from '@nativescript/core';
+
+export interface JetpackComposeEventData<T> extends EventData {
+  data: T;
+}
 
 export enum JetpackComposeEvents {
   composeEvent = 'composeEvent',

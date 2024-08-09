@@ -1,0 +1,14 @@
+<ActionBar title="rive" [backgroundColor]="backgroundColor"> </ActionBar>
+
+<GridLayout rows="*,*" [backgroundColor]="backgroundColor">
+  <RiveView [src]="filename" [artboard]="artboard" [stateMachine]="stateMachine" input="{{ input }}" [inputValue]="inputValue" autoPlay="true" (onStateChanged)="onStateChanged($event)" (loaded)="loadedPlayer($event)" loop="0" class="w-full h-full" iosOverflowSafeArea="true" [scaleX]="scaleX" [scaleY]="scaleY"></RiveView>
+
+  <StackLayout row="1" class="p-2 w-full" horizontalAlignment="center" iosOverflowSafeArea="false">
+    @for (item of inputs; track $index) {
+    <GridLayout row="60" columns="*,auto" padding="10" class="w-full" height="60">
+      <Label [text]="item.name" class="c-white"></Label>
+      <Switch col="1" [id]="item.name" [checked]="item.value" (checkedChange)="inputChanged($event)"></Switch>
+    </GridLayout>
+    }
+  </StackLayout>
+</GridLayout>

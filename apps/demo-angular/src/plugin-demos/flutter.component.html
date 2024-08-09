@@ -1,8 +1,10 @@
-<ActionBar title="flutter" class="action-bar"> </ActionBar>
-<StackLayout class="p-20">
-  <ScrollView class="h-full">
-    <StackLayout>
-      <Button text="Test flutter" (tap)="demoShared.testIt()" class="btn btn-primary"></Button>
-    </StackLayout>
-  </ScrollView>
-</StackLayout>
+<ActionBar title="NativeScript + Flutter" class="action-bar"> </ActionBar>
+<GridLayout rows="auto,*,50" class="p-4">
+  <Button row="0" text="Make Flutter Jump" (tap)="demoShared.testIt()" class="bg-orange-400 mb-4 rounded-full p-2 text-white"></Button>
+
+  <Flutter row="1" id="myFlutterView" [channel]="demoShared.channel" (loaded)="demoShared.loadedFlutter($event)" ios:borderRadius="30" borderColor="#efefef" borderWidth="1"></Flutter>
+
+  <GridLayout row="1" class="bg-blue-300 w-[200] h-[100] align-bottom rounded-lg mb-2" (tap)="makeMeRed($event)">
+    <Label text="{N} above Flutter, tap me" class="text-white text-sm text-center"></Label>
+  </GridLayout>
+</GridLayout>

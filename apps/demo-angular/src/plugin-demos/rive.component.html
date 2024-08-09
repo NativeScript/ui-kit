@@ -1,8 +1,13 @@
 <ActionBar title="rive" class="action-bar"> </ActionBar>
-<StackLayout class="p-20">
-  <ScrollView class="h-full">
-    <StackLayout>
-      <Button text="Test rive" (tap)="demoShared.testIt()" class="btn btn-primary"></Button>
-    </StackLayout>
-  </ScrollView>
-</StackLayout>
+
+<ScrollView>
+  <StackLayout class="p-2 bg-black">
+    <Button text="Button" id="button" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Compass" id="compass" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Cart" id="folder" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Vehicles" id="https://cdn.rive.app/animations/vehicles.riv" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Sith de Mayo" id="sith-de-mayo" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Timer" id="timer-ios" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+    <Button text="Heart Like" id="heart-like" (tap)="demoShared.viewExample($event)" class="text-lg mt-2 text-white"></Button>
+  </StackLayout>
+</ScrollView>

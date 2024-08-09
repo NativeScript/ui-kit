@@ -1,10 +1,5 @@
-import { EventData } from '@nativescript/core';
-import { BaseComposeDataDriver, JetpackComposeCommon } from './common';
+import { BaseComposeDataDriver, JetpackComposeCommon, JetpackComposeEventData } from './common';
 export * from './common';
-
-export declare interface JetpackComposeEventData<T> extends EventData {
-  data: T;
-}
 
 export declare interface IJetpackComposeProvider {
   generateComposeView(composeView: androidx.compose.ui.platform.ComposeView): void;

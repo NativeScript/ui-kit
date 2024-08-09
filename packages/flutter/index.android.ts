@@ -1,5 +1,6 @@
 import { Utils } from '@nativescript/core';
 import { FlutterCommon, IFlutterMessage } from './common';
+export { FlutterChannelType } from './common';
 
 function makeFragmentName(viewId: number): string {
   return 'android:flutter:' + viewId;

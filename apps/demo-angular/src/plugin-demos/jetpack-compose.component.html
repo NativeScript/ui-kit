@@ -1,8 +1,14 @@
 <ActionBar title="jetpack-compose" class="action-bar"> </ActionBar>
-<StackLayout class="p-20">
-  <ScrollView class="h-full">
-    <StackLayout>
-      <Button text="Test jetpack-compose" class="btn btn-primary"></Button>
-    </StackLayout>
-  </ScrollView>
+<StackLayout [backgroundColor]="demoShared.backgroundColor">
+  <GridLayout class="p-20" height="100">
+    <Label text="The following view is Jetpack Compose inside a NativeScript layout:" textWrap="true" class="text-center t-15 c-black"></Label>
+  </GridLayout>
+  <StackLayout [backgroundColor]="demoShared.activeExample === 'hearts' ? '#fff' : demoShared.backgroundColor">
+    <JetpackCompose composeId="jetpackCompose" (composeEvent)="demoShared.onEvent($event)" [data]="demoShared.text"></JetpackCompose>
+  </StackLayout>
+  <StackLayout class="p-20" height="120" [visibility]="demoShared.activeExample === 'hearts' ? 'collapsed' : 'visible'">
+    <Label text="This is NativeScript again." class="text-center c-black" textWrap="true"></Label>
+    <Label text="Typing in the {N} TextView below instantaneously updates data bindings to the Compose view above." class="text-center c-black" textWrap="true"></Label>
+  </StackLayout>
+  <TextView (textChange)="demoShared.onTextChange($event)" [text]="demoShared.text" textWrap="true" [visibility]="demoShared.activeExample === 'hearts' ? 'collapsed' : 'visible'" />
 </StackLayout>

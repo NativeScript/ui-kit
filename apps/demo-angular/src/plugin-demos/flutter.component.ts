@@ -1,6 +1,10 @@
 import { Component, NgZone } from '@angular/core';
 import { DemoSharedFlutter } from '@demo/shared';
-import {} from '@nativescript/flutter';
+import { registerElement } from '@nativescript/angular';
+import { Color } from '@nativescript/core';
+import { Flutter } from '@nativescript/flutter';
+
+registerElement('Flutter', () => Flutter);
 
 @Component({
   selector: 'demo-flutter',
@@ -13,5 +17,9 @@ export class FlutterComponent {
 
   ngOnInit() {
     this.demoShared = new DemoSharedFlutter();
+  }
+
+  makeMeRed(args) {
+    args.object.backgroundColor = new Color('red');
   }
 }

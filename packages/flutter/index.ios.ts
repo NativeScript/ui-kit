@@ -1,6 +1,8 @@
 import { Application, Utils, ViewBase } from '@nativescript/core';
 import { FlutterCommon, IFlutterMessage } from './common';
 
+export { FlutterChannelType } from './common';
+
 let flutterEngineGroup: FlutterEngineGroup;
 
 @NativeClass()
