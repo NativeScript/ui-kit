@@ -2,7 +2,7 @@
   <NavigationButton text="Back" android.systemIcon="ic_menu_back"></NavigationButton>
 </ActionBar>
 
-@switch (title()) { @case('text') {
+@switch (title()) { @case ('text') {
 <ListView [items]="textItems" [sections]="textSections" listStyle="insetGrouped">
   <ng-template let-item="item">
     <GridLayout class="px-4 py-3 bg-white" marginRight="40">
@@ -10,7 +10,7 @@
     </GridLayout>
   </ng-template>
 </ListView>
-} @case('buttons') {
+} @case ('buttons') {
 <ListView [items]="buttonItems" [sections]="buttonSection" listStyle="insetGrouped">
   <ng-template let-item="item">
     <GridLayout class="p-2 bg-white h-[80]" columns="*" marginRight="40">
@@ -20,7 +20,7 @@
     </GridLayout>
   </ng-template>
 </ListView>
-} @case('colors') {
+} @case ('colors') {
 <ListView [items]="colorItems" [sections]="colorSection" listStyle="insetGrouped">
   <ng-template let-item="item">
     <GridLayout class="p-6 bg-white h-[60]" columns="auto,*" marginRight="40">
@@ -29,7 +29,7 @@
     </GridLayout>
   </ng-template>
 </ListView>
-} @case('controls') {
+} @case ('controls') {
 <GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*">
   <Text col="1" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="rounded-l-full bg-gray-200 h-[100] mb-2"></Text>
   <Stepper col="2" class="rounded-r-full h-center text-center bg-pink-100 h-[100] mb-2" (swiftUIEvent)="demoShared.swiftUIChange($event)"></Stepper>
@@ -37,12 +37,20 @@
 
   <Shape row="1" col="2" type="Ellipse" cornerRadius="32" class="h-[100]" fill="red"></Shape>
 </GridLayout>
-} @case('lists') {
+} @case ('lists') {
 <GridLayout paddingTop="1">
   <!-- TODO: check safe area overflow, goes under actionbar when enabled so need small padding -->
   <List [sections]="listSectionsInset" iosOverflowSafeArea="true"></List>
 </GridLayout>
+} @case ('shapes') {
+<ListView [items]="shapeItems" [sections]="shapeSection" listStyle="insetGrouped">
+  <ng-template let-item="item">
+    <GridLayout class="p-6 bg-white h-[80]" columns="*,auto" marginRight="40">
+      <Label [text]="item.label" class="text-left"></Label>
+      <Shape col="1" width="50" height="50" class="h-right text-right" [type]="item.type" [fill]="item.fill" [stroke]="item.stroke" [cornerRadius]="item.cornerRadius || 0" [cornerRadii]="item.cornerRadii" [frame]="item.frame"></Shape>
+    </GridLayout>
+  </ng-template>
+</ListView>
 } @default {
 <GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*"> </GridLayout>
-
 } }

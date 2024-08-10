@@ -1,31 +1,15 @@
-// @ts-nocheck
-import { ContentView, GridLayout, LayoutBase, Property, Utils, View, ViewBase } from '@nativescript/core';
-import { AutoLayoutView, SwiftUI } from '../..';
-import { BaseSwiftUIComponentProps, SwiftUIViewBase } from '../../common';
+import { Property } from '@nativescript/core';
+import { SwiftUIViewBase } from '../common';
 
 const sectionsProperty = new Property<List, Array<any>>({
   name: 'sections',
 });
 
 export class List extends SwiftUIViewBase {
-  provider: UIViewController;
-  props = {
-    sections: [],
-    children: [],
-  };
-
   createNativeView() {
+    // @ts-expect-error
     this.provider = ListProvider.new();
     return this.provider.view;
-  }
-  initNativeView() {
-    this.provider.onEvent = (data) => {
-      this.notify({
-        eventName: SwiftUI.swiftUIEventEvent,
-        data: Utils.dataDeserialize(data),
-      });
-    };
-    this.updateData();
   }
 
   // addChild(view: View): void {
@@ -46,10 +30,6 @@ export class List extends SwiftUIViewBase {
   [sectionsProperty.setNative](value: any) {
     this.props.sections = value;
     this.updateData();
-  }
-
-  updateData() {
-    this.provider.updateDataWithData(this.props);
   }
 }
 

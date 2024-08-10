@@ -1,5 +1,5 @@
 import { Property, Utils, knownFolders, path } from '@nativescript/core';
-import { BaseSwiftUIComponentProps, SwiftUIViewBase } from '../../common';
+import { SwiftUIViewBase } from '../common';
 
 const srcProperty = new Property<Model3D, string>({
   name: 'src',
@@ -7,6 +7,7 @@ const srcProperty = new Property<Model3D, string>({
 
 const depthProperty = new Property<Model3D, number>({
   name: 'depth',
+  defaultValue: 200,
   valueConverter: (value) => Number(value),
 });
 
@@ -27,20 +28,6 @@ export class Model3D extends SwiftUIViewBase {
   depth: number;
   dragRotation: DragRotationType;
   accessibilitySortPriority: number;
-  props: {
-    name: string | null;
-    url: string | null;
-    depth: number;
-  } & BaseSwiftUIComponentProps;
-
-  constructor() {
-    super();
-    this.initProps({
-      name: null,
-      url: null,
-      depth: 200,
-    });
-  }
 
   createNativeView() {
     // @ts-expect-error
@@ -71,18 +58,14 @@ export class Model3D extends SwiftUIViewBase {
     this.updateData();
   }
   [dragRotationModifier.setNative](value: DragRotationType) {
-    this.updateModifiers([
-      {
-        dragRotation: value,
-      },
-    ]);
+    if (value) {
+      this.updateModifier('dragRotation', value);
+    }
   }
   [accessibilitySortPriorityModifier.setNative](value: number) {
-    this.updateModifiers([
-      {
-        accessibilitySortPriority: value,
-      },
-    ]);
+    if (value) {
+      this.updateModifier('accessibilitySortPriority', value);
+    }
   }
 }
 

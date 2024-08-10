@@ -12,9 +12,23 @@ const fillProperty = new Property<Shape, string>({
   name: 'fill',
 });
 
+const strokeProperty = new Property<Shape, { color: string; lineWidth: number }>({
+  name: 'stroke',
+});
+
 const cornerRadiusProperty = new Property<Shape, number>({
   name: 'cornerRadius',
   valueConverter: (value) => Number(value),
+});
+
+type CornerRadii = {
+  topLeading?: number;
+  topTrailing?: number;
+  bottomLeading?: number;
+  bottomTrailing?: number;
+};
+const cornerRadiiProperty = new Property<Shape, CornerRadii>({
+  name: 'cornerRadii',
 });
 
 export class Shape extends SwiftUIViewBase {
@@ -31,25 +45,24 @@ export class Shape extends SwiftUIViewBase {
     this.props.cornerRadius = value;
     this.updateData();
   }
-  [fillProperty.setNative](value: string) {
-    if (!this.props.modifiers) {
-      this.props.modifiers = [];
-    }
-    const index = this.props.modifiers.findIndex((m) => !!m.fill);
-    if (index > -1) {
-      this.props.modifiers[index].fill = value;
-      this.props.modifiers = [...this.props.modifiers];
-    } else {
-      this.props.modifiers = [
-        {
-          fill: value,
-        },
-      ];
-    }
+  [cornerRadiiProperty.setNative](value: number) {
+    this.props.cornerRadii = value;
     this.updateData();
+  }
+  [strokeProperty.setNative](value: any) {
+    if (value) {
+      this.updateModifier('stroke', value);
+    }
+  }
+  [fillProperty.setNative](value: string) {
+    if (value) {
+      this.updateModifier('fill', value);
+    }
   }
 }
 
 typeProperty.register(Shape);
 cornerRadiusProperty.register(Shape);
 fillProperty.register(Shape);
+strokeProperty.register(Shape);
+cornerRadiiProperty.register(Shape);

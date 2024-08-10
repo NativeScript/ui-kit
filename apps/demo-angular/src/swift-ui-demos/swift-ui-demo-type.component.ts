@@ -278,6 +278,66 @@ export class SwiftUiDemoTypeComponent {
       buttonModifiers: [{ padding: 8 }],
     },
   ];
+  shapeSection = [
+    {
+      header: 'Shapes',
+    },
+  ];
+  shapeItems = [
+    {
+      type: 'Rectangle',
+      label: 'Rectangle',
+      fill: 'pink',
+    },
+    {
+      type: 'RoundedRectangle',
+      label: 'Rounded Rectangle',
+      fill: 'blue',
+      cornerRadius: 10,
+    },
+    {
+      type: 'Circle',
+      label: 'Circle',
+      fill: 'yellow',
+      stroke: {
+        color: 'orange',
+        lineWidth: 5,
+      },
+    },
+    {
+      type: 'Capsule',
+      label: 'Capsule',
+      fill: 'indigo',
+      frame: {
+        width: 50,
+        height: 30,
+      },
+    },
+    {
+      type: 'Ellipse',
+      label: 'Ellipse',
+      fill: 'mint',
+      frame: {
+        width: 50,
+        height: 30,
+      },
+    },
+    {
+      type: 'UnevenRoundedRectangle',
+      label: 'Uneven Rounded Rectangle',
+      fill: 'green',
+      cornerRadii: {
+        topLeading: 10,
+        topTrailing: 20,
+        bottomLeading: 5,
+        bottomTrailing: 0,
+      },
+      frame: {
+        width: 30,
+        height: 30,
+      },
+    },
+  ];
 
   constructor() {
     this.activeRoute.params.pipe(takeUntilDestroyed()).subscribe((params) => {
