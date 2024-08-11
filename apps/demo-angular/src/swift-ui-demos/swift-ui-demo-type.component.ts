@@ -338,12 +338,48 @@ export class SwiftUiDemoTypeComponent {
       },
     },
   ];
+  progressSection = [
+    {
+      header: 'Progress',
+    },
+  ];
+  progressItems: Array<{ label?: string; value?: number; total?: number; tint?: string }> = [
+    {
+      label: 'Linear',
+      value: Math.floor(Math.random() * 20) + 1,
+      total: 100,
+    },
+    {
+      label: 'Indeterminate',
+      tint: 'blue',
+    },
+  ];
+  progressTimeout: NodeJS.Timeout;
 
   constructor() {
     this.activeRoute.params.pipe(takeUntilDestroyed()).subscribe((params) => {
       console.log('params:', params);
       if (params.id) {
         this.title.set(params.id);
+      }
+      if (params.id === 'progress') {
+        this.progressTimeout = setInterval(() => {
+          this.progressItems = [
+            {
+              ...this.progressItems[0],
+              value: Math.floor(Math.random() * 90) + 1,
+            },
+            {
+              ...this.progressItems[1],
+            },
+          ];
+        }, 1000);
+      }
+    });
+    this.page.on('navigatingFrom', () => {
+      if (typeof this.progressTimeout === 'number') {
+        clearTimeout(this.progressTimeout);
+        this.progressTimeout = null;
       }
     });
     this.page.on('loaded', (args) => {

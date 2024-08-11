@@ -1,6 +1,5 @@
-// @ts-nocheck
-import { LayoutBase, Property, Utils, View } from '@nativescript/core';
-import { AutoLayoutView, SwiftUI } from '../..';
+import { Property } from '@nativescript/core';
+import { SwiftUIViewBase } from '../common';
 
 const isOnProperty = new Property<Toggle, boolean>({
   name: 'isOn',
@@ -10,48 +9,29 @@ const labelProperty = new Property<Toggle, string>({
   name: 'label',
 });
 
-const modifiersProperty = new Property<Toggle, string>({
-  name: 'modifiers',
+type ToggleStyle = 'button' | 'switch';
+const toggleStyleProperty = new Property<Toggle, ToggleStyle>({
+  name: 'toggleStyle',
 });
 
-export class Toggle extends View {
-  provider: UIViewController;
-  props = {
-    children: [],
-  };
-
+export class Toggle extends SwiftUIViewBase {
   createNativeView() {
+    // @ts-expect-error
     this.provider = ToggleViewProvider.new();
     return this.provider.view;
   }
-  initNativeView() {
-    this.provider.onEvent = (data) => {
-      this.notify({
-        eventName: SwiftUI.swiftUIEventEvent,
-        data: Utils.dataDeserialize(data),
-      });
-    };
-    this.updateData();
-  }
 
-  [modifiersProperty.setNative](value: any) {
-    this.props.modifiers = value;
-    this.updateData();
-  }
-  [isOnProperty.setNative](value: string) {
-    this.props.isOn = value;
-    this.updateData();
+  [isOnProperty.setNative](value: boolean) {
+    this.updateData(isOnProperty.name, value);
   }
   [labelProperty.setNative](value: string) {
-    this.props.label = value;
-    this.updateData();
+    this.updateData(labelProperty.name, value);
   }
-
-  updateData() {
-    this.provider.updateDataWithData(this.props);
+  [toggleStyleProperty.setNative](value: ToggleStyle) {
+    this.updateData(toggleStyleProperty.name, value);
   }
 }
 
-modifiersProperty.register(Toggle);
 isOnProperty.register(Toggle);
 labelProperty.register(Toggle);
+toggleStyleProperty.register(Toggle);

@@ -54,17 +54,16 @@ export class Model3D extends SwiftUIViewBase {
     }
   }
   [depthProperty.setNative](value: number) {
-    this.props.depth = value;
-    this.updateData();
+    this.updateData(depthProperty.name, value);
   }
   [dragRotationModifier.setNative](value: DragRotationType) {
     if (value) {
-      this.updateModifier('dragRotation', value);
+      this.updateModifier(dragRotationModifier.name, value);
     }
   }
   [accessibilitySortPriorityModifier.setNative](value: number) {
     if (value) {
-      this.updateModifier('accessibilitySortPriority', value);
+      this.updateModifier(accessibilitySortPriorityModifier.name, value);
     }
   }
 }

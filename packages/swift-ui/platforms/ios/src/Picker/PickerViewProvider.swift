@@ -3,9 +3,9 @@ import SwiftUI
 import SwiftUIWinterCG
 
 @objc
-class ToggleViewProvider: UIViewController, SwiftUIProvider {
-    private var props = ToggleProps()
-    private var swiftUI: ToggleView?
+class PickerViewProvider: UIViewController, SwiftUIProvider {
+    private var props = PickerProps()
+    private var swiftUI: PickerView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,19 +29,19 @@ class ToggleViewProvider: UIViewController, SwiftUIProvider {
             let key = k as! String
             let v = data.object(forKey: key)
             if (v != nil) {
-                if (key == "isOn") {
-                    props.isOn = v as! Bool
-                } else if (key == "label") {
-                    props.label = v as? String
-                } else if (key == "toggleStyle") {
-                    props.toggleStyle = v as! String
+                if (key == "selection") {
+                    props.selection = v as! String
+                } else if (key == "options") {
+                    props.options = v as! [String]
+                } else if (key == "modifiers") {
+                    props.modifiers = v as! [[String : Any]]
                 }
             }
         }
         
         
         if (self.swiftUI == nil) {
-            swiftUI = ToggleView(props: props)
+            swiftUI = PickerView(props: props)
             setupSwiftUIView(content: swiftUI)
         } else {
             // engage data binding right away

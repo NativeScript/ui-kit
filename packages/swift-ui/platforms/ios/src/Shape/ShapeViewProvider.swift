@@ -32,7 +32,7 @@ class ShapeViewProvider: UIViewController, SwiftUIProvider {
                 if (key == "type") {
                     props.type = v as! String
                 } else if (key == "cornerRadius") {
-                    props.cornerRadius = v as! CGFloat
+                    props.cornerRadius = v as! Double
                 } else if (key == "cornerRadii") {
                     props.cornerRadii = v as? NSDictionary
                 } else if (key == "modifiers") {

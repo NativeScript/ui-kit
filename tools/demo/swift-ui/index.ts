@@ -9,6 +9,8 @@ interface CountData {
   count: number;
 }
 
+type ListOptionType = 'plain' | 'grouped' | 'insetGrouped' | 'inset';
+
 export class DemoSharedSwiftUi extends DemoSharedBase {
   swiftui: SwiftUI;
   nativeCount = {
@@ -31,7 +33,7 @@ export class DemoSharedSwiftUi extends DemoSharedBase {
     },
   ];
 
-  swiftUIChange(args) {
+  stepperChange(args) {
     console.log('swiftUIEvent:', args?.data?.onValueChange);
     this.stepperCount = Number(args?.data?.onValueChange);
     this.notifyPropertyChange('stepperCount', this.stepperCount);
@@ -45,6 +47,26 @@ export class DemoSharedSwiftUi extends DemoSharedBase {
       },
     ];
     this.notifyPropertyChange('stepperCountModifiers', this.stepperCountModifiers);
+  }
+
+  sliderValue = 3;
+  sliderChange(args) {
+    console.log('sliderChange:', args?.data?.onValueChange);
+    this.sliderValue = args?.data?.onValueChange;
+  }
+
+  toggleValue = false;
+  toggleChange(args) {
+    console.log('toggleChange:', args?.data?.onValueChange);
+    this.toggleValue = args?.data?.onValueChange;
+  }
+
+  listSelectionType: ListOptionType = 'insetGrouped';
+  listTypeOptions: Array<ListOptionType> = ['plain', 'grouped', 'insetGrouped', 'inset'];
+  listStyleChange(args) {
+    console.log('listStyleChange:', args?.data?.onValueChange);
+    // this.listSelectionType = this.listTypeOptions[args?.data?.onValueChange]
+    this.listSelectionType = args?.data?.onValueChange;
   }
 
   onEvent(evt: SwiftUIEventData<CountData>) {

@@ -1,13 +1,9 @@
 import { Component, inject, NgZone } from '@angular/core';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { registerElement, RouterExtensions } from '@nativescript/angular';
-import { SwiftUI, Text, Stepper, TextField, Shape } from '@nativescript/swift-ui';
+import { SwiftUI } from '@nativescript/swift-ui';
 
 registerElement('SwiftUI', () => SwiftUI);
-registerElement('Text', () => Text);
-registerElement('SUITextField', () => TextField);
-registerElement('Shape', () => Shape);
-registerElement('Stepper', () => Stepper);
 
 @Component({
   selector: 'demo-swift-ui',

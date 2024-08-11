@@ -38,25 +38,22 @@ export class Shape extends SwiftUIViewBase {
   }
 
   [typeProperty.setNative](value: ShapeType) {
-    this.props.type = value;
-    this.updateData();
+    this.updateData(typeProperty.name, value);
   }
   [cornerRadiusProperty.setNative](value: number) {
-    this.props.cornerRadius = value;
-    this.updateData();
+    this.updateData(cornerRadiusProperty.name, value);
   }
   [cornerRadiiProperty.setNative](value: number) {
-    this.props.cornerRadii = value;
-    this.updateData();
+    this.updateData(cornerRadiiProperty.name, value);
   }
   [strokeProperty.setNative](value: any) {
     if (value) {
-      this.updateModifier('stroke', value);
+      this.updateModifier(strokeProperty.name, value);
     }
   }
   [fillProperty.setNative](value: string) {
     if (value) {
-      this.updateModifier('fill', value);
+      this.updateModifier(fillProperty.name, value);
     }
   }
 }

@@ -24,17 +24,13 @@ export class TextField extends SwiftUIViewBase {
   }
 
   [textProperty.setNative](value: string) {
-    this.props.text = value;
-    this.updateData();
+    this.updateData(textProperty.name, value);
   }
   [placeholderProperty.setNative](value: string) {
-    this.props.placeholder = value;
-    this.updateData();
+    this.updateData(placeholderProperty.name, value);
   }
   [typeProperty.setNative](value: TextFieldType) {
-    // console.log('typeProperty.setNative:', value);
-    this.props.type = value;
-    this.updateData();
+    this.updateData(typeProperty.name, value);
   }
 }
 

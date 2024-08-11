@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Page } from '@nativescript/core';
-import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color } from '@nativescript/swift-ui';
+import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker } from '@nativescript/swift-ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListViewCustom } from './list-view-custom';
 
@@ -12,10 +12,14 @@ registerElement('Color', () => Color);
 registerElement('SUIButton', () => Button);
 registerElement('SUILabel', () => Label);
 registerElement('List', () => List);
-registerElement('Text', () => Text);
+registerElement('Picker', () => Picker);
+registerElement('Progress', () => Progress);
 registerElement('SUITextField', () => TextField);
 registerElement('Shape', () => Shape);
+registerElement('SUISlider', () => Slider);
 registerElement('Stepper', () => Stepper);
+registerElement('Text', () => Text);
+registerElement('Toggle', () => Toggle);
 
 registerElement('ListView', () => ListViewCustom);
 

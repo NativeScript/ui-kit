@@ -18,12 +18,10 @@ export class Label extends SwiftUIViewBase {
   }
 
   [titleProperty.setNative](value: string) {
-    this.props.title = value;
-    this.updateData();
+    this.updateData(titleProperty.name, value);
   }
   [systemImageProperty.setNative](value: string) {
-    this.props.systemImage = value;
-    this.updateData();
+    this.updateData(systemImageProperty.name, value);
   }
 }
 

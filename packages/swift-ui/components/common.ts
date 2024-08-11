@@ -1,5 +1,5 @@
-import { LayoutBase, Property, Utils, View } from '@nativescript/core';
-import { SwiftUI } from '..';
+import { LayoutBase, Property, Utils, View, ViewBase } from '@nativescript/core';
+import { AutoLayoutView, SwiftUI } from '..';
 
 export class SwiftUIBase extends View {}
 
@@ -10,6 +10,11 @@ const modifiersProperty = new Property<SwiftUIViewBase, string>({
 type FrameModifier = { width: number; height: number };
 const frameProperty = new Property<SwiftUIViewBase, FrameModifier>({
   name: 'frame',
+});
+
+type EnvironmentType = { colorScheme: 'dark' | 'light' };
+const environmentProperty = new Property<SwiftUIViewBase, EnvironmentType>({
+  name: 'environment',
 });
 
 export class SwiftUIViewBase extends View {
@@ -28,7 +33,12 @@ export class SwiftUIViewBase extends View {
   }
   [frameProperty.setNative](value: FrameModifier) {
     if (value) {
-      this.updateModifier('frame', value);
+      this.updateModifier(frameProperty.name, value);
+    }
+  }
+  [environmentProperty.setNative](value: FrameModifier) {
+    if (value) {
+      this.updateModifier(environmentProperty.name, value);
     }
   }
   [modifiersProperty.setNative](value: any) {
@@ -40,9 +50,8 @@ export class SwiftUIViewBase extends View {
     // if (frameIndex === -1) {
     //   value.push({ frame: { width: this.width, height: this.height } });
     // }
-    this.props.modifiers = value;
     // console.log('update base modifiers!', this.width, this.height);
-    this.updateData();
+    this.updateData(modifiersProperty.name, value);
   }
   updateModifier(key: string, value: any) {
     let modifiers = this.props.modifiers;
@@ -65,13 +74,17 @@ export class SwiftUIViewBase extends View {
     this.modifiers = modifiers;
   }
 
-  updateData() {
+  updateData(key?: string, value?: any) {
+    if (key) {
+      this.props[key] = value;
+    }
     this.provider.updateDataWithData(this.props);
   }
 }
 
 modifiersProperty.register(SwiftUIViewBase);
 frameProperty.register(SwiftUIViewBase);
+environmentProperty.register(SwiftUIViewBase);
 
 const modifiersLayoutProperty = new Property<SwiftUIViewBase, string>({
   name: 'modifiers',
@@ -80,12 +93,29 @@ const modifiersLayoutProperty = new Property<SwiftUIViewBase, string>({
 export class SwiftUILayoutBase extends LayoutBase {
   provider: UIViewController & any;
   props: any = {};
+
   [modifiersLayoutProperty.setNative](value: any) {
     this.props.modifiers = value;
     this.updateData();
   }
-  updateData() {
+
+  updateData(key?: string, value?: any) {
+    if (key) {
+      this.props[key] = value;
+    }
     this.provider.updateDataWithData(this.props);
+  }
+
+  addChild(view: View): void {
+    const autoLayout = new AutoLayoutView();
+    autoLayout.addChild(view);
+    super.addChild(autoLayout);
+  }
+
+  _addViewToNativeVisualTree(view: ViewBase, atIndex?: number): boolean {
+    this.props.children.push(view.nativeViewProtected);
+    this.updateData();
+    return true;
   }
 }
 

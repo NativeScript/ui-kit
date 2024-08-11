@@ -3,9 +3,9 @@ import SwiftUI
 import SwiftUIWinterCG
 
 @objc
-class ToggleViewProvider: UIViewController, SwiftUIProvider {
-    private var props = ToggleProps()
-    private var swiftUI: ToggleView?
+class SliderViewProvider: UIViewController, SwiftUIProvider {
+    private var props = SliderProps()
+    private var swiftUI: SliderView?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,19 +29,23 @@ class ToggleViewProvider: UIViewController, SwiftUIProvider {
             let key = k as! String
             let v = data.object(forKey: key)
             if (v != nil) {
-                if (key == "isOn") {
-                    props.isOn = v as! Bool
-                } else if (key == "label") {
-                    props.label = v as? String
-                } else if (key == "toggleStyle") {
-                    props.toggleStyle = v as! String
+                if (key == "value") {
+                    props.value = v as! Double
+                } else if (key == "step") {
+                    props.step = v as? Double
+                } else if (key == "labelText") {
+                    props.labelText = v as? String
+                } else if (key == "range") {
+                    props.range = v as! [Double]
+                } else if (key == "modifiers") {
+                    props.modifiers = v as! [[String : Any]]
                 }
             }
         }
         
         
         if (self.swiftUI == nil) {
-            swiftUI = ToggleView(props: props)
+            swiftUI = SliderView(props: props)
             setupSwiftUIView(content: swiftUI)
         } else {
             // engage data binding right away

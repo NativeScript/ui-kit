@@ -5,6 +5,11 @@ const sectionsProperty = new Property<List, Array<any>>({
   name: 'sections',
 });
 
+type ListStyle = 'inset' | 'grouped' | 'plain' | 'insetGrouped';
+const listStyleProperty = new Property<List, ListStyle>({
+  name: 'listStyle',
+});
+
 export class List extends SwiftUIViewBase {
   createNativeView() {
     // @ts-expect-error
@@ -12,25 +17,16 @@ export class List extends SwiftUIViewBase {
     return this.provider.view;
   }
 
-  // addChild(view: View): void {
-  //   const autoLayout = new AutoLayoutView();
-  //   autoLayout.addChild(view);
-  //   super.addChild(autoLayout);
-  // }
-
-  // _addViewToNativeVisualTree(view: ViewBase, atIndex?: number): boolean {
-  //   // super._addViewToNativeVisualTree(view, atIndex);
-  //   this.props.items[0].children.push(view.nativeViewProtected);
-  //   this.updateData();
-  //   // console.log('this.props:', this.props);
-  //   // console.log('_addViewToNativeVisualTree', view.nativeViewProtected);
-  //   return true;
-  // }
-
   [sectionsProperty.setNative](value: any) {
-    this.props.sections = value;
-    this.updateData();
+    this.updateData(sectionsProperty.name, value);
+  }
+
+  [listStyleProperty.setNative](value: ListStyle) {
+    if (value) {
+      this.updateModifier(listStyleProperty.name, value);
+    }
   }
 }
 
 sectionsProperty.register(List);
+listStyleProperty.register(List);
