@@ -126,6 +126,98 @@
     </GridLayout>
   </StackLayout>
 </StackLayout>
+} @case ('filters') {
+<ScrollView>
+  <StackLayout class="p-4 bg-gray-100">
+    <StackLayout class="rounded-xl bg-white px-4">
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Mask</Label>
+        <Rectangle col="2" fill="pink" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="pink" [modifiers]="[{ mask: 'hi' }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Blur</Label>
+        <Rectangle col="2" fill="mint" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="mint" [modifiers]="[{ blur: 5 }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Contrast</Label>
+        <Rectangle col="2" fill="red" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="red" [modifiers]="[{ contrast: 0.7 }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Saturation</Label>
+        <Rectangle col="2" fill="green" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="green" [modifiers]="[{ saturation: 1 }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Grayscale</Label>
+        <Rectangle col="2" fill="accentColor" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="accentColor" [modifiers]="[{ grayscale: 0.7 }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Brightness</Label>
+        <Rectangle col="2" fill="red" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="red" [modifiers]="[{ brightness: 0.3 }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <GridLayout columns="auto,*,auto,auto,auto" class="h-[60]">
+        <Label>Blend Mode</Label>
+        <Rectangle col="2" fill="accentColor" class="w-[30] h-[30]" />
+        <ImageView col="3" systemName="arrow.right" class="w-[30] h-[30] mx-1" />
+        <Rectangle col="4" fill="accentColor" [modifiers]="[{ blendMode: 'difference' }]" class="w-[30] h-[30]" />
+      </GridLayout>
+      <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+
+      <ZStack
+        alignment="center"
+        [modifiers]="[
+              { frame: { height: 100 } },
+              { compositingGroup: true },
+              {
+                shadow: {
+                  color: 'gray',
+                  radius: 15,
+                  x: -10,
+                  y: 10,
+                },
+              },
+            ]"
+        class="h-[100]"
+      >
+        <ImageView
+          systemName="lanyardcard.fill"
+          [fontSize]="400"
+          [foregroundStyle]="{
+                linearGradient: {
+                  colors: ['gray', 'white'],
+                  startPoint: 'bottomLeading',
+                  endPoint: 'topTrailing',
+                },
+              }"
+        />
+        <ImageView systemName="applelogo" [fontSize]="170" [modifiers]="[{ blendMode: 'destinationOut' }, { padding: { top: 100 } }]" />
+      </ZStack>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>
 } @default {
 <GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*"> </GridLayout>
 } }

@@ -9,12 +9,16 @@ const variableValueProperty = new Property<ImageView, number>({
   name: 'variableValue',
 });
 
+const fontSizeProperty = new Property<ImageView, number>({
+  name: 'fontSize',
+});
+
 type ImageViewScale = 'small' | 'medium' | 'large';
 const imageScaleProperty = new Property<ImageView, ImageViewScale>({
   name: 'imageScale',
 });
 
-const foregroundStyleProperty = new Property<ImageView, string>({
+const foregroundStyleProperty = new Property<ImageView, any>({
   name: 'foregroundStyle',
 });
 
@@ -36,12 +40,17 @@ export class ImageView extends SwiftUIViewBase {
   [variableValueProperty.setNative](value: number) {
     this.updateData(variableValueProperty.name, value);
   }
+  [fontSizeProperty.setNative](value: number) {
+    if (value) {
+      this.updateModifier(fontSizeProperty.name, value);
+    }
+  }
   [imageScaleProperty.setNative](value: ImageViewScale) {
     if (value) {
       this.updateModifier(imageScaleProperty.name, value);
     }
   }
-  [foregroundStyleProperty.setNative](value: string) {
+  [foregroundStyleProperty.setNative](value: any) {
     if (value) {
       this.updateModifier(foregroundStyleProperty.name, value);
     }
@@ -55,6 +64,7 @@ export class ImageView extends SwiftUIViewBase {
 
 systemNameProperty.register(ImageView);
 variableValueProperty.register(ImageView);
+fontSizeProperty.register(ImageView);
 imageScaleProperty.register(ImageView);
 foregroundStyleProperty.register(ImageView);
 boldProperty.register(ImageView);

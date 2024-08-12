@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Page } from '@nativescript/core';
-import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker, ImageView, ColorPicker, DatePicker } from '@nativescript/swift-ui';
+import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker, ImageView, ColorPicker, DatePicker, Circle, Capsule, Ellipse, Rectangle, RoundedRectangle, UnevenRoundedRectangle, ZStack } from '@nativescript/swift-ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListViewCustom } from './list-view-custom';
 
@@ -19,10 +19,17 @@ registerElement('Picker', () => Picker);
 registerElement('Progress', () => Progress);
 registerElement('SUITextField', () => TextField);
 registerElement('Shape', () => Shape);
+registerElement('Circle', () => Circle);
+registerElement('Capsule', () => Capsule);
+registerElement('Ellipse', () => Ellipse);
+registerElement('Rectangle', () => Rectangle);
+registerElement('RoundedRectangle', () => RoundedRectangle);
+registerElement('UnevenRoundedRectangle', () => UnevenRoundedRectangle);
 registerElement('SUISlider', () => Slider);
 registerElement('Stepper', () => Stepper);
 registerElement('Text', () => Text);
 registerElement('Toggle', () => Toggle);
+registerElement('ZStack', () => ZStack);
 
 registerElement('ListView', () => ListViewCustom);
 

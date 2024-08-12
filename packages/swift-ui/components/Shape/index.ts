@@ -63,3 +63,40 @@ cornerRadiusProperty.register(Shape);
 fillProperty.register(Shape);
 strokeProperty.register(Shape);
 cornerRadiiProperty.register(Shape);
+
+export class Circle extends Shape {
+  constructor() {
+    super();
+    this.type = 'Circle';
+  }
+}
+export class Rectangle extends Shape {
+  constructor() {
+    super();
+    this.type = 'Rectangle';
+  }
+}
+export class RoundedRectangle extends Shape {
+  constructor() {
+    super();
+    this.type = 'RoundedRectangle';
+  }
+}
+export class Capsule extends Shape {
+  constructor() {
+    super();
+    this.type = 'Capsule';
+  }
+}
+export class Ellipse extends Shape {
+  constructor() {
+    super();
+    this.type = 'Ellipse';
+  }
+}
+export class UnevenRoundedRectangle extends Shape {
+  constructor() {
+    super();
+    this.type = 'UnevenRoundedRectangle';
+  }
+}
