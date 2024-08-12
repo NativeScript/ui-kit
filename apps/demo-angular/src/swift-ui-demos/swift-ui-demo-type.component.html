@@ -48,8 +48,15 @@
   <Toggle [isOn]="demoShared.toggleValue" label="Toggle Switch" toggleStyle="switch" (swiftUIEvent)="demoShared.toggleChange($event)" class="h-[50] w-[300]"></Toggle>
   <Toggle [isOn]="demoShared.toggleValue" label="Toggle Button" toggleStyle="button" (swiftUIEvent)="demoShared.toggleChange($event)" class="h-[50] w-[300]"></Toggle>
   <Toggle [isOn]="demoShared.toggleValue" label="Toggle Default" (swiftUIEvent)="demoShared.toggleChange($event)" class="h-[50] w-[300]"></Toggle>
-  <SUITextField placeholder="Hi Owen" class="h-[100]"></SUITextField>
 </StackLayout>
+} @case ('images') {
+<GridLayout columns="*,auto,auto,auto,auto,auto,*">
+  <ImageView col="1" systemName="trash" foregroundStyle="orange" imageScale="large" [bold]="true" class="h-[50] w-[50]"></ImageView>
+  <ImageView col="2" systemName="plus" foregroundStyle="blue" imageScale="large" [bold]="true" class="h-[50] w-[50]"></ImageView>
+  <ImageView col="3" systemName="phone" foregroundStyle="purple" imageScale="large" [bold]="true" class="h-[50] w-[50]"></ImageView>
+  <ImageView col="4" systemName="arrow.right" foregroundStyle="green" imageScale="large" [bold]="true" class="h-[50] w-[50]"></ImageView>
+  <ImageView col="5" systemName="person.fill" foregroundStyle="teal" imageScale="large" [bold]="true" class="h-[50] w-[50]"></ImageView>
+</GridLayout>
 } @case ('lists') {
 <GridLayout rows="auto,*">
   <GridLayout class="h-[60] p-2 bg-gray-100">
@@ -57,6 +64,32 @@
   </GridLayout>
   <List row="1" [sections]="listSectionsInset" [listStyle]="demoShared.listSelectionType" iosOverflowSafeArea="true" [environment]="{ colorScheme: 'light' }"></List>
 </GridLayout>
+} @case ('pickers') {
+<StackLayout class="p-4 bg-gray-100">
+  <StackLayout class="rounded-xl bg-white px-4">
+    <ColorPicker title="Color" selection="red" (swiftUIEvent)="demoShared.colorChange($event)" class="h-[75]"></ColorPicker>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <GridLayout columns="*,auto" class="h-[75]">
+      <Label class="text-left">Date</Label>
+      <DatePickerView col="1" [selection]="todayDate" title="Date" [displayedComponents]="['date', 'hourAndMinute']" (swiftUIEvent)="demoShared.pickerChange($event)" class="h-[75] w-[200]"></DatePickerView>
+    </GridLayout>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <StackLayout>
+      <Label class="text-left">Segmented</Label>
+      <Picker selection="red" [options]="['red', 'green', 'blue']" pickerStyle="segmented" (swiftUIEvent)="demoShared.pickerChange($event)" class="h-[75]"></Picker>
+    </StackLayout>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <StackLayout class="h-[150]">
+      <Label class="text-left">Wheel</Label>
+      <Picker selection="red" [options]="['red', 'green', 'blue']" pickerStyle="wheel" (swiftUIEvent)="demoShared.pickerChange($event)" class="h-[150]"></Picker>
+    </StackLayout>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <GridLayout columns="*,auto" class="h-[75]">
+      <Label class="text-left">Menu</Label>
+      <Picker col="1" selection="red" [options]="['red', 'green', 'blue']" pickerStyle="menu" (swiftUIEvent)="demoShared.pickerChange($event)" class="h-[75] w-[100]"></Picker>
+    </GridLayout>
+  </StackLayout>
+</StackLayout>
 } @case ('progress') {
 <ListView [items]="progressItems" [sections]="progressSection" listStyle="insetGrouped">
   <ng-template let-item="item">
@@ -75,6 +108,24 @@
     </GridLayout>
   </ng-template>
 </ListView>
+} @case ('textfield') {
+<StackLayout class="p-4 bg-gray-100">
+  <StackLayout class="rounded-xl bg-white px-4">
+    <SUITextField placeholder="Enter your username..." [text]="demoShared.username" class="h-[50]" (swiftUIEvent)="demoShared.usernameChange($event)"></SUITextField>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <SUITextField placeholder="Enter your password..." [text]="demoShared.password" type="securefield" class="h-[50]" (swiftUIEvent)="demoShared.passwordChange($event)"></SUITextField>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <SUITextField placeholder="Confirm your password..." [text]="demoShared.password" type="securefield" class="h-[50]" (swiftUIEvent)="demoShared.passwordChange($event)"></SUITextField>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <SUITextField placeholder="Description..." [text]="demoShared.bio" type="texteditor" class="h-[120]" (swiftUIEvent)="demoShared.bioChange($event)"></SUITextField>
+    <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
+    <GridLayout rows="auto,auto,auto" columns="*" class="p-2">
+      <Label class="text-center mb-1">Username: {{ demoShared.username }}</Label>
+      <Label row="1" class="text-center mb-1">Password: {{ demoShared.password }}</Label>
+      <Label row="2" class="text-center mb-1">Bio: {{ demoShared.bio }}</Label>
+    </GridLayout>
+  </StackLayout>
+</StackLayout>
 } @default {
 <GridLayout class="p-6" rows="auto,auto" columns="*,120,120,*"> </GridLayout>
 } }

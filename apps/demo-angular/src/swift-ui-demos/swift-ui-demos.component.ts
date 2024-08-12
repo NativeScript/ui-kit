@@ -3,14 +3,17 @@ import { ActivatedRoute } from '@angular/router';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Page } from '@nativescript/core';
-import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker } from '@nativescript/swift-ui';
+import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker, ImageView, ColorPicker, DatePicker } from '@nativescript/swift-ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListViewCustom } from './list-view-custom';
 
 registerElement('SwiftUI', () => SwiftUI);
 registerElement('Color', () => Color);
+registerElement('ColorPicker', () => ColorPicker);
+registerElement('DatePickerView', () => DatePicker);
 registerElement('SUIButton', () => Button);
 registerElement('SUILabel', () => Label);
+registerElement('ImageView', () => ImageView);
 registerElement('List', () => List);
 registerElement('Picker', () => Picker);
 registerElement('Progress', () => Progress);

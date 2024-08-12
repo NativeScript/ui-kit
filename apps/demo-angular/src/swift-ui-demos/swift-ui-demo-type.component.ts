@@ -1,4 +1,4 @@
-import { Component, computed, inject, NgZone, signal } from '@angular/core';
+import { Component, computed, inject, model, NgZone, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { Page } from '@nativescript/core';
@@ -355,6 +355,7 @@ export class SwiftUiDemoTypeComponent {
     },
   ];
   progressTimeout: NodeJS.Timeout;
+  todayDate = new Date().toISOString();
 
   constructor() {
     this.activeRoute.params.pipe(takeUntilDestroyed()).subscribe((params) => {

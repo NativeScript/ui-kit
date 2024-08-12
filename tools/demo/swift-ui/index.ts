@@ -69,6 +69,30 @@ export class DemoSharedSwiftUi extends DemoSharedBase {
     this.listSelectionType = args?.data?.onValueChange;
   }
 
+  colorChange(args) {
+    console.log('colorChange:', args?.data?.onValueChange);
+  }
+
+  pickerChange(args) {
+    console.log('pickerChange:', args?.data?.onValueChange);
+  }
+
+  username = 'Nathan';
+  password = 'password';
+  bio = 'My bio...';
+  usernameChange(args) {
+    console.log('usernameChange:', args?.data?.onValueChange);
+    this.username = args?.data?.onValueChange;
+  }
+  passwordChange(args) {
+    console.log('passwordChange:', args?.data?.onValueChange);
+    this.password = args?.data?.onValueChange;
+  }
+  bioChange(args) {
+    console.log('bioChange:', args?.data?.onValueChange);
+    this.bio = args?.data?.onValueChange;
+  }
+
   onEvent(evt: SwiftUIEventData<CountData>) {
     this.set('nativeCount', { count: evt.data.count });
   }
