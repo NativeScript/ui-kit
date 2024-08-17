@@ -89,7 +89,7 @@ export class Flutter extends FlutterCommon {
     this.nativeViewProtected.setId(this._androidViewId);
 
     const fm = this._getFragmentManager() as androidx.fragment.app.FragmentManager;
-    const engineFragmentBuilder = io.flutter.embedding.android.FlutterFragment.withCachedEngine(this.id);
+    const engineFragmentBuilder = io.flutter.embedding.android.FlutterFragment.withCachedEngine(this.id).renderMode(io.flutter.embedding.android.RenderMode.texture);
     this._fragment = engineFragmentBuilder.build();
 
     const name = makeFragmentName(this._androidViewId);
