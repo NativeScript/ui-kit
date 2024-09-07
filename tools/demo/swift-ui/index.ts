@@ -77,7 +77,7 @@ export class DemoSharedSwiftUi extends DemoSharedBase {
     console.log('pickerChange:', args?.data?.onValueChange);
   }
 
-  username = 'Nathan';
+  username = 'Ross';
   password = 'password';
   bio = 'My bio...';
   usernameChange(args) {

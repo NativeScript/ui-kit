@@ -33,12 +33,12 @@
 <StackLayout class="p-6">
   <Label class="text-center">Slider: {{ demoShared.sliderValue }}</Label>
   <SUISlider [value]="3" step="1" labelText="Slider Label" [range]="[0, 100]" (swiftUIEvent)="demoShared.sliderChange($event)" class="h-[75]"></SUISlider>
-  <GridLayout columns="*,auto,auto,*" class="h-[60]">
-    <Label col="1" class="">Stepper:</Label>
+  <GridLayout columns="auto,auto,*" class="h-[60] mb-2">
+    <Label col="0" class="">Stepper:</Label>
     <!-- <Label col="2" class="">demoShared.stepperCount</Label> -->
-    <Text col="2" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="h-[100] w-[40]"></Text>
+    <Text col="1" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="h-[100] w-[40]"></Text>
+    <Stepper col="2" class="h-right h-[60]" (swiftUIEvent)="demoShared.stepperChange($event)"></Stepper>
   </GridLayout>
-  <Stepper class="rounded-r-full h-center text-center bg-pink-100 h-[75] mb-2" (swiftUIEvent)="demoShared.stepperChange($event)"></Stepper>
 
   <GridLayout columns="*,auto,auto,*" class="h-[60]">
     <Label col="1" class="">Toggle: </Label>
