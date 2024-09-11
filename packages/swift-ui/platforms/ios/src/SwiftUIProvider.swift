@@ -9,23 +9,24 @@ protocol SwiftUIProvider where Self: UIViewController {
 
 extension SwiftUIProvider {
     
-    func setupSwiftUIView<Content>(content: Content) where Content: View {
-        let childVC = buildViewController(content: content)
-        childVC.view.backgroundColor = .clear
-        addChild(childVC)
+    func setupSwiftUIView<View>(content: View) -> UIHostingController<View> where View : SwiftUI.View {
+        let hostingController = UIHostingController(rootView: content)
+        hostingController.view.backgroundColor = .clear
+        addChild(hostingController)
         // childVC.view.translatesAutoresizingMaskIntoConstraints = false
-        childVC.view.frame = view.bounds
-        childVC.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(childVC.view)
+        // hostingController.view.frame = view.bounds
+        hostingController.view.frame = CGRect(x: 0, y: 0, width: 0, height: view.bounds.height)
+        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(hostingController.view)
         // childVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         // childVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         // childVC.view.widthAnchor.constraint(equalToConstant: 128).isActive = true
         // childVC.view.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        childVC.didMove(toParent: self)
-    }
-    
-    private func buildViewController<Content>(content: Content) -> UIViewController where Content : View {
-        return UIHostingController(rootView: content)
+        hostingController.didMove(toParent: self)
+        if #available(iOS 16.0, *) {
+            hostingController.sizingOptions = [.intrinsicContentSize]
+        }
+        return hostingController
     }
 }
 

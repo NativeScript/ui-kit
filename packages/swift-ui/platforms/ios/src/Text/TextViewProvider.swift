@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class TextViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<TextView>?
     private var props = TextViewProps()
     private var swiftUI: TextView?
     
@@ -42,7 +43,7 @@ class TextViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = TextView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props
