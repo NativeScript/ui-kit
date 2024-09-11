@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ShapeViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ShapeCGView>?
     private var props = ShapeProps()
     private var swiftUI: ShapeCGView?
     
@@ -44,7 +45,7 @@ class ShapeViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ShapeCGView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

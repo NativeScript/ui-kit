@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ToggleViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ToggleView>?
     private var props = ToggleProps()
     private var swiftUI: ToggleView?
     
@@ -42,7 +43,7 @@ class ToggleViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ToggleView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class Model3DViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<Model3DView>?
     private var props = Model3DProps()
     private var swiftUI: Model3DView?
     
@@ -43,7 +44,7 @@ class Model3DViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = Model3DView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

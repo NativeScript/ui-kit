@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ZStackProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ZStackView>?
     private var props = ZStackProps()
     private var swiftUI: ZStackView?
     
@@ -62,7 +63,7 @@ class ZStackProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ZStackView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

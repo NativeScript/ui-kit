@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class TextFieldViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<TextFieldView>?
     private var props = TextFieldProps()
     private var swiftUI: TextFieldView?
     
@@ -42,7 +43,7 @@ class TextFieldViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = TextFieldView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

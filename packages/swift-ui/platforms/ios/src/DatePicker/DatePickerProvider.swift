@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class DatePickerProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<DatePickerView>?
     private var props = DatePickerProps()
     private var swiftUI: DatePickerView?
     
@@ -44,7 +45,7 @@ class DatePickerProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = DatePickerView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

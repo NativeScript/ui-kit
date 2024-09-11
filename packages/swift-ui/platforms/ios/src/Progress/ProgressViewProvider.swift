@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ProgressViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ProgressViewView>?
     private var props = ProgressProps()
     private var swiftUI: ProgressViewView?
     
@@ -46,7 +47,7 @@ class ProgressViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ProgressViewView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

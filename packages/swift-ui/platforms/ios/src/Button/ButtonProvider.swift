@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ButtonProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ButtonView>?
     private var props = ButtonProps()
     private var swiftUI: ButtonView?
     
@@ -42,7 +43,7 @@ class ButtonProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ButtonView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

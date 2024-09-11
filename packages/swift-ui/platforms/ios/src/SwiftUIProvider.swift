@@ -11,20 +11,33 @@ extension SwiftUIProvider {
     
     func setupSwiftUIView<View>(content: View) -> UIHostingController<View> where View : SwiftUI.View {
         let hostingController = UIHostingController(rootView: content)
-        hostingController.view.backgroundColor = .clear
         addChild(hostingController)
-        // childVC.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        hostingController.view.backgroundColor = .clear
         // hostingController.view.frame = view.bounds
-        hostingController.view.frame = CGRect(x: 0, y: 0, width: 0, height: view.bounds.height)
-        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        // hostingController.view.frame = CGRect(x: 0, y: 0, width: 0, height: view.bounds.height)
+        // hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(hostingController.view)
         // childVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         // childVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         // childVC.view.widthAnchor.constraint(equalToConstant: 128).isActive = true
         // childVC.view.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+
         hostingController.didMove(toParent: self)
+        NSLayoutConstraint.activate([
+            hostingController.view
+                .centerXAnchor
+                .constraint(equalTo: view.centerXAnchor),
+            hostingController.view
+                .centerYAnchor
+                .constraint(equalTo: view.centerYAnchor)
+        ])
+        
         if #available(iOS 16.0, *) {
-            hostingController.sizingOptions = [.intrinsicContentSize]
+            hostingController.sizingOptions = .intrinsicContentSize
+            if #available(iOS 16.4, *) {
+                hostingController.safeAreaRegions = []
+            }
         }
         return hostingController
     }

@@ -5,8 +5,8 @@
 @switch (title()) { @case ('text') {
 <ListView [items]="textItems" [sections]="textSections" listStyle="insetGrouped">
   <ng-template let-item="item">
-    <GridLayout class="px-4 py-3 bg-white" marginRight="40">
-      <Text [text]="item.label" [modifiers]="item.modifiers" class="h-[30] h-left text-left"></Text>
+    <GridLayout columns="20,150,*" class="px-4 py-3 bg-white" marginRight="40">
+      <Text col="1" [text]="item.label" [modifiers]="item.modifiers" class="h-[30] h-left text-left bg-green-200"></Text>
     </GridLayout>
   </ng-template>
 </ListView>
@@ -33,11 +33,11 @@
 <StackLayout class="p-6">
   <Label class="text-center">Slider: {{ demoShared.sliderValue }}</Label>
   <SUISlider [value]="3" step="1" labelText="Slider Label" [range]="[0, 100]" (swiftUIEvent)="demoShared.sliderChange($event)" class="h-[75]"></SUISlider>
-  <GridLayout columns="auto,auto,*" class="h-[60] mb-2">
-    <Label col="0" class="">Stepper:</Label>
+  <GridLayout columns="*,auto,auto,auto,*" class="h-[60] mb-2">
+    <Label col="1" class="">Stepper:</Label>
     <!-- <Label col="2" class="">demoShared.stepperCount</Label> -->
-    <Text col="1" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="h-[100] w-[40]"></Text>
-    <Stepper col="2" class="h-right h-[60]" (swiftUIEvent)="demoShared.stepperChange($event)"></Stepper>
+    <Text col="2" [text]="demoShared.stepperCount" fontSize="18" fontWeight="bold" color="white" [modifiers]="demoShared.stepperCountModifiers" class="h-[100] w-[40]"></Text>
+    <Stepper col="3" class="h-right h-[60]" [modifiers]="[{ labelIsHidden: true }]" (swiftUIEvent)="demoShared.stepperChange($event)"></Stepper>
   </GridLayout>
 
   <GridLayout columns="*,auto,auto,*" class="h-[60]">
@@ -69,8 +69,7 @@
   <StackLayout class="rounded-xl bg-white px-4">
     <ColorPicker title="Color" selection="red" (swiftUIEvent)="demoShared.colorChange($event)" class="h-[75]"></ColorPicker>
     <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
-    <GridLayout columns="*,auto" class="h-[75]">
-      <Label class="text-left">Date</Label>
+    <GridLayout columns="*" class="h-[75]">
       <DatePickerView col="1" [selection]="todayDate" title="Date" [displayedComponents]="['date', 'hourAndMinute']" (swiftUIEvent)="demoShared.pickerChange($event)" class="h-[75] w-[200]"></DatePickerView>
     </GridLayout>
     <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
@@ -186,35 +185,36 @@
       </GridLayout>
       <ContentView class="h-[1] bg-gray-100 w-full my-2"></ContentView>
 
-      <ZStack
-        alignment="center"
-        [modifiers]="[
-              { frame: { height: 100 } },
-              { compositingGroup: true },
-              {
-                shadow: {
-                  color: 'gray',
-                  radius: 15,
-                  x: -10,
-                  y: 10,
+      <StackLayout class="h-[500] bg-gray-200">
+        <ZStack
+          alignment="center"
+          [modifiers]="[
+                { compositingGroup: true },
+                {
+                  shadow: {
+                    color: 'gray',
+                    radius: 15,
+                    x: -10,
+                    y: 10,
+                  },
                 },
-              },
-            ]"
-        class="h-[100]"
-      >
-        <ImageView
-          systemName="lanyardcard.fill"
-          [fontSize]="400"
-          [foregroundStyle]="{
-                linearGradient: {
-                  colors: ['gray', 'white'],
-                  startPoint: 'bottomLeading',
-                  endPoint: 'topTrailing',
-                },
-              }"
-        />
-        <ImageView systemName="applelogo" [fontSize]="170" [modifiers]="[{ blendMode: 'destinationOut' }, { padding: { top: 100 } }]" />
-      </ZStack>
+              ]"
+          class="h-[500]"
+        >
+          <ImageView
+            systemName="lanyardcard.fill"
+            [fontSize]="400"
+            [foregroundStyle]="{
+                  linearGradient: {
+                    colors: ['gray', 'white'],
+                    startPoint: 'bottomLeading',
+                    endPoint: 'topTrailing',
+                  },
+                }"
+          />
+          <ImageView systemName="applelogo" [fontSize]="170" [modifiers]="[{ blendMode: 'destinationOut' }, { padding: { top: 100 } }]" />
+        </ZStack>
+      </StackLayout>
     </StackLayout>
   </StackLayout>
 </ScrollView>

@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ListProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ListView>?
     private var props = ListProps()
     private var swiftUI: ListView?
     
@@ -48,7 +49,7 @@ class ListProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ListView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

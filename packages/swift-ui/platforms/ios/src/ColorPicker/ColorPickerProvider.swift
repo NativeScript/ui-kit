@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ColorPickerProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ColorPickerView>?
     private var props = ColorPickerProps()
     private var swiftUI: ColorPickerView?
     
@@ -44,7 +45,7 @@ class ColorPickerProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ColorPickerView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

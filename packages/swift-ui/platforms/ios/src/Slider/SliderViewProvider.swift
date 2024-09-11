@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class SliderViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<SliderView>?
     private var props = SliderProps()
     private var swiftUI: SliderView?
     
@@ -46,7 +47,7 @@ class SliderViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = SliderView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

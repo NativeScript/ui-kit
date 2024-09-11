@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class StepperViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<StepperView>?
     private var props = StepperProps()
     private var swiftUI: StepperView?
     
@@ -43,7 +44,7 @@ class StepperViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = StepperView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

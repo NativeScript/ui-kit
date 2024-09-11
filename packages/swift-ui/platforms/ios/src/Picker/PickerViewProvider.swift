@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class PickerViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<PickerView>?
     private var props = PickerProps()
     private var swiftUI: PickerView?
     
@@ -42,7 +43,7 @@ class PickerViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = PickerView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props

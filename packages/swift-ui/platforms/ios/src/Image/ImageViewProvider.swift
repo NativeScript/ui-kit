@@ -4,6 +4,7 @@ import SwiftUIWinterCG
 
 @objc
 class ImageViewProvider: UIViewController, SwiftUIProvider {
+    var hostingController: UIHostingController<ImageView>?
     private var props = ImageProps()
     private var swiftUI: ImageView?
     
@@ -42,7 +43,7 @@ class ImageViewProvider: UIViewController, SwiftUIProvider {
         
         if (self.swiftUI == nil) {
             swiftUI = ImageView(props: props)
-            setupSwiftUIView(content: swiftUI)
+            self.hostingController = setupSwiftUIView(content: swiftUI!)
         } else {
             // engage data binding right away
             self.swiftUI?.props = props
