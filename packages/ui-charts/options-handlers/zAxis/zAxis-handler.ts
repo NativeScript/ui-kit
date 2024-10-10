@@ -73,7 +73,7 @@ export function zAxisHandler(zAxisOptions) {
   };
 
   const axisArray = [];
-  if (zAxisOptions instanceof Array) {
+  if (Array.isArray(zAxisOptions)) {
     zAxisOptions.forEach((axisOpts) => {
       const zAxis = isAndroid ? new com.highsoft.highcharts.common.hichartsclasses.HIZAxis() : new HIZAxis();
       axisArray.push(optionsBuilder(zAxisSchema, axisOpts, zAxis));

@@ -14,7 +14,7 @@ export function dumbbellHandler(dumbbellOptions) {
     pointRange: 'number',
   };
 
-  if (dumbbellOptions instanceof Array) {
+  if (Array.isArray(dumbbellOptions)) {
     const seriesArr = [];
 
     for (const opts of dumbbellOptions) {

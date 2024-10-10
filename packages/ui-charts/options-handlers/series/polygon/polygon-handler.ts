@@ -7,7 +7,7 @@ export function polygonHandler(polygonOptions) {
     trackByArea: 'number',
   };
 
-  if (polygonOptions instanceof Array) {
+  if (Array.isArray(polygonOptions)) {
     const seriesArr = [];
 
     for (const opts of polygonOptions) {

@@ -16,7 +16,7 @@ export function zonesHandler(zonesOptions) {
   };
 
   let zonesArray = [];
-  if (zonesOptions instanceof Array) {
+  if (Array.isArray(zonesOptions)) {
     zonesArray = zonesOptions.map((zoneOpts) => {
       return optionsBuilder(zonesSchema, zoneOpts, zones);
     });

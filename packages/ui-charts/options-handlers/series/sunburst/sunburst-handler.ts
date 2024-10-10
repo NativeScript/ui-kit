@@ -21,7 +21,7 @@ export function sunburstHandler(sunburstOptions) {
     traverseUpButton: 'HITraverseUpButton',
   };
 
-  if (sunburstOptions instanceof Array) {
+  if (Array.isArray(sunburstOptions)) {
     const seriesArr = [];
 
     for (const opts of sunburstOptions) {

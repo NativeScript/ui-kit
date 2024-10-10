@@ -24,7 +24,7 @@ export function bulletHandler(bulletOptions) {
     targetOptions: 'HITargetOptions',
   };
 
-  if (bulletOptions instanceof Array) {
+  if (Array.isArray(bulletOptions)) {
     const seriesArr = [];
 
     for (const opts of bulletOptions) {

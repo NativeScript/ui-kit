@@ -23,7 +23,7 @@ export function cylinderHandler(cylinderOptions) {
     pointWidth: 'number',
   };
 
-  if (cylinderOptions instanceof Array) {
+  if (Array.isArray(cylinderOptions)) {
     const seriesArr = [];
 
     for (const opts of cylinderOptions) {

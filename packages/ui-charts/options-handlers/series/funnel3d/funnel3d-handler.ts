@@ -29,7 +29,7 @@ export function funnel3dHandler(funnel3dOptions) {
     width: 'number',
   };
 
-  if (funnel3dOptions instanceof Array) {
+  if (Array.isArray(funnel3dOptions)) {
     const seriesArr = [];
 
     for (const opts of funnel3dOptions) {

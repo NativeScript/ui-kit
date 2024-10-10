@@ -19,7 +19,7 @@ export function treemapHandler(treemapOptions) {
     traverseUpButton: 'HITraverseUpButton',
   };
 
-  if (treemapOptions instanceof Array) {
+  if (Array.isArray(treemapOptions)) {
     const seriesArr = [];
 
     for (const opts of treemapOptions) {

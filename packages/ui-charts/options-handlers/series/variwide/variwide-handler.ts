@@ -19,7 +19,7 @@ export function variwideHandler(variwideOptions) {
     pointWidth: 'number',
   };
 
-  if (variwideOptions instanceof Array) {
+  if (Array.isArray(variwideOptions)) {
     const seriesArr = [];
 
     for (const opts of variwideOptions) {

@@ -11,7 +11,7 @@ export function solidgaugeHandler(solidgaugeOptions) {
     rounded: 'number',
   };
 
-  if (solidgaugeOptions instanceof Array) {
+  if (Array.isArray(solidgaugeOptions)) {
     const seriesArr = [];
 
     for (const opts of solidgaugeOptions) {

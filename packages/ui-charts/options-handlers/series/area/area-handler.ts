@@ -11,7 +11,7 @@ export function areaHandler(areaOptions) {
     trackByArea: 'number',
   };
 
-  if (areaOptions instanceof Array) {
+  if (Array.isArray(areaOptions)) {
     const seriesArr = [];
 
     for (const opts of areaOptions) {

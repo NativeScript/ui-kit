@@ -18,7 +18,7 @@ export function sankeyHandler(sankeyOptions) {
     nodes: 'HINodes', // array
   };
 
-  if (sankeyOptions instanceof Array) {
+  if (Array.isArray(sankeyOptions)) {
     const seriesArr = [];
 
     for (const opts of sankeyOptions) {

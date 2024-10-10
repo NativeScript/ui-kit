@@ -14,7 +14,7 @@ export function plotLinesHandler(plotLineOptions) {
     zIndex: 'number',
   };
 
-  if (plotLineOptions instanceof Array) {
+  if (Array.isArray(plotLineOptions)) {
     const seriesArr = [];
 
     for (const opts of plotLineOptions) {

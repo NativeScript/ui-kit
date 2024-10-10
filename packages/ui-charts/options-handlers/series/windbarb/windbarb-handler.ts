@@ -28,7 +28,7 @@ export function windbarbHandler(windbarbOptions) {
     yOffset: 'number',
   };
 
-  if (windbarbOptions instanceof Array) {
+  if (Array.isArray(windbarbOptions)) {
     const seriesArr = [];
 
     for (const opts of windbarbOptions) {

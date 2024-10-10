@@ -19,7 +19,7 @@ export function shapesHandler(shapesOptions) {
     width: 'number',
   };
 
-  if (shapesOptions instanceof Array) {
+  if (Array.isArray(shapesOptions)) {
     const shapesArray = [];
 
     for (let i = 0; i < shapesOptions.length; i++) {

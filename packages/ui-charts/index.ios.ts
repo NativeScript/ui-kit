@@ -4,12 +4,12 @@ import { langHandler } from './options-handlers/lang/lang-handler';
 import { Utils, ViewBase } from '@nativescript/core';
 
 export class UIChartsView extends UIChartsViewBase {
-  public _chartInitialized: boolean = false;
+  public _chartInitialized = false;
   private _delegate: HighchartsViewDelegateImpl;
 
   public createNativeView() {
     // const chartView = new HIChartView({ frame: CGRectMake(0, 0, 200, 200) }) as any;
-    const chartView = HIChartView.alloc().initWithFrame(CGRectMake(0, 0, 200, 200));
+    const chartView = HIChartView.new();
     // always retain delegate on owner class to ensure it doesn't inadvertently get garbage collected
     this._delegate = HighchartsViewDelegateImpl.initWithOwner(new WeakRef(this));
     chartView.delegate = this._delegate;
@@ -51,13 +51,23 @@ export class UIChartsView extends UIChartsViewBase {
     }
   }
 
+  public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number) {
+    const nativeView = this.nativeView;
+    if (nativeView) {
+      const width = Utils.layout.getMeasureSpecSize(widthMeasureSpec);
+      const height = Utils.layout.getMeasureSpecSize(heightMeasureSpec);
+      this.setMeasuredDimension(width, height);
+    }
+  }
+
   public setOptions(opts: any) {
     this.options = opts;
     const hiOptions = optionsHandler(this.options);
-    if (this.nativeView) {
-      this.nativeView.options = hiOptions;
+    const nativeView = this.nativeView as HIChartView;
+    if (nativeView) {
+      nativeView.options = hiOptions;
       this._chartInitialized = true;
-      this.nativeView.reload();
+      nativeView.reload();
     }
   }
 
@@ -71,13 +81,14 @@ export class UIChartsView extends UIChartsViewBase {
   public updateOptions(opts) {
     this.options = opts;
     const hiOptions = optionsHandler(this.options);
-    if (this.nativeView) {
-      this.nativeView.updateRedrawOneToOneAnimation(hiOptions, 1, 1, new HIAnimationOptionsObject());
+    const nativeView = this.nativeView as HIChartView;
+    if (nativeView) {
+      nativeView.updateRedrawOneToOneAnimation(hiOptions, 1, 1, new HIAnimationOptionsObject());
     }
   }
 
   setExtremes(newMin, newMax, xAxisIndex = 0) {
-    const nativeview = this.nativeView;
+    const nativeview = this.nativeView as HIChartView;
     if (nativeview) {
       const opts = nativeview.options;
       if (opts) {

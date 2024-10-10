@@ -1,10 +1,10 @@
 import { Property, View } from '@nativescript/core';
 
 export class UIChartsViewBase extends View {
-  options: any;
+  options: Record<string, any>;
 }
 
-export const optionsProperty = new Property<UIChartsViewBase, {}>({
+export const optionsProperty = new Property<UIChartsViewBase, Record<string, any>>({
   name: 'options',
   defaultValue: {},
   affectsLayout: true,

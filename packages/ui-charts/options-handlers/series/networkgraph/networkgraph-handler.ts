@@ -10,7 +10,7 @@ export function networkgraphHandler(networkgraphOptions) {
     nodes: 'HINodes', // array
   };
 
-  if (networkgraphOptions instanceof Array) {
+  if (Array.isArray(networkgraphOptions)) {
     const seriesArr = [];
 
     for (const opts of networkgraphOptions) {

@@ -13,6 +13,7 @@ export class UIChartsView extends UIChartsViewBase {
     super.onLoaded();
     this.customLayoutChangeListener = new android.view.View.OnLayoutChangeListener({
       onLayoutChange: (v) => {
+        const nativeView = <com.highsoft.highcharts.core.HIChartView>this.nativeView;
         const w = this.nativeView.owner.get();
         if (w && this.nativeView.getOptions()) {
           const newWidth = w.getActualSize().width;
@@ -22,9 +23,9 @@ export class UIChartsView extends UIChartsViewBase {
             // condition detected where android chart won't resize above this height,
             // dont attempt resize to avoid chart being cut off at the bottom
           } else if (this.chartHeight !== newHeight) {
-            if (this.nativeView.getOptions().getChart()) {
-              this.nativeView.getOptions().getChart().setHeight(new java.lang.Long(newHeight));
-              this.nativeView.getOptions().getChart().setWidth(new java.lang.Long(newWidth));
+            if (nativeView.getOptions().getChart()) {
+              nativeView.getOptions().getChart().setHeight(java.lang.Long.valueOf(newHeight));
+              nativeView.getOptions().getChart().setWidth(java.lang.Long.valueOf(newWidth));
             }
             this.chartHeight = newHeight;
             this.chartWidth = newWidth;

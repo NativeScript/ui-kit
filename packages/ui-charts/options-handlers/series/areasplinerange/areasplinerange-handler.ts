@@ -11,7 +11,7 @@ export function areasplinerangeHandler(areasplinerangeOptions) {
     trackByArea: 'number',
   };
 
-  if (areasplinerangeOptions instanceof Array) {
+  if (Array.isArray(areasplinerangeOptions)) {
     const seriesArr = [];
 
     for (const opts of areasplinerangeOptions) {

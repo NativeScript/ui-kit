@@ -15,7 +15,7 @@ export function packedbubbleHandler(packedbubbleOptions) {
     zThreshold: 'number',
   };
 
-  if (packedbubbleOptions instanceof Array) {
+  if (Array.isArray(packedbubbleOptions)) {
     const seriesArr = [];
 
     for (const opts of packedbubbleOptions) {

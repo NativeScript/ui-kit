@@ -1,5 +1,6 @@
 import { Color } from '@nativescript/core';
 import { typesMap as _typesMap } from './_helpers.common';
+import { dataSerialize, numberHasDecimals } from '@nativescript/core/utils';
 
 const typesMap = Object.assign({}, _typesMap, {
   number: (options) => fromJSToNativePrimitive(options),
@@ -7,6 +8,7 @@ const typesMap = Object.assign({}, _typesMap, {
   Array: (options) => convertJSArrayToNative(options),
   LinkedList: (options) => toLinkedList(options),
   HIColor: (options) => toHIColor(options),
+  object: (options) => dataSerialize(options),
 });
 
 export function convertJSArrayToNative(jsArray: Array<any>): java.util.ArrayList<any> {
@@ -19,25 +21,37 @@ export function convertJSArrayToNative(jsArray: Array<any>): java.util.ArrayList
 }
 
 export function fromJSToNativePrimitive(value: any): any {
+  if (value === null) return null;
+  if (value === undefined) return undefined;
   if (typeof value === 'boolean' || value === 'false' || value === 'true') return new java.lang.Boolean(value);
-  if (typeof value === 'string') return value;
+  if (typeof value === 'string') return new java.lang.String(value);
 
-  if (Number.isInteger(value)) {
-    return new java.lang.Double(value);
-  }
+  if (typeof value === 'number' || Number.isInteger(value) || value instanceof Number) {
+    if (numberHasDecimals(value)) {
+      return new java.lang.Double(value);
+    }
+    if (Number.isInteger(value)) {
+      return new java.lang.Long(value);
+    }
 
-  if (!isNaN(Number(value)) && value !== null) {
-    return new java.lang.Double(value.toString());
+    if (!isNaN(Number(value)) && value !== null) {
+      if (value.toString().includes('.')) {
+        return new java.lang.Double(value.toString());
+      }
+      return new java.lang.Long(value.toString());
+    }
   }
 
   return value;
 }
 
 export function toArrayList(arr, isNumber = false) {
-  const arrayList = new java.util.ArrayList<any>();
-  arr.forEach((item) => {
+  const size = arr?.length ?? 0;
+  const arrayList = new java.util.ArrayList<any>(size);
+  for (let i = 0; i < size; i++) {
+    const item = arr[i];
     arrayList.add(item);
-  });
+  }
   return arrayList;
 }
 
@@ -79,7 +93,7 @@ export function colorToString(color: any) {
 }
 
 export function toHIColor(color) {
-  if (color instanceof Array) {
+  if (Array.isArray(color)) {
     const colorArray = [];
     for (let i = 0; i < color.length; i++) {
       const c = color[i];

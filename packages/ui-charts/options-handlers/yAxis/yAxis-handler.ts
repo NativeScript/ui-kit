@@ -87,7 +87,7 @@ export function yAxisHandler(yAxisOptions) {
   };
 
   const axisArray = [];
-  if (yAxisOptions instanceof Array) {
+  if (Array.isArray(yAxisOptions)) {
     yAxisOptions.forEach((axisOpts) => {
       const yAxis = isAndroid ? new com.highsoft.highcharts.common.hichartsclasses.HIYAxis() : new HIYAxis();
       axisArray.push(optionsBuilder(yAxisSchema, axisOpts, yAxis));
