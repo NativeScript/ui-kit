@@ -5,7 +5,7 @@ import { NativeScriptRouterModule } from '@nativescript/angular';
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/swift-ui-demos', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'flutter', loadChildren: () => import('./plugin-demos/flutter.module').then((m) => m.FlutterModule) },
   { path: 'ionic-portals', loadChildren: () => import('./plugin-demos/ionic-portals.module').then((m) => m.IonicPortalsModule) },

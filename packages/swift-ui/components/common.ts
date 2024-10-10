@@ -63,6 +63,34 @@ export class SwiftUIViewBase extends View {
     this.updateData(modifiersProperty.name, this.combineModifers(key, value));
   }
 
+  // public onMeasure(widthMeasureSpec: number, heightMeasureSpec: number): void {
+  //   console.log('onMeasure from swiftuibase')
+  // 	const view = this.nativeViewProtected;
+  // 	const width = Utils.layout.getMeasureSpecSize(widthMeasureSpec);
+  // 	const widthMode = Utils.layout.getMeasureSpecMode(widthMeasureSpec);
+
+  // 	const height = Utils.layout.getMeasureSpecSize(heightMeasureSpec);
+  //   console.log('!! height:', height)
+  // 	const heightMode = Utils.layout.getMeasureSpecMode(heightMeasureSpec);
+  //   console.log('!! heightMode:', heightMode)
+
+  // 	let nativeWidth = 0;
+  // 	let nativeHeight = 0;
+  // 	if (view) {
+  // 		const nativeSize = Utils.layout.measureNativeView(view, width, widthMode, height, heightMode);
+  // 		nativeWidth = nativeSize.width;
+  // 		nativeHeight = nativeSize.height;
+  // 	}
+
+  // 	const measureWidth = Math.max(nativeWidth, this.effectiveMinWidth);
+  // 	const measureHeight = Math.max(nativeHeight, this.effectiveMinHeight);
+
+  // 	const widthAndState = View.resolveSizeAndState(measureWidth, width, widthMode, 0);
+  // 	const heightAndState = View.resolveSizeAndState(measureHeight, height, heightMode, 0);
+
+  // 	this.setMeasuredDimension(widthAndState, heightAndState);
+  // }
+
   private combineModifers(key: string, value: any) {
     let modifiers = this.props.modifiers;
     if (!modifiers) {
@@ -91,6 +119,17 @@ export class SwiftUIViewBase extends View {
     console.log('modifiers:', this.props.modifiers);
     this.provider.updateDataWithData(this.props);
   }
+
+  onLoaded() {
+    super.onLoaded();
+    setTimeout(() => {
+      // Note: attempting to help sizing layout issues
+      console.log('onLoaded:', this.getMeasuredWidth(), this.getMeasuredHeight());
+      const size = (this.nativeViewProtected as UIView).frame.size;
+      console.log('frame:', size.width, size.height);
+      this.modifiers = [{ frame: { width: size.width, height: size.height } }];
+    });
+  }
 }
 
 modifiersProperty.register(SwiftUIViewBase);
@@ -103,6 +142,7 @@ const modifiersLayoutProperty = new Property<SwiftUIViewBase, string>({
 
 export class SwiftUILayoutBase extends LayoutBase {
   provider: UIViewController & any;
+  modifiers: Array<any>;
   props: any = {};
 
   addChild(view: View): void {
@@ -169,6 +209,16 @@ export class SwiftUILayoutBase extends LayoutBase {
     }
     console.log('modifiers:', this.props.modifiers);
     this.provider.updateDataWithData(this.props);
+  }
+
+  onLoaded() {
+    super.onLoaded();
+    setTimeout(() => {
+      console.log('onLoaded:', this.getMeasuredWidth(), this.getMeasuredHeight());
+      const size = (this.parent.nativeViewProtected as UIView).frame.size;
+      console.log('frame:', size.width, size.height);
+      this.modifiers = [{ frame: { width: size.width, height: size.height } }];
+    });
   }
 }
 
