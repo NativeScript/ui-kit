@@ -24,7 +24,7 @@ export function columnHandler(columnOptions) {
     states: 'HIStates',
   };
 
-  if (columnOptions instanceof Array) {
+  if (Array.isArray(columnOptions)) {
     const seriesArr = [];
 
     for (const opts of columnOptions) {

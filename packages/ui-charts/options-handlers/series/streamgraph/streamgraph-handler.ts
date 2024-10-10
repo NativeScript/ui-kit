@@ -11,7 +11,7 @@ export function streamgraphHandler(streamgraphOptions) {
     trackByArea: 'number',
   };
 
-  if (streamgraphOptions instanceof Array) {
+  if (Array.isArray(streamgraphOptions)) {
     const seriesArr = [];
 
     for (const opts of streamgraphOptions) {

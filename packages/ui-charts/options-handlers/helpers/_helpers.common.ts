@@ -105,6 +105,9 @@ import { wordcloudHandler } from '../series/wordcloud/wordcloud-handler';
 import { xrangeHandler } from '../series/xrange/xrange-handler';
 import { selectHandler } from '../select/select-handler';
 import { inactiveHandler } from '../inactive/inactive-handler';
+import { responsiveHandler } from '../responsive/responsive-handler';
+import { rulesHandler } from '../rules/rules-handler';
+import { conditionHandler } from '../condition/conditionHandler';
 
 const seriesHandlers = {
   HIArea: (options) => areaHandler(options),
@@ -170,6 +173,7 @@ export const typesMap = {
   HIButtonOptions: (options) => buttonOptionsHandler(options),
   // 'HICaption': (options) => captionHandler(options),
   HIChart: (options) => chartHandler(options),
+  HICondition: (options) => conditionHandler(options),
   HICredits: (options) => creditsHandler(options),
   HICSSObject: (options) => styleHandler(options),
   HIDateTimeLabelFormats: (options) => dateTimeLabelFormatsHandler(options),
@@ -204,8 +208,9 @@ export const typesMap = {
   HIPlotOptions: (options) => plotOptionsHandler(options),
   HIPlotBands: (options) => plotBandsHandler(options),
   HIPlotLines: (options) => plotLinesHandler(options),
-  // 'HIResponsive': (options) => responsiveHandler(options),
+  HIResponsive: (options) => responsiveHandler(options),
   HIResetZoomButton: (options) => resetZoomButtonHandler(options),
+  HIRules: (options) => rulesHandler(options),
   HIScrollablePlotArea: (options) => scrollablePlotAreaHandler(options),
   HISeries: (options) => seriesHandler(options),
   HIShapes: (options) => shapesHandler(options),

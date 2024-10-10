@@ -13,7 +13,7 @@ export function lollipopHandler(lollipopOptions) {
     pointRange: 'number',
   };
 
-  if (lollipopOptions instanceof Array) {
+  if (Array.isArray(lollipopOptions)) {
     const seriesArr = [];
 
     for (const opts of lollipopOptions) {

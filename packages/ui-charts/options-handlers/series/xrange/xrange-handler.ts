@@ -20,7 +20,7 @@ export function xrangeHandler(xrangeOptions) {
     pointWidth: 'number',
   };
 
-  if (xrangeOptions instanceof Array) {
+  if (Array.isArray(xrangeOptions)) {
     const seriesArr = [];
 
     for (const opts of xrangeOptions) {

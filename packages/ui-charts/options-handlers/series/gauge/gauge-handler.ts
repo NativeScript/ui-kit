@@ -10,7 +10,7 @@ export function gaugeHandler(gaugeOptions) {
     wrap: 'number',
   };
 
-  if (gaugeOptions instanceof Array) {
+  if (Array.isArray(gaugeOptions)) {
     const seriesArr = [];
 
     for (const opts of gaugeOptions) {

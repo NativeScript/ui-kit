@@ -80,7 +80,7 @@ export function xAxisHandler(xAxisOptions) {
   };
 
   const axisArray = [];
-  if (xAxisOptions instanceof Array) {
+  if (Array.isArray(xAxisOptions)) {
     xAxisOptions.forEach((axisOpts) => {
       const xAxis = isAndroid ? new com.highsoft.highcharts.common.hichartsclasses.HIXAxis() : new HIXAxis();
       axisArray.push(optionsBuilder(xAxisSchema, axisOpts, xAxis));

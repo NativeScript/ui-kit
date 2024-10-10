@@ -3,7 +3,7 @@ import { seriesHandler } from '../series-handler';
 import { convertJSArrayToNative, optionsBuilder } from '../../helpers/helpers';
 
 export function splineHandler(splineOptions) {
-  if (splineOptions instanceof Array) {
+  if (Array.isArray(splineOptions)) {
     const seriesArr = [];
 
     for (const opts of splineOptions) {

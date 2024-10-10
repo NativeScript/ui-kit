@@ -20,7 +20,7 @@ export function dependencywheelHandler(dependencywheelOptions) {
     startAngle: 'number',
   };
 
-  if (dependencywheelOptions instanceof Array) {
+  if (Array.isArray(dependencywheelOptions)) {
     const seriesArr = [];
 
     for (const opts of dependencywheelOptions) {

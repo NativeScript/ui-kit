@@ -22,7 +22,7 @@ export function organizationHandler(organizationOptions) {
     nodes: 'HINodes', // array
   };
 
-  if (organizationOptions instanceof Array) {
+  if (Array.isArray(organizationOptions)) {
     const seriesArr = [];
 
     for (const opts of organizationOptions) {

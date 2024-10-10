@@ -15,7 +15,7 @@ export function bubbleHandler(bubbleOptions) {
     zThreshold: 'number',
   };
 
-  if (bubbleOptions instanceof Array) {
+  if (Array.isArray(bubbleOptions)) {
     const seriesArr = [];
 
     for (const opts of bubbleOptions) {

@@ -11,7 +11,7 @@ export function tilemapHandler(tilemapOptions) {
     tileShape: 'string',
   };
 
-  if (tilemapOptions instanceof Array) {
+  if (Array.isArray(tilemapOptions)) {
     const seriesArr = [];
 
     for (const opts of tilemapOptions) {

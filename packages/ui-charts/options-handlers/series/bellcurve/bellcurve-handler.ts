@@ -14,7 +14,7 @@ export function bellcurveHandler(bellcurveOptions) {
     trackByArea: 'number',
   };
 
-  if (bellcurveOptions instanceof Array) {
+  if (Array.isArray(bellcurveOptions)) {
     const seriesArr = [];
 
     for (const opts of bellcurveOptions) {

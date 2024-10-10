@@ -20,7 +20,7 @@ export function plotBandsHandler(plotBandsOptions) {
     zIndex: 'number',
   };
 
-  if (plotBandsOptions instanceof Array) {
+  if (Array.isArray(plotBandsOptions)) {
     const seriesArr = [];
 
     for (const opts of plotBandsOptions) {

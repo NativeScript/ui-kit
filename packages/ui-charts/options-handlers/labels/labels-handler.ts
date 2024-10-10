@@ -38,7 +38,7 @@ export function labelsHandler(labelsOptions) {
     zIndex: 'number',
   };
 
-  if (labelsOptions instanceof Array || labelsOptions.length > 0) {
+  if (Array.isArray(labelsOptions) || labelsOptions.length > 0) {
     const labelsArray = [];
 
     for (let i = 0; i < labelsOptions.length; i++) {

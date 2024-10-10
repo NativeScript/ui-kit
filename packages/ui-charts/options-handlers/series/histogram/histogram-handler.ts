@@ -26,7 +26,7 @@ export function histogramHandler(histogramOptions) {
     pointWidth: 'number',
   };
 
-  if (histogramOptions instanceof Array) {
+  if (Array.isArray(histogramOptions)) {
     const seriesArr = [];
 
     for (const opts of histogramOptions) {

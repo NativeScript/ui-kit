@@ -25,7 +25,7 @@ export function waterfallHandler(waterfallOptions) {
     upColor: 'HIColor',
   };
 
-  if (waterfallOptions instanceof Array) {
+  if (Array.isArray(waterfallOptions)) {
     const seriesArr = [];
 
     for (const opts of waterfallOptions) {

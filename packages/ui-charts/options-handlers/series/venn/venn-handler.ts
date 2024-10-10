@@ -10,7 +10,7 @@ export function vennHandler(vennOptions) {
     colorByPoint: 'number',
   };
 
-  if (vennOptions instanceof Array) {
+  if (Array.isArray(vennOptions)) {
     const seriesArr = [];
 
     for (const opts of vennOptions) {

@@ -7,7 +7,7 @@ export function scatter3dHandler(scatter3dOptions) {
     jitter: 'HIJitter',
   };
 
-  if (scatter3dOptions instanceof Array) {
+  if (Array.isArray(scatter3dOptions)) {
     const seriesArr = [];
 
     for (const opts of scatter3dOptions) {

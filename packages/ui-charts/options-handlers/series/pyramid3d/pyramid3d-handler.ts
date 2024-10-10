@@ -27,7 +27,7 @@ export function pyramid3dHandler(pyramid3dOptions) {
     width: 'number',
   };
 
-  if (pyramid3dOptions instanceof Array) {
+  if (Array.isArray(pyramid3dOptions)) {
     const seriesArr = [];
 
     for (const opts of pyramid3dOptions) {

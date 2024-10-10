@@ -18,7 +18,7 @@ export function columnpyramidHandler(columnpyramidOptions) {
     pointWidth: 'number',
   };
 
-  if (columnpyramidOptions instanceof Array) {
+  if (Array.isArray(columnpyramidOptions)) {
     const seriesArr = [];
 
     for (const opts of columnpyramidOptions) {

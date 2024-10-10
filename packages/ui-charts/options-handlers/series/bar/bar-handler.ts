@@ -23,7 +23,7 @@ export function barHandler(barOptions) {
     pointWidth: 'number',
   };
 
-  if (barOptions instanceof Array) {
+  if (Array.isArray(barOptions)) {
     const seriesArr = [];
 
     for (const opts of barOptions) {

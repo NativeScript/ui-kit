@@ -7,7 +7,7 @@ export function paretoHandler(paretoOptions) {
     baseSeries: 'number',
   };
 
-  if (paretoOptions instanceof Array) {
+  if (Array.isArray(paretoOptions)) {
     const seriesArr = [];
 
     for (const opts of paretoOptions) {
