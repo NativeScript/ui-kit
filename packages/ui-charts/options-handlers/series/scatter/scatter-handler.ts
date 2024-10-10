@@ -8,7 +8,7 @@ export function scatterHandler(scatterOptions) {
     jitter: 'HIJitter',
   };
 
-  if (scatterOptions instanceof Array) {
+  if (Array.isArray(scatterOptions)) {
     const seriesArr = [];
 
     for (const opts of scatterOptions) {

@@ -9,7 +9,7 @@ export function timelineHandler(timelineOptions) {
     legendType: 'string',
   };
 
-  if (timelineOptions instanceof Array) {
+  if (Array.isArray(timelineOptions)) {
     const seriesArr = [];
 
     for (const opts of timelineOptions) {

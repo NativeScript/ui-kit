@@ -18,7 +18,7 @@ export function itemHandler(itemOptions) {
     startAngle: 'number',
   };
 
-  if (itemOptions instanceof Array) {
+  if (Array.isArray(itemOptions)) {
     const seriesArr = [];
 
     for (const opts of itemOptions) {

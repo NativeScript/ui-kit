@@ -30,7 +30,7 @@ export function errorbarHandler(errorbarOptions) {
     whiskerWidth: 'number',
   };
 
-  if (errorbarOptions instanceof Array) {
+  if (Array.isArray(errorbarOptions)) {
     const seriesArr = [];
 
     for (const opts of errorbarOptions) {

@@ -3,7 +3,7 @@ import { seriesHandler } from '../series-handler';
 import { convertJSArrayToNative } from '../../helpers/helpers';
 
 export function lineHandler(lineOptions) {
-  if (lineOptions instanceof Array) {
+  if (Array.isArray(lineOptions)) {
     const seriesArr = [];
 
     for (const opts of lineOptions) {

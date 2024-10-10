@@ -68,7 +68,7 @@ export function optionsHandler(options) {
     caption: 'HICaption',
     chart: 'HIChart',
     colorAxis: 'HIColorAxis', // array
-    colors: 'Array',
+    colors: 'HIColor',
     credits: 'HICredits',
     data: 'HIData',
     defs: 'HIDefs',

@@ -23,7 +23,7 @@ export function columnrangeHandler(columnrangeOptions) {
     pointWidth: 'number',
   };
 
-  if (columnrangeOptions instanceof Array) {
+  if (Array.isArray(columnrangeOptions)) {
     const seriesArr = [];
 
     for (const opts of columnrangeOptions) {

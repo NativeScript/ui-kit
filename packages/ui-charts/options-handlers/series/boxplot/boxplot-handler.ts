@@ -30,7 +30,7 @@ export function boxplotHandler(boxplotOptions) {
     whiskerWidth: 'number',
   };
 
-  if (boxplotOptions instanceof Array) {
+  if (Array.isArray(boxplotOptions)) {
     const seriesArr = [];
 
     for (const opts of boxplotOptions) {

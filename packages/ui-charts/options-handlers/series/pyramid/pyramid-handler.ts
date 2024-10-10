@@ -22,7 +22,7 @@ export function pyramidHandler(pyramidOptions) {
     width: 'number',
   };
 
-  if (pyramidOptions instanceof Array) {
+  if (Array.isArray(pyramidOptions)) {
     const seriesArr = [];
 
     for (const opts of pyramidOptions) {

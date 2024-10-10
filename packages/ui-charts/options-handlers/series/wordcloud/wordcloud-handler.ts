@@ -20,7 +20,7 @@ export function wordcloudHandler(wordcloudOptions) {
     style: 'HICSSObject',
   };
 
-  if (wordcloudOptions instanceof Array) {
+  if (Array.isArray(wordcloudOptions)) {
     const seriesArr = [];
 
     for (const opts of wordcloudOptions) {

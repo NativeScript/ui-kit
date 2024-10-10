@@ -16,9 +16,9 @@ export function annotationsHandler(annotationsOptions) {
     visible: 'number',
     zIndex: 'number',
   };
-  if (annotationsOptions instanceof Array) {
-    var annotationsArray = [];
-    for (var i = 0; i < annotationsOptions.length; i++) {
+  if (Array.isArray(annotationsOptions)) {
+    const annotationsArray = [];
+    for (let i = 0; i < annotationsOptions.length; i++) {
       annotationsArray.push(optionsBuilder(annotationsSchema, annotationsOptions[i], annotations));
     }
     return convertJSArrayToNative(annotationsArray);

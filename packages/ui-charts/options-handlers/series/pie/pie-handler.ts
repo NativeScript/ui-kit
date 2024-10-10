@@ -19,7 +19,7 @@ export function pieHandler(pieOptions) {
     startAngle: 'number',
   };
 
-  if (pieOptions instanceof Array) {
+  if (Array.isArray(pieOptions)) {
     const seriesArr = [];
 
     for (const opts of pieOptions) {

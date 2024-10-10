@@ -22,7 +22,7 @@ export function funnelHandler(funnelOptions) {
     width: 'number',
   };
 
-  if (funnelOptions instanceof Array) {
+  if (Array.isArray(funnelOptions)) {
     const seriesArr = [];
 
     for (const opts of funnelOptions) {

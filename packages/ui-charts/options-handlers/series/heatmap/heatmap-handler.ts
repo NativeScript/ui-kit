@@ -10,7 +10,7 @@ export function heatmapHandler(heatmapOptions) {
     rowsize: 'number',
   };
 
-  if (heatmapOptions instanceof Array) {
+  if (Array.isArray(heatmapOptions)) {
     const seriesArr = [];
 
     for (const opts of heatmapOptions) {

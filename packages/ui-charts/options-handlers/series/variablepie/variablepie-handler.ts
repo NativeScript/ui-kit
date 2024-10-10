@@ -24,7 +24,7 @@ export function variablepieHandler(variablepieOptions) {
     zMin: 'number',
   };
 
-  if (variablepieOptions instanceof Array) {
+  if (Array.isArray(variablepieOptions)) {
     const seriesArr = [];
 
     for (const opts of variablepieOptions) {

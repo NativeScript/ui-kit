@@ -9,7 +9,7 @@ export function vectorHandler(vectorOptions) {
     vectorLength: 'number',
   };
 
-  if (vectorOptions instanceof Array) {
+  if (Array.isArray(vectorOptions)) {
     const seriesArr = [];
 
     for (const opts of vectorOptions) {
