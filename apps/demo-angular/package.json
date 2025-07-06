@@ -2,7 +2,7 @@
   "main": "./src/main.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nativescript/swift-ui": "file:../../dist/packages/swift-ui",
+    "@nativescript/swift-ui": "file:../../packages/swift-ui",
     "@nativescript/flutter": "file:../../dist/packages/flutter",
     "@nativescript/ionic-portals": "file:../../dist/packages/ionic-portals",
     "@nativescript/jetpack-compose": "file:../../dist/packages/jetpack-compose",

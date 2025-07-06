@@ -1,140 +1,171 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 @objc
 protocol SwiftUIProvider where Self: UIViewController {
-    func updateData(data: NSDictionary)
-    var onEvent: ((NSDictionary) -> ())? { get set }
+  func updateData(data: NSDictionary)
+  var onEvent: ((NSDictionary) -> Void)? { get set }
 }
 
 extension SwiftUIProvider {
-    
-    func setupSwiftUIView<View>(content: View) -> UIHostingController<View> where View : SwiftUI.View {
-        let hostingController = UIHostingController(rootView: content)
-        addChild(hostingController)
-        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
-        hostingController.view.backgroundColor = .clear
-        // hostingController.view.frame = view.bounds
-        // hostingController.view.frame = CGRect(x: 0, y: 0, width: 0, height: view.bounds.height)
-        // hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(hostingController.view)
-        // childVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        // childVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        // childVC.view.widthAnchor.constraint(equalToConstant: 128).isActive = true
-        // childVC.view.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
 
-        hostingController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            hostingController.view
-                .centerXAnchor
-                .constraint(equalTo: view.centerXAnchor),
-            hostingController.view
-                .centerYAnchor
-                .constraint(equalTo: view.centerYAnchor)
-        ])
-        
-        if #available(iOS 16.0, *) {
-            hostingController.sizingOptions = .intrinsicContentSize
-            if #available(iOS 16.4, *) {
-                hostingController.safeAreaRegions = []
-            }
-        }
-        return hostingController
+//   @discardableResult
+  func hostSwiftUIView<T: View>(
+    view: T,
+    insideView hostView: UIView? = nil
+  ) -> UIHostingController<T> {
+    let hostingController = UIHostingController(rootView: view)
+    addChild(hostingController)
+    hostingController.didMove(toParent: self)
+    if let hostView {
+      hostView.addSubview(hostingController.view)
+    } else {
+      self.view.addSubview(hostingController.view)
     }
+    hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+    NSLayoutConstraint.activate([
+      hostingController.view.topAnchor.constraint(
+        equalTo: hostingController.view.superview!.topAnchor),
+      hostingController.view.leadingAnchor.constraint(
+        equalTo: hostingController.view.superview!.leadingAnchor),
+      hostingController.view.trailingAnchor.constraint(
+        equalTo: hostingController.view.superview!.trailingAnchor),
+      hostingController.view.bottomAnchor.constraint(
+        equalTo: hostingController.view.superview!.bottomAnchor),
+    ])
+    if #available(iOS 16.0, *) {
+      hostingController.sizingOptions = [.intrinsicContentSize]
+    }
+     return hostingController
+  }
+
+  func setupSwiftUIView<View>(content: View) -> UIHostingController<View> where View: SwiftUI.View {
+    return hostSwiftUIView(view: content)
+    // let hostingController = UIHostingController(rootView: content)
+    // addChild(hostingController)
+    // hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+    // hostingController.view.backgroundColor = .clear
+    // // hostingController.view.frame = view.bounds
+    // // hostingController.view.frame = CGRect(x: 0, y: 0, width: 0, height: view.bounds.height)
+    // // hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    // view.addSubview(hostingController.view)
+    // // childVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    // // childVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    // // childVC.view.widthAnchor.constraint(equalToConstant: 128).isActive = true
+    // // childVC.view.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+
+    // hostingController.didMove(toParent: self)
+    // NSLayoutConstraint.activate([
+    //   hostingController.view
+    //     .centerXAnchor
+    //     .constraint(equalTo: view.centerXAnchor),
+    //   hostingController.view
+    //     .centerYAnchor
+    //     .constraint(equalTo: view.centerYAnchor),
+    // ])
+
+    // if #available(iOS 16.0, *) {
+    //   hostingController.sizingOptions = .intrinsicContentSize
+    //   if #available(iOS 16.4, *) {
+    //     hostingController.safeAreaRegions = []
+    //   }
+    // }
+    // return hostingController
+  }
 }
 
 struct NativeScriptWindowContext {
-    // Scene id
-    var id = ""
-    // Context data
-    var data = Dictionary<String, Any>()
+  // Scene id
+  var id = ""
+  // Context data
+  var data = [String: Any]()
 }
 @objc open class NativeScriptWindowFactory: NSObject {
-    var data: [NativeScriptWindowContext] = []
-    @objc static var shared = NativeScriptWindowFactory()
-    @objc public func updateData(id: String, updates: NSDictionary) {
-        let index = data.firstIndex(where: { $0.id == id })
-        if (index != nil) {
-            data.remove(at: index!)
-        }
-        data.append(NativeScriptWindowContext(id: id, data: updates.nsToSwiftDictionary))
+  var data: [NativeScriptWindowContext] = []
+  @objc static var shared = NativeScriptWindowFactory()
+  @objc public func updateData(id: String, updates: NSDictionary) {
+    let index = data.firstIndex(where: { $0.id == id })
+    if index != nil {
+      data.remove(at: index!)
     }
-    @objc public func removeWindow(id: String) {
-        let index = data.firstIndex(where: { $0.id == id })
-        if (index != nil) {
-            data.remove(at: index!)
-        }
+    data.append(NativeScriptWindowContext(id: id, data: updates.nsToSwiftDictionary))
+  }
+  @objc public func removeWindow(id: String) {
+    let index = data.firstIndex(where: { $0.id == id })
+    if index != nil {
+      data.remove(at: index!)
     }
-    func getContextForId(id: String) -> NativeScriptWindowContext? {
-        let context = data.filter({ $0.id == id}).first
-        if (context != nil) {
-            return context!
-        }
-        return nil
+  }
+  func getContextForId(id: String) -> NativeScriptWindowContext? {
+    let context = data.filter({ $0.id == id }).first
+    if context != nil {
+      return context!
     }
+    return nil
+  }
 }
 
 extension NSDictionary {
-    var nsToSwiftDictionary: Dictionary<String, Any> {
-        var swiftDictionary = Dictionary<String, Any>()
-        
-        for key : Any in self.allKeys {
-            let stringKey = key as! String
-            if let keyValue = self.value(forKey: stringKey){
-                swiftDictionary[stringKey] = keyValue
-            }
-        }
-        
-        return swiftDictionary
+  var nsToSwiftDictionary: [String: Any] {
+    var swiftDictionary = [String: Any]()
+
+    for key: Any in self.allKeys {
+      let stringKey = key as! String
+      if let keyValue = self.value(forKey: stringKey) {
+        swiftDictionary[stringKey] = keyValue
+      }
     }
+
+    return swiftDictionary
+  }
 }
 
 @available(iOS 14.0, *)
 struct NativeScriptView: View {
-    
-    @State var id: String = ""
-    @State private var updates = 0
-    @Environment(\.scenePhase) private var scenePhase
-    
-    var view: NativeScriptViewRepresentable?
-    
-    var body: some View {
-        if #available(iOS 17.0, *) {
-            view.onChange(of: scenePhase) {
-                if scenePhase == .inactive {
-                    print("Inactive")
-                } else if scenePhase == .active {
-                    print("Active")
-                } else if scenePhase == .background {
-                    print("Background")
-                    // window closed here!
-                    view!.dispose()
-                }
-            }
-        } else {
-            view
+
+  @State var id: String = ""
+  @State private var updates = 0
+  @Environment(\.scenePhase) private var scenePhase
+
+  var view: NativeScriptViewRepresentable?
+
+  var body: some View {
+    if #available(iOS 17.0, *) {
+      view.onChange(of: scenePhase) {
+        if scenePhase == .inactive {
+          print("Inactive")
+        } else if scenePhase == .active {
+          print("Active")
+        } else if scenePhase == .background {
+          print("Background")
+          // window closed here!
+          view!.dispose()
         }
+      }
+    } else {
+      view
     }
-    
-    init(id: String) {
-        // Each representable gets a unique instance id
-        view = NativeScriptViewRepresentable(id: id + "-" + UUID().uuidString)
-    }
+  }
+
+  init(id: String) {
+    // Each representable gets a unique instance id
+    view = NativeScriptViewRepresentable(id: id + "-" + UUID().uuidString)
+  }
 }
 
 struct NativeScriptViewRepresentable: UIViewRepresentable {
-    @State var id: String
-    @State var updates = 0
-    func makeUIView(context: Context) -> UIView {
-        return NativeScriptViewFactory.shared!.getViewById(id)
-    }
-    func updateUIView(_ uiView: UIView, context: Context) {
-        //         print("updateUIView \(context)")
-        uiView.tag = updates
-    }
-    
-    func dispose() {
-        //        print("NativeScriptViewRepresentable dispose \(id)")
-        NativeScriptViewFactory.shared!.viewDestroyer!(id)
-    }
+  @State var id: String
+  @State var updates = 0
+  func makeUIView(context: Context) -> UIView {
+    return NativeScriptViewFactory.shared!.getViewById(id)
+  }
+  func updateUIView(_ uiView: UIView, context: Context) {
+    //         print("updateUIView \(context)")
+    uiView.tag = updates
+  }
+
+  func dispose() {
+    //        print("NativeScriptViewRepresentable dispose \(id)")
+    NativeScriptViewFactory.shared!.viewDestroyer!(id)
+  }
 }

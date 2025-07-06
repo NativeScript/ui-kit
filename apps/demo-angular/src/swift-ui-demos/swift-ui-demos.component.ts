@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { DemoSharedSwiftUi } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Page } from '@nativescript/core';
-import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker, ImageView, ColorPicker, DatePicker, Circle, Capsule, Ellipse, Rectangle, RoundedRectangle, UnevenRoundedRectangle, ZStack } from '@nativescript/swift-ui';
+import { SwiftUI, Button, Label, Text, Stepper, TextField, Shape, List, Color, Progress, Slider, Toggle, Picker, ImageView, ColorPicker, DatePicker, Circle, Capsule, Ellipse, Rectangle, RoundedRectangle, UnevenRoundedRectangle, ZStack, AutoLayoutView } from '@nativescript/swift-ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ListViewCustom } from './list-view-custom';
 
 registerElement('SwiftUI', () => SwiftUI);
+registerElement('AutoLayoutView', () => AutoLayoutView);
 registerElement('Color', () => Color);
 registerElement('ColorPicker', () => ColorPicker);
 registerElement('DatePickerView', () => DatePicker);
