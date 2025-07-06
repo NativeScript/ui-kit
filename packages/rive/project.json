@@ -14,6 +14,7 @@
         "main": "packages/rive/index.d.ts",
         "assets": [
           "packages/rive/*.md",
+          "packages/rive/nativescript.config.ts",
           "packages/rive/index.d.ts",
           "LICENSE",
           {
