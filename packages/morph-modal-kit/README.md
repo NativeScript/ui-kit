@@ -110,6 +110,17 @@ interface MorphAnimationSettings {
 }
 ```
 
+## Demo Examples from Joseph Smith
+
+Demo examples are included in this early release so you can get a feel for it. Just pass `null` to first argument.
+
+```ts
+export function openModalMenu(args: EventData) {
+    const btn = args.object as Button;
+    MorphModalKit.open(null, btn);
+}
+```
+
 ## License
 
 Apache License Version 2.0
