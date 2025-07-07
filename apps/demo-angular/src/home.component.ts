@@ -16,6 +16,9 @@ export class HomeComponent {
       name: 'jetpack-compose',
     },
     {
+      name: 'morph-modal-kit',
+    },
+    {
       name: 'rive',
     },
     {

@@ -12,7 +12,8 @@
       "@nativescript/jetpack-compose": ["../../packages/jetpack-compose/index.d.ts"],
       "@nativescript/rive": ["../../packages/rive/index.d.ts"],
       "@nativescript/ui-charts": ["../../packages/ui-charts/index.d.ts"],
-      "@nativescript/*": ["../../packages/*"]
+      "@nativescript/*": ["../../packages/*"],
+      "@nativescript/morph-modal-kit": ["../../packages/morph-modal-kit/index.d.ts"]
     }
   }
 }

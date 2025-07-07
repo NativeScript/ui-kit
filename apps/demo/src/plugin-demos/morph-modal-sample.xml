@@ -1,0 +1,6 @@
+<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd" rows="*" columns="*" class="w-full h-full" backgroundColor="#eee">
+    <GridLayout rows="*,auto,auto,*" class="w-full h-full" marginTop="85" translateX="-10">
+        <Image row="1" src="sys://figure.wave" iosSymbolEffect="wiggleLeft" tintColor="black" width="50" height="50" />
+        <Label row="2" text="Hi, from a NativeScript View" class="text-center" fontSize="20" fontWeight="bold" color="#555" marginTop="20"/>
+    </GridLayout>
+</GridLayout>
