@@ -8,6 +8,7 @@
         <Button text="flutter" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="ionic-portals" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="jetpack-compose" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
+        <Button text="morph-modal-kit" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="rive" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="swift-ui" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="ui-charts" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>

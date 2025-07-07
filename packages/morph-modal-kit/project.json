@@ -1,0 +1,66 @@
+{
+  "name": "morph-modal-kit",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/morph-modal-kit",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/morph-modal-kit",
+        "tsConfig": "packages/morph-modal-kit/tsconfig.json",
+        "packageJson": "packages/morph-modal-kit/package.json",
+        "main": "packages/morph-modal-kit/index.d.ts",
+        "assets": [
+          "packages/morph-modal-kit/*.md",
+          "packages/morph-modal-kit/index.d.ts",
+          "packages/morph-modal-kit/nativescript.config.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/morph-modal-kit/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts morph-modal-kit"],
+        "parallel": false
+      },
+      "outputs": ["{workspaceRoot}/dist/packages/morph-modal-kit"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages morph-modal-kit"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/morph-modal-kit/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

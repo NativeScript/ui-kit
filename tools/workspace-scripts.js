@@ -107,6 +107,13 @@ module.exports = {
           description: '@nativescript/rive: Build',
         },
       },
+      // @nativescript/morph-modal-kit
+      'morph-modal-kit': {
+        build: {
+          script: 'nx run morph-modal-kit:build.all',
+          description: '@nativescript/morph-modal-kit: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -140,6 +147,10 @@ module.exports = {
       rive: {
         script: 'nx run rive:focus',
         description: 'Focus on @nativescript/rive',
+      },
+      'morph-modal-kit': {
+        script: 'nx run morph-modal-kit:focus',
+        description: 'Focus on @nativescript/morph-modal-kit',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',

@@ -5,10 +5,11 @@
   "repository": "<fill-your-repository-here>",
   "dependencies": {
     "@nativescript/core": "*",
-    "@nativescript/rive": "file:../../packages/rive",
+    "@nativescript/morph-modal-kit": "file:../../packages/morph-modal-kit",
     "@nativescript/flutter": "file:../../packages/flutter",
     "@nativescript/ionic-portals": "file:../../packages/ionic-portals",
     "@nativescript/jetpack-compose": "file:../../packages/jetpack-compose",
+    "@nativescript/rive": "file:../../packages/rive",
     "@nativescript/swift-ui": "file:../../packages/swift-ui",
     "@nativescript/ui-charts": "file:../../packages/ui-charts"
   },
