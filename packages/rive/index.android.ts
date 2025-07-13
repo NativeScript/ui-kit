@@ -43,6 +43,15 @@ class Listener extends java.lang.Object implements app.rive.runtime.kotlin.contr
 
   notifyStateChanged(stateMachine: string, stateName: string): void {
     // this.owner.get()?.events.notifyEvent(RiveEvents.stateChangedEvent, { stateMachine, stateName });
+    const owner = this.owner.get();
+    if (owner) {
+      owner.events.notifyEvent(RiveEvents.stateChangedEvent, { stateMachine, stateName });
+      owner.notify({
+        eventName: 'stateChange',
+        object: owner,
+        detail: { stateMachine, stateName },
+      });
+    }
   }
 }
 
@@ -250,6 +259,8 @@ export class RiveView extends RiveViewBase {
       // todo investigate.
       // this.listener = new Listener(new WeakRef(this));
       //this.nativeViewProtected.getController().registerListener(this.listener);
+      this.listener = new Listener(new WeakRef(this));
+      this.nativeViewProtected.getController().registerListener(this.listener);
     }
   }
 

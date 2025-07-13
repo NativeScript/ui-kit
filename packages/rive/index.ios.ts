@@ -174,11 +174,6 @@ export class RiveView extends RiveViewBase {
     if (this.ctrl) {
       this.ctrl.stop();
     }
-    // if (Array.isArray(animationNames)) {
-    //     this.nativeViewProtected.stop(this.buildList(animationNames), areStateMachines);
-    // } else if (typeof animationNames === 'string') {
-    //     this.nativeViewProtected.stop(animationNames, areStateMachines);
-    // }
   }
 
   public pause(): void {
@@ -365,6 +360,11 @@ class RiveStateMachineDelegateImpl extends NSObject implements RiveStateMachineD
     const owner = this._owner.deref();
     if (owner) {
       owner.events.notifyEvent(RiveEvents.stateChangedEvent, { stateMachine, stateName });
+      owner.notify({
+        eventName: 'stateChange',
+        object: owner,
+        detail: { stateMachine, stateName },
+      });
     }
   }
 
@@ -373,6 +373,11 @@ class RiveStateMachineDelegateImpl extends NSObject implements RiveStateMachineD
     const owner = this._owner.deref();
     if (owner) {
       owner.events.notifyEvent(RiveEvents.receivedInputEvent, { stateMachine, input });
+      // owner.notify({
+      //   eventName: 'receivedInput',
+      //   object: owner,
+      //   detail: { stateMachine, input }
+      // });
     }
   }
 

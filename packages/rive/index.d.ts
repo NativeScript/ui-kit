@@ -65,4 +65,5 @@ export declare class RiveView extends View {
 
   triggerInput(name: string): void;
   triggerInputValue(name: string, value: string | boolean | number | null): void;
+  on(event: 'stateChange', callback: (ev: { object: RiveView; detail: { stateMachine: any; stateName: string } }) => void, thisArg?: any): void;
 }
