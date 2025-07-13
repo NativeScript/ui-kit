@@ -40,7 +40,7 @@ export class RiveEvents {
   static onPauseEvent = 'onPauseEvent';
   static onLoopEndEvent = 'onLoopEndEvent';
   static onStopEvent = 'onStopEvent';
-  static stateChangedEvent = 'stageChangedEvent';
+  static stateChangedEvent = 'stateChangedEvent';
   static receivedInputEvent = 'receivedInputEvent';
   static touchBeganEvent = 'touchBeganEvent';
   static touchCancelledEvent = 'touchCancelledEvent';
