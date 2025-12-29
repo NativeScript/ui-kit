@@ -23,26 +23,38 @@ class Listener extends java.lang.Object implements app.rive.runtime.kotlin.contr
   }
 
   notifyPlay(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
-    // this.owner.get()?.events.notifyEvent(RiveEvents.onPlayEvent, { name: animation.getName() });
+    const owner = this.owner.get();
+    if (owner) {
+      owner.events.notifyEvent(RiveEvents.onPlayEvent, { name: animation.getName() });
+    }
   }
 
   notifyStop(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
-    // this.owner.get()?.events.notifyEvent(RiveEvents.onStopEvent, { name: animation.getName() });
+    const owner = this.owner.get();
+    if (owner) {
+      owner.events.notifyEvent(RiveEvents.onStopEvent, { name: animation.getName() });
+    }
   }
 
   notifyPause(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
-    // this.owner.get()?.events.notifyEvent(RiveEvents.onPauseEvent, { name: animation.getName() });
+    const owner = this.owner.get();
+    if (owner) {
+      owner.events.notifyEvent(RiveEvents.onPauseEvent, { name: animation.getName() });
+    }
   }
 
   notifyLoop(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
     const owner = this.owner.get();
     if (owner) {
-      //  owner.events.notifyEvent(RiveEvents.onLoopEndEvent, { name: animation.getName(), loop: owner.loop });
+      owner.events.notifyEvent(RiveEvents.onLoopEndEvent, { name: animation.getName(), loop: owner.loop });
     }
   }
 
   notifyStateChanged(stateMachine: string, stateName: string): void {
-    // this.owner.get()?.events.notifyEvent(RiveEvents.stateChangedEvent, { stateMachine, stateName });
+    const owner = this.owner.get();
+    if (owner) {
+      owner.events.notifyEvent(RiveEvents.stateChangedEvent, { stateMachine, stateName });
+    }
   }
 }
 
@@ -247,9 +259,8 @@ export class RiveView extends RiveViewBase {
 
   private addListener() {
     if (!this.listener) {
-      // todo investigate.
-      // this.listener = new Listener(new WeakRef(this));
-      //this.nativeViewProtected.getController().registerListener(this.listener);
+      this.listener = new Listener(new WeakRef(this));
+      this.nativeViewProtected.getController().registerListener(this.listener);
     }
   }
 
