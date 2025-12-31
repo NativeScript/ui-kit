@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/rive",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Rive for NativeScript",
   "main": "index",
   "typings": "index.d.ts",
