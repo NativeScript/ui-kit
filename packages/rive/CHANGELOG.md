@@ -1,3 +1,18 @@
+## 2.0.4 (2025-12-31)
+
+### 🚀 Features
+
+- **rive:** android v10 ([#21](https://github.com/NativeScript/ui-kit/pull/21))
+
+### 🩹 Fixes
+
+- build ([f4f6516](https://github.com/NativeScript/ui-kit/commit/f4f6516))
+
+### ❤️ Thank You
+
+- Nathan Walker
+- Osei Fortune @triniwiz
+
 ## 2.0.2 (2025-12-29)
 
 ### 🚀 Features
