@@ -9,8 +9,8 @@ function lazy<T>(action: () => T): () => T {
 }
 
 @NativeClass()
-@Interfaces([app.rive.runtime.kotlin.controllers.RiveFileController.Listener])
-class Listener extends java.lang.Object implements app.rive.runtime.kotlin.controllers.RiveFileController.Listener {
+@Interfaces([org.nativescript.plugins.rive.Rive.Events])
+class Listener extends java.lang.Object implements org.nativescript.plugins.rive.Rive.Events {
   owner: WeakRef<RiveView>;
 
   constructor(owner: WeakRef<RiveView>) {
@@ -18,35 +18,32 @@ class Listener extends java.lang.Object implements app.rive.runtime.kotlin.contr
     this.owner = owner;
     return global.__native(this);
   }
-  public notifyAdvance(param0: number): void {
-    // todo
-  }
 
-  notifyPlay(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
+  notifyPlay(name: string): void {
     const owner = this.owner.get();
     if (owner) {
-      owner.events.notifyEvent(RiveEvents.onPlayEvent, { name: animation.getName() });
+      owner.events.notifyEvent(RiveEvents.onPlayEvent, { name });
     }
   }
 
-  notifyStop(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
+  notifyStop(name: string): void {
     const owner = this.owner.get();
     if (owner) {
-      owner.events.notifyEvent(RiveEvents.onStopEvent, { name: animation.getName() });
+      owner.events.notifyEvent(RiveEvents.onStopEvent, { name });
     }
   }
 
-  notifyPause(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
+  notifyPause(name: string): void {
     const owner = this.owner.get();
     if (owner) {
-      owner.events.notifyEvent(RiveEvents.onPauseEvent, { name: animation.getName() });
+      owner.events.notifyEvent(RiveEvents.onPauseEvent, { name });
     }
   }
 
-  notifyLoop(animation: app.rive.runtime.kotlin.core.PlayableInstance): void {
+  notifyLoop(name: string): void {
     const owner = this.owner.get();
     if (owner) {
-      owner.events.notifyEvent(RiveEvents.onLoopEndEvent, { name: animation.getName(), loop: owner.loop });
+      owner.events.notifyEvent(RiveEvents.onLoopEndEvent, { name, loop: owner.loop });
     }
   }
 
@@ -62,7 +59,7 @@ export class RiveView extends RiveViewBase {
   bytes: any;
   nativeViewProtected: app.rive.runtime.kotlin.RiveAnimationView;
 
-  listener: Listener;
+  listener: org.nativescript.plugins.rive.Rive;
 
   constructor() {
     super();
@@ -155,7 +152,7 @@ export class RiveView extends RiveViewBase {
 
   private _setInputValue(name: string, value: string | boolean | number | null) {
     this.input = name;
-    if (this.input && this.stateMachine && this.input) {
+    if (this.input && this.stateMachine && value !== undefined && value !== null && this.nativeViewProtected) {
       if (Utils.isBoolean(value) || ['true', 'false'].includes(value as string)) {
         this.nativeViewProtected.setBooleanState(this.stateMachine, this.input, value === true || value === 'true');
       } else {
@@ -170,7 +167,7 @@ export class RiveView extends RiveViewBase {
   private _init() {
     if (this.nativeViewProtected) {
       this.nativeViewProtected.reset();
-      this.nativeViewProtected.setRiveBytes(this.bytes, this.artboard, this.animation, this.stateMachine, this.autoPlay, this.getFit(this.fit), this.getAlignment(this.alignment), this.getLoop(this.loop));
+      this.nativeViewProtected.setRiveBytes(this.bytes, this.artboard, this.animation, this.stateMachine, this.autoPlay, false, this.getFit(this.fit), this.getAlignment(this.alignment), this.getLoop(this.loop));
       if (this.input) {
         this.setInputValue(this.inputValue);
       }
@@ -259,7 +256,8 @@ export class RiveView extends RiveViewBase {
 
   private addListener() {
     if (!this.listener) {
-      this.listener = new Listener(new WeakRef(this));
+      this.listener = new org.nativescript.plugins.rive.Rive();
+      this.listener.setEvents(new Listener(new WeakRef(this)));
       this.nativeViewProtected.getController().registerListener(this.listener);
     }
   }
