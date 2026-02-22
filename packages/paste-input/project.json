@@ -1,0 +1,65 @@
+{
+  "name": "paste-input",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/paste-input",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/paste-input",
+        "tsConfig": "packages/paste-input/tsconfig.json",
+        "packageJson": "packages/paste-input/package.json",
+        "main": "packages/paste-input/index.d.ts",
+        "assets": [
+          "packages/paste-input/*.md",
+          "packages/paste-input/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/paste-input/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["node tools/scripts/build-finish.ts paste-input"],
+        "parallel": false
+      },
+      "outputs": ["{workspaceRoot}/dist/packages/paste-input"],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nx g @nativescript/plugin-tools:focus-packages paste-input"],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/paste-input/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

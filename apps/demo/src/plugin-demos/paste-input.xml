@@ -1,0 +1,44 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+  xmlns:pi="@nativescript/paste-input" navigatingTo="navigatingTo" class="page">
+  <Page.actionBar>
+    <ActionBar title="paste-input" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
+  <GridLayout>
+
+    <ScrollView>
+      <StackLayout class="p-20">
+        <Label text="Paste anything below:" class="h3 m-b-10"/>
+
+        <pi:PasteInput accept="all" hint="Paste text, images, or files here..." height="150" paste="{{ onPaste }}" drop="{{ onDrop }}" enableDragDrop="true" borderWidth="1" borderColor="#ccc" borderRadius="8" padding="10" class="m-b-10"/>
+
+        <Label text="Images only:" class="h3 m-t-20 m-b-10"/>
+
+        <pi:PasteInput accept="image" hint="Only images accepted..." height="100" paste="{{ onPaste }}" borderWidth="1" borderColor="#ccc" borderRadius="8" padding="10" class="m-b-10"/>
+
+        <Label text="Pasted Images:" class="h3 m-t-20 m-b-12" visibility="{{ showImages ? 'visible' : 'collapsed' }}"/>
+        <ScrollView orientation="horizontal" height="100" visibility="{{ showImages ? 'visible' : 'collapsed' }}" class="m-b-10">
+          <Repeater items="{{ pastedImages }}">
+            <Repeater.itemsLayout>
+              <StackLayout orientation="horizontal" paddingTop="8" paddingBottom="8"/>
+            </Repeater.itemsLayout>
+            <Repeater.itemTemplate>
+              <GridLayout height="100" marginRight="10">
+                <Image src="{{ uri }}" height="100" borderRadius="6" stretch="aspectFit"/>
+                <GridLayout tap="onRemoveImage" horizontalAlignment="right" verticalAlignment="top" margin="2" padding="4" background="#00000088" borderRadius="10" width="20" height="20" translateY="-8" translateX="8">
+                  <Label text="✕" fontSize="12" color="white" textAlignment="center" verticalAlignment="center" />
+
+                </GridLayout>
+              </GridLayout>
+            </Repeater.itemTemplate>
+          </Repeater>
+        </ScrollView>
+
+        <Label text="Result:" class="h3 m-t-20"/>
+        <TextView text="{{ pasteResult }}" editable="false" height="150" class="m-t-5" textWrap="true"/>
+
+        <ContentView height="400"></ContentView>
+      </StackLayout>
+    </ScrollView>
+  </GridLayout>
+</Page>
