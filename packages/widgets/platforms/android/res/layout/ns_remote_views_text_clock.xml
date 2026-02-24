@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextClock xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@id/ns_remote_view_text_clock"
+	android:format12Hour="hh:mm a"
+    android:format24Hour="HH:mm"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+</TextClock>

@@ -12,6 +12,7 @@
         <Button text="rive" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="swift-ui" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
         <Button text="ui-charts" tap="{{ viewDemo }}" class="btn btn-primary view-demo rounded"/>
+<Button text="widgets" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

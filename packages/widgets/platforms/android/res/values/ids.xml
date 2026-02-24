@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<item name="ns_remote_view_root" type="id" />
+	<item name="ns_remote_view_adapter_view_flipper" type="id" />
+	<item name="ns_remote_view_button" type="id" />
+	<item name="ns_remote_view_chronometer" type="id" />
+	<item name="ns_remote_view_frame_layout" type="id" />
+	<item name="ns_remote_view_grid_layout" type="id" />
+	<item name="ns_remote_view_grid_view" type="id" />
+	<item name="ns_remote_view_h_spacer" type="id" />
+	<item name="ns_remote_view_h_spacer_fixed" type="id" />
+	<item name="ns_remote_view_image_button" type="id" />
+	<item name="ns_remote_view_image_view" type="id" />
+	<item name="ns_remote_view_linear_layout_horizontal" type="id" />
+	<item name="ns_remote_view_linear_layout_horizontal_flex" type="id" />
+	<item name="ns_remote_view_linear_layout_vertical" type="id" />
+	<item name="ns_remote_view_linear_layout_vertical_flex" type="id" />
+	<item name="ns_remote_view_list_view" type="id" />
+	<item name="ns_remote_view_progress_bar" type="id" />
+	<item name="ns_remote_view_progress_bar_determinate" type="id" />
+	<item name="ns_remote_view_progress_bar_determinate_flex" type="id" />
+	<item name="ns_remote_view_progress_bar_determinate_full" type="id" />
+	<item name="ns_remote_view_relative_layout" type="id" />
+	<item name="ns_remote_view_stack_view" type="id" />
+	<item name="ns_remote_view_text_clock" type="id" />
+	<item name="ns_remote_view_text_view" type="id" />
+	<item name="ns_remote_view_v_spacer" type="id" />
+	<item name="ns_remote_view_v_spacer_fixed" type="id" />
+	<item name="ns_remote_view_flipper" type="id" />
+</resources>

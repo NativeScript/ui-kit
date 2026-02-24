@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'rive', loadChildren: () => import('./plugin-demos/rive.module').then((m) => m.RiveModule) },
   { path: 'swift-ui', loadChildren: () => import('./plugin-demos/swift-ui.module').then((m) => m.SwiftUiModule) },
   { path: 'ui-charts', loadChildren: () => import('./plugin-demos/ui-charts.module').then((m) => m.UiChartsModule) },
+  { path: 'widgets', loadChildren: () => import('./plugin-demos/widgets.module').then((m) => m.WidgetsModule) },
 ];
 
 @NgModule({

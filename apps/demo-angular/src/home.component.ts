@@ -27,5 +27,8 @@ export class HomeComponent {
     {
       name: 'ui-charts',
     },
+    {
+      name: 'widgets',
+    },
   ];
 }

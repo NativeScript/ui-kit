@@ -13,7 +13,8 @@
       "@nativescript/rive": ["../../packages/rive/index.d.ts"],
       "@nativescript/ui-charts": ["../../packages/ui-charts/index.d.ts"],
       "@nativescript/*": ["../../packages/*"],
-      "@nativescript/morph-modal-kit": ["../../packages/morph-modal-kit/index.d.ts"]
+      "@nativescript/morph-modal-kit": ["../../packages/morph-modal-kit/index.d.ts"],
+      "@nativescript/widgets": ["../../packages/widgets/index.d.ts"]
     }
   }
 }
