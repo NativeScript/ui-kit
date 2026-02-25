@@ -220,9 +220,13 @@ function dashboardWidget(provider: string, ids: number[]) {
       HStack(() => [Text('Tasks').setColor('#495057').setTextSize(12), Spacer(), Text(`${completed}/${tasks.length}`).setColor('#6c757d').setTextSize(11)]),
       Spacer(4),
       List(tasks.length, (i) =>
-        Text(`${tasks[i].done ? '✓' : '○'} ${tasks[i].name}`)
-          .setColor(tasks[i].done ? '#27ae60' : '#212529')
-          .setTextSize(13),
+        HStack(() => [
+          CheckBox(tasks[i].done).onCheck('toggleTask', { name: tasks[i].name }),
+          Spacer(8),
+          Text(tasks[i].name)
+            .setColor(tasks[i].done ? '#27ae60' : '#212529')
+            .setTextSize(13),
+        ]),
       ),
     ]),
   )
@@ -239,7 +243,7 @@ registerWidgetListener('org.nativescript.plugindemo.PluginDemoWidgetProvider', {
     console.log('Check toggled', event);
   },
   onUpdate: (event) => {
-    // dashboardWidget(event.provider, event.appWidgetIds);
+    dashboardWidget(event.provider, event.appWidgetIds);
     //countdownWidget(event.provider, event.appWidgetIds);
     // clockWidget(event.provider, event.appWidgetIds);
     // progressWidget(event.provider, event.appWidgetIds);
@@ -247,7 +251,7 @@ registerWidgetListener('org.nativescript.plugindemo.PluginDemoWidgetProvider', {
     // slideshowWidget(event.provider, event.appWidgetIds);
     //gridWidget(event.provider, event.appWidgetIds);
     //stackWidget(event.provider, event.appWidgetIds);
-    toggleWidget(event.provider, event.appWidgetIds);
+    //toggleWidget(event.provider, event.appWidgetIds);
     // checklistWidget(event.provider, event.appWidgetIds);
     // radioWidget(event.provider, event.appWidgetIds);
     /* const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
