@@ -29,6 +29,7 @@ abstract class AppWidgetWorker(
 		const val KEY_WIDGET_IDS = "widget_ids"
 		const val KEY_PROVIDER = "provider"
 
+
 		private val lastEnqueuedAt = ConcurrentHashMap<String, Long>()
 		private const val MIN_INTERVAL_MS = 3000L
 

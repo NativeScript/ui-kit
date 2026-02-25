@@ -17,7 +17,11 @@ class RemoteViewsManager {
 	private val children = mutableMapOf<String, MutableList<String>>()
 	private val registeredServiceKeys = mutableSetOf<String>()
 	internal val adapterViewIds = mutableListOf<Int>()
-	
+
+	// Pre-S: cached platform RemoteViews for immediate compound button updates
+	internal var cachedRootRv: android.widget.RemoteViews? = null
+	internal val compoundButtonCache = mutableMapOf<String, android.widget.RemoteViews>()
+
 	// Pending adapter setups to apply to the root RemoteViews
 	private data class PendingAdapter(
 		val viewId: Int,
@@ -124,39 +128,43 @@ class RemoteViewsManager {
 		}
 	}
 
-	fun build(packageName: String): android.widget.RemoteViews? {
-		val rootId = parents.entries.firstOrNull { it.value == null }?.key ?: return null
-		val root = nodes[rootId] ?: return null
+	private fun preBuild() {
 		cleanupServiceKeys()
 		adapterViewIds.clear()
 		pendingAdapters.clear()
-		val rv = buildNode(rootId, packageName, root)
+		compoundButtonCache.clear()
+	}
+
+	private fun postBuild(rv: android.widget.RemoteViews): android.widget.RemoteViews {
 		applyPendingAdapters(rv)
+		cachedRootRv = rv
 		return rv
+	}
+
+	fun build(packageName: String): android.widget.RemoteViews? {
+		val rootId = parents.entries.firstOrNull { it.value == null }?.key ?: return null
+		val root = nodes[rootId] ?: return null
+		preBuild()
+		val rv = buildNode(rootId, packageName, root)
+		return postBuild(rv)
 	}
 
 	fun build(rootId: String, packageName: String): android.widget.RemoteViews? {
 		val root = nodes[rootId] ?: return null
-		cleanupServiceKeys()
-		adapterViewIds.clear()
-		pendingAdapters.clear()
+		preBuild()
 		val rv = buildNode(rootId, packageName, root)
-		applyPendingAdapters(rv)
-		return rv
+		return postBuild(rv)
 	}
 
 	fun build(context: Context, providerClass: String): android.widget.RemoteViews? {
 		val rootId = parents.entries.firstOrNull { it.value == null }?.key ?: return null
 		val root = nodes[rootId] ?: return null
-		cleanupServiceKeys()
-		adapterViewIds.clear()
-		pendingAdapters.clear()
+		preBuild()
 		RemoteViews.buildContext = context
 		RemoteViews.buildProviderClass = providerClass
 		try {
 			val rv = buildNode(rootId, context.packageName, root)
-			applyPendingAdapters(rv)
-			return rv
+			return postBuild(rv)
 		} finally {
 			RemoteViews.buildContext = null
 			RemoteViews.buildProviderClass = null
@@ -165,15 +173,12 @@ class RemoteViewsManager {
 
 	fun build(rootId: String, context: Context, providerClass: String): android.widget.RemoteViews? {
 		val root = nodes[rootId] ?: return null
-		cleanupServiceKeys()
-		adapterViewIds.clear()
-		pendingAdapters.clear()
+		preBuild()
 		RemoteViews.buildContext = context
 		RemoteViews.buildProviderClass = providerClass
 		try {
 			val rv = buildNode(rootId, context.packageName, root)
-			applyPendingAdapters(rv)
-			return rv
+			return postBuild(rv)
 		} finally {
 			RemoteViews.buildContext = null
 			RemoteViews.buildProviderClass = null
@@ -299,6 +304,12 @@ class RemoteViewsManager {
 		}
 
 		val rv = node.buildSelf(packageName)
+
+		// Pre-S: cache compound button RVs for immediate checked drawable updates
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S && node is RemoteViews.CompoundButtonLike) {
+			compoundButtonCache[id] = rv
+		}
+
 		val childIds = children[id]
 		if (!childIds.isNullOrEmpty()) {
 			// Clear existing children before adding new ones.

@@ -26,6 +26,12 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		const val ACTION_CLICK = "org.nativescript.widgets.ACTION_CLICK"
 		const val EXTRA_CLICK_ACTION = "ns_click_action"
 		const val EXTRA_CLICK_EXTRAS = "ns_click_extras"
+		const val ACTION_CHECK = "org.nativescript.widgets.ACTION_CHECK"
+		const val EXTRA_CHECK_ACTION = "ns_check_action"
+		const val EXTRA_CHECK_EXTRAS = "ns_check_extras"
+		const val CHECKED_VALUE = "ns_checked_value"
+		const val EXTRA_LAYOUT_TYPE = "ns_layout_type"
+		const val EXTRA_WIDGET_ID = "ns_widget_id"
 
 		@JvmField
 		internal var buildContext: Context? = null
@@ -33,6 +39,8 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		internal var buildProviderClass: String? = null
 		@JvmField
 		internal var buildForCollection: Boolean = false
+		@JvmField
+		internal var buildAppWidgetId: Int = 0
 	}
 
 	internal val commands = mutableMapOf<String, Command>()
@@ -196,11 +204,19 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 				val intent = Intent(ACTION_CLICK).apply {
 					component = android.content.ComponentName(context, providerClass)
 					putExtra(EXTRA_CLICK_ACTION, action)
-					if (extras != null) putExtra(EXTRA_CLICK_EXTRAS, extras)
+					if (extras != null) {
+						putExtra(EXTRA_CLICK_EXTRAS, extras)
+					}
+					// mark as a click-origin event
 					data = Uri.parse("ns://click/$nodeId/$action")
 				}
 				val requestCode = nodeId.hashCode() and 0x7FFFFFFF
-				val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+					var flags = PendingIntent.FLAG_UPDATE_CURRENT
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+						flags = flags or PendingIntent.FLAG_MUTABLE
+					} else {
+						flags = flags or PendingIntent.FLAG_IMMUTABLE
+					}
 				val pi = PendingIntent.getBroadcast(context, requestCode, intent, flags)
 				rv.setOnClickPendingIntent(targetId, pi)
 			}
@@ -428,6 +444,81 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 				}
 			}
 		}
+
+		data class SetChecked(
+			val value: Boolean,
+			val layout: Layout
+		) : Command() {
+			override fun applyTo(rv: android.widget.RemoteViews, targetId: Int) {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+					rv.setCompoundButtonChecked(targetId, value)
+				} else {
+					val drawableRes = when (layout) {
+						Layout.CheckBox -> if (value) R.drawable.ns_checkbox_on else R.drawable.ns_checkbox_off
+						Layout.RadioButton -> if (value) R.drawable.ns_radio_on else R.drawable.ns_radio_off
+						Layout.Switch -> if (value) R.drawable.ns_switch_on else R.drawable.ns_switch_off
+						else -> return
+					}
+					rv.setImageViewResource(targetId, drawableRes)
+				}
+			}
+		}
+
+		data class SetOnCheckAction(
+			val action: String,
+			val extras: android.os.Bundle?,
+			val nodeId: String,
+			val checkedState: Boolean = false,
+			val layout: Layout = Layout.CheckBox
+		) : Command() {
+			override fun applyTo(rv: android.widget.RemoteViews, targetId: Int) {
+				// no-op — requires context to create PendingIntent
+			}
+
+			override fun applyToWithContext(
+				rv: android.widget.RemoteViews,
+				targetId: Int,
+				context: Context
+			) {
+				val providerClass = buildProviderClass ?: return
+				val intent = Intent(ACTION_CHECK).apply {
+					component = android.content.ComponentName(context, providerClass)
+					putExtra(EXTRA_CHECK_ACTION, action)
+					if (extras != null) {
+						putExtra(EXTRA_CHECK_EXTRAS, extras)
+					}
+					// Pre-S: embed layout type and widget ID so the receiver
+					// can look up SharedPreferences and update the correct widget
+					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+						putExtra(EXTRA_LAYOUT_TYPE, layout.name)
+						if (buildAppWidgetId != 0) {
+							putExtra(EXTRA_WIDGET_ID, buildAppWidgetId)
+						}
+					}
+					// mark as a check-origin event
+					data = Uri.parse("ns://check/$nodeId/$action")
+				}
+
+				val requestCode = nodeId.hashCode() and 0x7FFFFFFF
+				var flags = PendingIntent.FLAG_UPDATE_CURRENT
+					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+						flags = flags or PendingIntent.FLAG_MUTABLE
+					} else {
+						flags = flags or PendingIntent.FLAG_IMMUTABLE
+					}
+
+				val pi = PendingIntent.getBroadcast(context, requestCode, intent, flags)
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+          rv.setOnCheckedChangeResponse(
+            targetId,
+            android.widget.RemoteViews.RemoteResponse.fromPendingIntent(pi)
+          )
+        } else {
+          rv.setOnClickPendingIntent(targetId, pi)
+        }
+			}
+		}
+
 	}
 
 	fun resolveRemoteResources() {
@@ -476,6 +567,19 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 			android.widget.RemoteViews(packageName, toLayoutId())
 		}
 		val ctx = buildContext
+
+		// Pre-S: persist checked state to SharedPreferences and sync into onCheck command
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			val checkedCmd = commands["setChecked"] as? Command.SetChecked
+			val checkActionCmd = commands["onCheck"] as? Command.SetOnCheckAction
+			if (checkedCmd != null && checkActionCmd != null) {
+				commands["onCheck"] = checkActionCmd.copy(checkedState = checkedCmd.value)
+				if (ctx != null && buildAppWidgetId != 0) {
+					AppWidgetManager.setCheckedState(ctx, buildAppWidgetId, id, checkedCmd.value)
+				}
+			}
+		}
+
 		// Commands target stableId - which is either the XML viewId (2-param) or generated id (3-param)
 		if (ctx != null) {
 			commands.values.forEach { cmd -> cmd.applyToWithContext(rv, stableId!!, ctx) }
@@ -507,7 +611,10 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		VSpacerFixed,
 		HSpacer,
 		HSpacerFixed,
-		Root
+		Root,
+		CheckBox,
+		RadioButton,
+		Switch
 	}
 
 	fun setBackgroundColor(value: Int): RemoteViews {
@@ -556,22 +663,54 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 	}
 
 	fun setWidth(value: Float, unit: Int): RemoteViews {
-		commands["setWidth"] = Command.SetWidth(value, unit)
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			widthPx = TypedValue.applyDimension(
+				unit, value, Resources.getSystem().displayMetrics
+			).toInt()
+			recomputePaddingPreS()
+		} else {
+			commands["setWidth"] = Command.SetWidth(value, unit)
+		}
 		return this
 	}
 
 	fun setHeight(value: Float, unit: Int): RemoteViews {
-		commands["setHeight"] = Command.SetHeight(value, unit)
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			heightPx = TypedValue.applyDimension(
+				unit, value, Resources.getSystem().displayMetrics
+			).toInt()
+			recomputePaddingPreS()
+		} else {
+			commands["setHeight"] = Command.SetHeight(value, unit)
+		}
 		return this
 	}
 
 	fun setSize(width: Float, widthUnit: Int, height: Float, heightUnit: Int): RemoteViews {
-		Command.SetSize(width, widthUnit, height, heightUnit).also { commands["setSize"] = it }
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			widthPx = TypedValue.applyDimension(
+				widthUnit, width, Resources.getSystem().displayMetrics
+			).toInt()
+			heightPx = TypedValue.applyDimension(
+				heightUnit, height, Resources.getSystem().displayMetrics
+			).toInt()
+			recomputePaddingPreS()
+		} else {
+			commands["setSize"] = Command.SetSize(width, widthUnit, height, heightUnit)
+		}
 		return this
 	}
 
 	fun setPadding(value: Int): RemoteViews {
-		commands["setPadding"] = Command.SetPadding(value, value, value, value)
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			leftPadding = value
+			topPadding = value
+			rightPadding = value
+			bottomPadding = value
+			recomputePaddingPreS()
+		} else {
+			commands["setPadding"] = Command.SetPadding(value, value, value, value)
+		}
 		return this
 	}
 
@@ -581,7 +720,15 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		right: Int,
 		bottom: Int
 	): RemoteViews {
-		commands["setPadding"] = Command.SetPadding(left, top, right, bottom)
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			leftPadding = left
+			topPadding = top
+			rightPadding = right
+			bottomPadding = bottom
+			recomputePaddingPreS()
+		} else {
+			commands["setPadding"] = Command.SetPadding(left, top, right, bottom)
+		}
 		return this
 	}
 
@@ -627,6 +774,12 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		return this
 	}
 
+	@JvmOverloads
+	fun onCheck(action: String, extras: android.os.Bundle? = null): RemoteViews {
+		commands["onCheck"] = Command.SetOnCheckAction(action, extras, id, layout = layout)
+		return this
+	}
+
 	open fun toLayoutId(): Int {
 		return when (layout) {
 			Layout.AdapterViewFlipper -> R.layout.ns_remote_views_adapter_view_flipper
@@ -651,6 +804,9 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 			Layout.VSpacer -> R.layout.ns_remote_views_v_spacer
 			Layout.VSpacerFixed -> R.layout.ns_remote_views_v_spacer_fixed
 			Layout.Root -> R.layout.ns_remote_views_root_layout
+			Layout.CheckBox -> R.layout.ns_remote_views_checkbox_compat
+			Layout.RadioButton -> R.layout.ns_remote_views_radio_button_compat
+			Layout.Switch -> R.layout.ns_remote_views_switch_compat
 		}
 	}
 
@@ -678,12 +834,33 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 			Layout.VSpacer -> R.id.ns_remote_view_v_spacer
 			Layout.VSpacerFixed -> R.id.ns_remote_view_v_spacer_fixed
 			Layout.Root -> R.id.ns_remote_view_root
+			Layout.CheckBox -> R.id.ns_remote_view_checkbox_compat
+			Layout.RadioButton -> R.id.ns_remote_view_radio_button_compat
+			Layout.Switch -> R.id.ns_remote_view_switch_compat
 		}
 	}
 
 	fun findViewById(id: String): RemoteViews? {
 		return manager?.findViewById(this.id, id)
 	}
+
+	private var widthPx: Int = 0
+	private var heightPx: Int = 0
+
+	private var leftPadding: Int = 0
+	private var topPadding: Int = 0
+	private var rightPadding: Int = 0
+	private var bottomPadding: Int = 0
+
+	private fun recomputePaddingPreS() {
+		commands["setPadding"] = Command.SetPadding(
+			leftPadding,
+			topPadding,
+			rightPadding + widthPx,
+			bottomPadding + heightPx
+		)
+	}
+
 
 	fun getCommands(): MutableMap<String, Command> {
 		return commands
@@ -915,6 +1092,64 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 		}
 	}
 
+
+	class CheckBox(id: String? = null) : RemoteViews(Layout.CheckBox, id), CompoundButtonLike {
+
+		override fun toLayoutId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.layout.ns_remote_views_checkbox
+			} else {
+				return R.layout.ns_remote_views_checkbox_compat
+			 }
+		}
+
+		override fun toViewId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.id.ns_remote_view_checkbox
+			} else {
+				return R.id.ns_remote_view_checkbox_compat
+			 }
+		}
+	}
+
+	class RadioButton(id: String? = null) : RemoteViews(Layout.RadioButton, id), CompoundButtonLike {
+
+		override fun toLayoutId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.layout.ns_remote_views_radio_button
+			} else {
+				return R.layout.ns_remote_views_radio_button_compat
+			 }
+		}
+
+		override fun toViewId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.id.ns_remote_view_radio_button
+			} else {
+				return R.id.ns_remote_view_radio_button_compat
+			 }
+		}
+	}
+
+	class Switch(id: String? = null) : RemoteViews(Layout.Switch, id), CompoundButtonLike {
+
+		override fun toLayoutId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.layout.ns_remote_views_switch
+			} else {
+				return R.layout.ns_remote_views_switch_compat
+			 }
+		}
+
+		override fun toViewId(): Int {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+				return R.id.ns_remote_view_switch
+			} else {
+				return R.id.ns_remote_view_switch_compat
+			 }
+		}
+	}
+
 	interface TextLike {
 		fun getCommands(): MutableMap<String, Command>
 
@@ -998,6 +1233,17 @@ open class RemoteViews(val layout: Layout, id: String? = null) {
 
 		fun setImageUrl(url: String): ImageLike {
 			getCommands()["setImageUrl"] = Command.SetImageUrl(url)
+			return this
+		}
+	}
+
+	interface CompoundButtonLike {
+		fun getCommands(): MutableMap<String, Command>
+
+		val layout: Layout
+
+		fun setChecked(value: Boolean): CompoundButtonLike {
+			getCommands()["setChecked"] = Command.SetChecked(value, layout)
 			return this
 		}
 	}

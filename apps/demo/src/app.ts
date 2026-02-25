@@ -1,5 +1,5 @@
 import { Application, Http, ImageSource } from '@nativescript/core';
-import { registerWidgetListener, LinearLayout, ImageView, Image, Button, VStack, List, Text, updateWidget, Root, HStack, ButtonView, Flipper, Chronometer, Clock, Grid, ProgressBar, Stack, Spacer } from '@nativescript/widgets';
+import { registerWidgetListener, LinearLayout, ImageView, Image, Button, VStack, List, Text, updateWidget, Root, HStack, ButtonView, Flipper, Chronometer, Clock, Grid, ProgressBar, Stack, Spacer, Switch, CheckBox, RadioButton } from '@nativescript/widgets';
 // uncomment to test Flutter
 // import { init } from '@nativescript/flutter';
 // init();
@@ -126,6 +126,45 @@ function gridWidget(provider: string, ids: number[]) {
   for (const id of ids) updateWidget(provider, root, id);
 }
 
+// 6b. Toggle widget (single Switch)
+function toggleWidget(provider: string, ids: number[]) {
+  const root = Root(() => VStack(() => [HStack(() => [Text('🔔 Notifications').setTextSize(16), Spacer(), Text('On').setTextSize(12)]), Spacer(12), HStack(() => [Text('Push alerts').setTextSize(14), Spacer(), Switch(true)]), Spacer(8), Text('Tap the switch to toggle').setColor('#95a5a6').setTextSize(11)]))
+    .setBackgroundColor('#ffffff')
+    .setPadding(12);
+
+  for (const id of ids) updateWidget(provider, root, id);
+}
+
+// 6c. Checklist widget (multiple checkboxes)
+function checklistWidget(provider: string, ids: number[]) {
+  const items = [
+    { label: 'Buy groceries', checked: true },
+    { label: 'Send invoices', checked: false },
+    { label: 'Workout', checked: false },
+  ];
+
+  const root = Root(() => VStack(() => [Text('🗒️ Today').setTextSize(18), Spacer(8), ...items.map((it) => HStack(() => [CheckBox(it.checked).onCheck('toggle', { label: it.label }), Spacer(8), Text(it.label).setTextSize(14)]).setMargin(6, 8, 6, 8))]))
+    .setBackgroundColor('#ffffff')
+    .setPadding(12);
+
+  for (const id of ids) updateWidget(provider, root, id);
+}
+
+// 6d. Radio group widget (select one)
+function radioWidget(provider: string, ids: number[]) {
+  const options = [
+    { label: 'Home', checked: true },
+    { label: 'Work', checked: false },
+    { label: 'Travel', checked: false },
+  ];
+
+  const root = Root(() => VStack(() => [Text('📍 Mode').setTextSize(18), Spacer(8), ...options.map((opt) => HStack(() => [RadioButton(opt.checked), Spacer(8), Text(opt.label).setTextSize(14)]).setMargin(6, 6, 6, 6))]))
+    .setBackgroundColor('#ffffff')
+    .setPadding(12);
+
+  for (const id of ids) updateWidget(provider, root, id);
+}
+
 // 7. StackView (swipeable cards)
 function stackWidget(provider: string, ids: number[]) {
   const cards = [
@@ -196,6 +235,9 @@ registerWidgetListener('org.nativescript.plugindemo.PluginDemoWidgetProvider', {
   onClick(event) {
     console.log('Widget clicked', event);
   },
+  onCheck(event) {
+    console.log('Check toggled', event);
+  },
   onUpdate: (event) => {
     // dashboardWidget(event.provider, event.appWidgetIds);
     //countdownWidget(event.provider, event.appWidgetIds);
@@ -203,8 +245,11 @@ registerWidgetListener('org.nativescript.plugindemo.PluginDemoWidgetProvider', {
     // progressWidget(event.provider, event.appWidgetIds);
     // listWidget(event.provider, event.appWidgetIds);
     // slideshowWidget(event.provider, event.appWidgetIds);
-    gridWidget(event.provider, event.appWidgetIds);
+    //gridWidget(event.provider, event.appWidgetIds);
     //stackWidget(event.provider, event.appWidgetIds);
+    toggleWidget(event.provider, event.appWidgetIds);
+    // checklistWidget(event.provider, event.appWidgetIds);
+    // radioWidget(event.provider, event.appWidgetIds);
     /* const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
     const list = List(
       data.length,

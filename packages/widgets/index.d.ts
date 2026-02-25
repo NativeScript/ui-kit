@@ -1,4 +1,4 @@
-import { CoreTypes, Color, ImageSource } from '@nativescript/core';
+import { CoreTypes, Color, ImageSource, Switch } from '@nativescript/core';
 
 export class PlatformRemoteViews {
   readonly native: any;
@@ -28,6 +28,7 @@ export class RemoteViews {
   setOnClickFillInIntent(intent: any): this;
 
   onClick(action: string, extras?: Record<string, string | number | boolean>): this;
+  onCheck(action: string, extras?: Record<string, string | number | boolean>): this;
 
   onItemClick(action: string, extras?: Record<string, string | number | boolean>): this;
 
@@ -49,6 +50,7 @@ interface IWidgetListener {
   onDeleted?: (event: { provider: string; appWidgetIds: number[] }) => void;
   onDisabled?: (provider: string) => void;
   onClick?: (event: { action: string; extras: Record<string, any>; provider: string }) => void;
+  onCheck?: (event: { action: string; extras: Record<string, any>; provider: string }) => void;
   onResize?: (event: { provider: string; appWidgetId: number; minWidth: number; minHeight: number; maxWidth: number; maxHeight: number; manager: WidgetManager; widgetManager: PlatformWidgetManager }) => void;
 }
 
@@ -174,6 +176,12 @@ export class SpacerView extends RemoteViews {
   setSize(size: CoreTypes.FixedLengthType): this;
 }
 
+export class RadioButtonView extends RemoteViews {}
+
+export class SwitchView extends RemoteViews {}
+
+export class CheckBoxView extends RemoteViews {}
+
 export class RootLayoutView extends RemoteViews {}
 
 export function Root(content?: ViewBuilder): RemoteViews;
@@ -207,6 +215,12 @@ export function Flipper<T>(items: T[], interval?: number, content?: (item: T, in
 export function Stack(count?: number, content?: (index: number) => RemoteViews): RemoteViews;
 
 export function ForEach<T>(items: T[], id?: keyof T | ((item: T) => string | number), content?: (item: T, index: number) => RemoteViews): RemoteViews[];
+
+export function Switch(checked: boolean): SwitchView;
+
+export function CheckBox(checked: boolean): CheckBoxView;
+
+export function RadioButton(checked: boolean): RadioButtonView;
 
 export interface ViewModifers {
   padding?: {

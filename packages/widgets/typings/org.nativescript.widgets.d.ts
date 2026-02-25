@@ -137,6 +137,7 @@ declare module org {
         public setPendingIntentTemplate(intent: globalAndroid.app.PendingIntent): org.nativescript.widgets.RemoteViews;
         public setOnClickFillInIntent(intent: globalAndroid.content.Intent): org.nativescript.widgets.RemoteViews;
         public onClick(action: string, extras: globalAndroid.os.Bundle): org.nativescript.widgets.RemoteViews;
+        public onCheck(action: string, extras: globalAndroid.os.Bundle): org.nativescript.widgets.RemoteViews;
         public onItemClick(action: string, extras: globalAndroid.os.Bundle): org.nativescript.widgets.RemoteViews;
         public build(context: globalAndroid.content.Context, providerClass: string): globalAndroid.widget.RemoteViews;
         public constructor(layout: org.nativescript.widgets.RemoteViews.Layout, id: string);
@@ -495,6 +496,18 @@ declare module org {
             public getResource(): string;
             public getValue(): number;
           }
+
+          export class SetChecked extends org.nativescript.widgets.RemoteViews.Command {
+            public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.Command.SetChecked>;
+            public copy(value: boolean): org.nativescript.widgets.RemoteViews.Command.SetChecked;
+            public equals(other: any): boolean;
+            public applyTo(rv: globalAndroid.widget.RemoteViews, targetId: number): void;
+            public hashCode(): number;
+            public constructor(value: boolean);
+            public component1(): boolean;
+            public toString(): string;
+            public getValue(): boolean;
+          }
         }
         export class Companion {
           public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.Companion>;
@@ -598,6 +611,7 @@ declare module org {
           public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.Layout>;
           public static AdapterViewFlipper: org.nativescript.widgets.RemoteViews.Layout;
           public static Button: org.nativescript.widgets.RemoteViews.Layout;
+          public static CheckBox: org.nativescript.widgets.RemoteViews.Layout;
           public static Chronometer: org.nativescript.widgets.RemoteViews.Layout;
           public static FrameLayout: org.nativescript.widgets.RemoteViews.Layout;
           public static GridLayout: org.nativescript.widgets.RemoteViews.Layout;
@@ -784,6 +798,24 @@ declare module org {
             public static getAdapterItems($this: org.nativescript.widgets.RemoteViews.AdapterLike): java.util.List<org.nativescript.widgets.RemoteViews>;
           }
         }
+
+        export class CompoundButtonLike {
+          public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.CompoundButtonLike>;
+          /**
+           * Constructs a new instance of the org.nativescript.widgets.RemoteViews$CompoundButtonLike interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+           */
+          public constructor(implementation: { setChecked(value: boolean): org.nativescript.widgets.RemoteViews.CompoundButtonLike });
+          public constructor();
+          public setChecked(value: boolean): org.nativescript.widgets.RemoteViews.CompoundButtonLike;
+        }
+        export module CompoundButtonLike {
+          export class DefaultImpls {
+            public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.CompoundButtonLike.DefaultImpls>;
+            /** @deprecated */
+            public static setChecked($this: org.nativescript.widgets.RemoteViews.CompoundButtonLike, value: boolean): org.nativescript.widgets.RemoteViews.CompoundButtonLike;
+          }
+        }
+
         export class WhenMappings {
           public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.WhenMappings>;
         }
@@ -811,6 +843,27 @@ declare module org {
           public constructor(layout: org.nativescript.widgets.RemoteViews.Layout, id: string);
           public removeView(it: org.nativescript.widgets.RemoteViews): org.nativescript.widgets.RemoteViews.ViewGroupLike;
           public constructor(id: string);
+        }
+
+        export class CheckBox extends org.nativescript.widgets.RemoteViews implements org.nativescript.widgets.RemoteViews.CompoundButtonLike {
+          public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.CheckBox>;
+          public constructor();
+          public constructor(id: string);
+          public setChecked(value: boolean): org.nativescript.widgets.RemoteViews.CheckBox;
+        }
+
+        export class RadioButton extends org.nativescript.widgets.RemoteViews implements org.nativescript.widgets.RemoteViews.CompoundButtonLike {
+          public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.RadioButton>;
+          public constructor();
+          public constructor(id: string);
+          public setChecked(value: boolean): org.nativescript.widgets.RemoteViews.RadioButton;
+        }
+
+        export class Switch extends org.nativescript.widgets.RemoteViews implements org.nativescript.widgets.RemoteViews.CompoundButtonLike {
+          public static class: java.lang.Class<org.nativescript.widgets.RemoteViews.Switch>;
+          public constructor();
+          public constructor(id: string);
+          public setChecked(value: boolean): org.nativescript.widgets.RemoteViews.Switch;
         }
       }
     }

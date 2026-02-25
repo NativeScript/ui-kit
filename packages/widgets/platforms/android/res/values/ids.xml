@@ -27,4 +27,10 @@
 	<item name="ns_remote_view_v_spacer" type="id" />
 	<item name="ns_remote_view_v_spacer_fixed" type="id" />
 	<item name="ns_remote_view_flipper" type="id" />
+	<item name="ns_remote_view_checkbox" type="id" />
+	<item name="ns_remote_view_checkbox_compat" type="id" />
+	<item name="ns_remote_view_radio_button" type="id" />
+	<item name="ns_remote_view_radio_button_compat" type="id" />
+	<item name="ns_remote_view_switch" type="id" />
+	<item name="ns_remote_view_switch_compat" type="id" />
 </resources>

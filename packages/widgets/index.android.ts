@@ -2,6 +2,8 @@ import { Utils, CoreTypes, Color, Length, ImageSource } from '@nativescript/core
 import { layout } from '@nativescript/core/utils';
 
 const native_ = Symbol('[[_native_]]');
+const ACTION_CLICK = 'org.nativescript.widgets.ACTION_CLICK';
+const ACTION_CHECK = 'org.nativescript.widgets.ACTION_CHECK';
 export class WidgetManager {
   [native_]: org.nativescript.widgets.AppWidgetManager;
 
@@ -51,6 +53,7 @@ interface IWidgetListener {
   onDeleted?: (event: { provider: string; appWidgetIds: number[] }) => void;
   onDisabled?: (provider: string) => void;
   onClick?: (event: { action: string; extras: Record<string, any>; provider: string }) => void;
+  onCheck?: (event: { action: string; extras: Record<string, any>; provider: string }) => void;
   onResize?: (event: { provider: string; appWidgetId: number; minWidth: number; minHeight: number; maxWidth: number; maxHeight: number; manager: WidgetManager; widgetManager: PlatformWidgetManager }) => void;
 }
 
@@ -145,13 +148,7 @@ const toBundle = (extras: Record<string, BundleValue | null | undefined>): andro
 const fromBundle = (bundle: android.os.Bundle): Record<string, any> => {
   const result: Record<string, any> = {};
   if (!bundle) return result;
-  const keys = bundle.keySet();
-  const iter = keys.iterator();
-  while (iter.hasNext()) {
-    const key = iter.next() as string;
-    result[key] = bundle.get(key);
-  }
-  return result;
+  return Utils.dataDeserialize(bundle);
 };
 
 const toPxValue = (value: CoreTypes.FixedLengthType) => {
@@ -294,6 +291,11 @@ export class RemoteViews {
 
   onClick(action: string, extras?: Record<string, string | number | boolean>): this {
     this.native.onClick(action, extras ? toBundle(extras) : null);
+    return this;
+  }
+
+  onCheck(action: string, extras?: Record<string, string | number | boolean>): this {
+    this.native.onCheck(action, extras ? toBundle(extras) : null);
     return this;
   }
 
@@ -619,6 +621,24 @@ export function Grid(columns: number, spacing?: number, content?: ViewBuilder): 
   }
 
   return container;
+}
+
+export function Switch(checked: boolean) {
+  const ret = new SwitchView();
+  ret.setChecked(checked);
+  return ret;
+}
+
+export function CheckBox(checked: boolean) {
+  const ret = new CheckBoxView();
+  ret.setChecked(checked);
+  return ret;
+}
+
+export function RadioButton(checked: boolean) {
+  const ret = new RadioButtonView();
+  ret.setChecked(checked);
+  return ret;
 }
 
 export class RootLayoutView extends RemoteViews {
@@ -1052,6 +1072,54 @@ export class TextClockView extends RemoteViews {
   }
 }
 
+export class CheckBoxView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    this[native_] = new org.nativescript.widgets.RemoteViews.CheckBox(id ?? null);
+  }
+
+  get native() {
+    return this[native_] as org.nativescript.widgets.RemoteViews.CheckBox;
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
+    return this;
+  }
+}
+
+export class RadioButtonView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    this[native_] = new org.nativescript.widgets.RemoteViews.RadioButton(id ?? null);
+  }
+
+  get native() {
+    return this[native_] as org.nativescript.widgets.RemoteViews.RadioButton;
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
+    return this;
+  }
+}
+
+export class SwitchView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    this[native_] = new org.nativescript.widgets.RemoteViews.Switch(id ?? null);
+  }
+
+  get native() {
+    return this[native_] as org.nativescript.widgets.RemoteViews.Switch;
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
+    return this;
+  }
+}
+
 function toJSArray(array: androidNative.Array<number>) {
   const jsArray: number[] = [];
   for (let i = 0; i < array.length; i++) {
@@ -1094,8 +1162,11 @@ export function registerWidgetListener(provider: string, listener: IWidgetListen
         }
       },
       onAction(context, provider, action, extras) {
-        if (listener.onClick) {
+        if (action === ACTION_CLICK && listener.onClick) {
           listener.onClick({ action, extras: extras ? fromBundle(extras) : {}, provider });
+        }
+        if (action === ACTION_CHECK && listener.onCheck) {
+          listener.onCheck({ action, extras: extras ? fromBundle(extras) : {}, provider });
         }
       },
       onOptionsChanged(context, provider, appWidgetId, newOptions, manager, widgetManager) {

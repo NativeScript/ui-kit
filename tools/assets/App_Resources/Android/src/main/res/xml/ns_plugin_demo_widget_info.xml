@@ -11,4 +11,8 @@
 	android:updatePeriodMillis="0"
 	android:widgetCategory="home_screen"
 	android:widgetFeatures="reconfigurable|configuration_optional"
-	 />
+	>
+<meta-data
+        android:name="org.nativescript.widgets.MANAGED_WIDGET"
+        android:value="true"/>
+</appwidget-provider>
