@@ -574,6 +574,24 @@ export function Grid(columns: number, spacing?: number, content?: ViewBuilder): 
   return container;
 }
 
+export function Switch(checked: boolean) {
+  const ret = new SwitchView();
+  // ret.setChecked(checked);
+  return ret;
+}
+
+export function CheckBox(checked: boolean) {
+  const ret = new CheckBoxView();
+  // ret.setChecked(checked);
+  return ret;
+}
+
+export function RadioButton(checked: boolean) {
+  const ret = new RadioButtonView();
+  // ret.setChecked(checked);
+  return ret;
+}
+
 export class RootLayoutView extends RemoteViews {
   constructor(id?: string) {
     super();
@@ -1001,6 +1019,54 @@ export class TextClockView extends RemoteViews {
 
   setTextSize(size: number): this {
     this.native.setTextSize(size, android.util.TypedValue.COMPLEX_UNIT_SP);
+    return this;
+  }
+}
+
+export class CheckBoxView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    //  this[native_] = new org.nativescript.widgets.RemoteViews.CheckBox(id ?? null);
+  }
+
+  get native() {
+    return this[native_];
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
+    return this;
+  }
+}
+
+export class RadioButtonView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    // this[native_] = new org.nativescript.widgets.RemoteViews.RadioButton(id ?? null);
+  }
+
+  get native() {
+    return this[native_];
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
+    return this;
+  }
+}
+
+export class SwitchView extends RemoteViews {
+  constructor(id?: string) {
+    super();
+    // this[native_] = new org.nativescript.widgets.RemoteViews.Switch(id ?? null);
+  }
+
+  get native() {
+    return this[native_];
+  }
+
+  setChecked(checked: boolean): this {
+    this.native.setChecked(checked);
     return this;
   }
 }
