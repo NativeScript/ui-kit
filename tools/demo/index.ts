@@ -6,3 +6,4 @@ export * from './morph-modal-kit';
 export * from './rive';
 export * from './swift-ui';
 export * from './ui-charts';
+export * from './widgets';

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:description="@string/plugin_demo_widget_description"
+	android:initialLayout="@layout/ns_remote_views_root_layout"
+	android:minWidth="40dp"
+	android:minHeight="40dp"
+	android:targetCellWidth="1"
+	android:targetCellHeight="1"
+	android:resizeMode="horizontal|vertical"
+	android:updatePeriodMillis="0"
+	android:widgetCategory="home_screen"
+	android:widgetFeatures="reconfigurable|configuration_optional"
+	>
+<meta-data
+        android:name="org.nativescript.widgets.MANAGED_WIDGET"
+        android:value="true"/>
+</appwidget-provider>

@@ -1,0 +1,7 @@
+dependencies {
+    def androidXWorkVersion = "2.10.0"
+	if (project.hasProperty("androidXWork")) {
+		androidXWorkVersion = androidXWork
+	}
+    implementation("androidx.work:work-runtime:$androidXWorkVersion")
+}
