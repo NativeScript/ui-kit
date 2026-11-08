@@ -2,13 +2,19 @@ import { View } from '@nativescript/core';
 
 export interface IonicPortalLiveUpdateConfig {
   appId: string;
-  channel: string;
-  syncOnAdd?: boolean;
+  channel?: string;
+  publicKey?: string;
+  serverDomain?: string;
+  httpTimeout?: number;
 }
+
+export function definedValues(config: IonicPortalLiveUpdateConfig): { [key: string]: string | number } {
+  return Object.fromEntries(Object.entries(config).filter(([, value]) => value !== undefined));
+}
+
 export class IonicPortalManagerCommon {
   static AndroidPlugins: Array<string>;
   static InitialContexts: { [key: string]: any };
-  static LiveUpdateConfigs: { [key: string]: IonicPortalLiveUpdateConfig };
   static Listeners: { [key: string]: Array<{ callback: (data?: any) => void; subscriptionId: number }> };
   static setAndroidPlugins(plugins: Array<string>) {
     if (!IonicPortalManagerCommon.AndroidPlugins) {
@@ -19,12 +25,6 @@ export class IonicPortalManagerCommon {
         IonicPortalManagerCommon.AndroidPlugins.push(plugin);
       }
     }
-  }
-  static configureLiveUpdates(portalId: string, config: IonicPortalLiveUpdateConfig) {
-    if (!IonicPortalManagerCommon.LiveUpdateConfigs) {
-      IonicPortalManagerCommon.LiveUpdateConfigs = {};
-    }
-    IonicPortalManagerCommon.LiveUpdateConfigs[portalId] = config;
   }
   static setInitialContext(id: string, initialContext: any) {
     if (!IonicPortalManagerCommon.InitialContexts) {

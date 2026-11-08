@@ -1,9 +1,11 @@
 declare class NSCIonicPortals extends NSObject {
   static alloc(): NSCIonicPortals; // inherited from NSObject
 
-  static getLastSyncWithAppId(appId: string): Date;
+  static configureLiveUpdatesWithPortalIdConfigurationError(portalId: string, configuration: NSDictionary<string, any> | { [key: string]: any }): boolean;
+
+  static createPortalViewWithPortalIdInitialContext(portalId: string, initialContext: NSDictionary<string, any> | { [key: string]: any }): IONPortalUIView;
 
   static new(): NSCIonicPortals; // inherited from NSObject
 
-  static syncNowWithAppIdsIsParallelComplete(appIds: NSArray<string> | string[], isParallel: boolean, complete: (p1: string) => void): void;
+  static syncLiveUpdatesWithPortalIdCompletion(portalId: string, completion: (p1: NSError) => void): void;
 }

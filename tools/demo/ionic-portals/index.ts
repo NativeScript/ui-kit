@@ -12,12 +12,10 @@ export class DemoSharedIonicPortals extends DemoSharedBase {
   }
 
   syncNow() {
-    return new Promise<void>((resolve) => {
-      IonicPortalManager.syncNow(['e29e2c2e'], false, (status) => {
-        console.log('sync complete:', status);
-        resolve();
-      });
-    });
+    return IonicPortalManager.syncLiveUpdates(ionicWebPortalSampleId).then(
+      () => console.log('sync complete'),
+      (error) => console.log('sync failed:', error),
+    );
   }
 
   reload() {

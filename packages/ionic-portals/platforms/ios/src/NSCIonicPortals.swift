@@ -1,23 +1,41 @@
+import Capacitor
+import CapawesomeCapacitorLiveUpdate
+import IonicPortals
 import UIKit
-import IonicLiveUpdates
 
-@objc
-class NSCIonicPortals: NSObject {
-    @objc public static func syncNow(appIds: [String], isParallel: Bool = true, complete: @escaping (_ status: String) -> Void) {
+@objc(NSCIonicPortals)
+public class NSCIonicPortals: NSObject {
+    private static var liveUpdateManagers: [String: LiveUpdateIonicManager] = [:]
 
-        LiveUpdateManager.shared.sync(appIds: appIds, isParallel: isParallel, appComplete: {
-            result in
-            switch (result) {
-            case .failure(let error):
-                complete(error.localizedDescription)
-                
-            case .success:
-                complete("success")
-            }
-        })
+    @objc public static func configureLiveUpdates(portalId: String, configuration: [String: Any]) throws {
+        liveUpdateManagers[portalId] = try LiveUpdateIonicManager(configuration: configuration)
     }
-    
-    @objc public static func getLastSync(appId: String) -> Date? {
-        return LiveUpdateManager.shared.lastSync(for: appId);
+
+    @objc public static func createPortalView(portalId: String, initialContext: [String: Any]) -> PortalUIView {
+        let portal = Portal(
+            name: portalId,
+            initialContext: JSTypes.coerceDictionaryToJSObject(initialContext) ?? [:],
+            liveUpdateSource: liveUpdateManagers[portalId].map { .provider(manager: $0) }
+        )
+        return PortalUIView(portal: portal)
+    }
+
+    @objc public static func syncLiveUpdates(portalId: String, completion: @escaping (NSError?) -> Void) {
+        guard let manager = liveUpdateManagers[portalId] else {
+            completion(NSError(
+                domain: "NSCIonicPortals",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "No live updates configured for portal '\(portalId)'."]
+            ))
+            return
+        }
+        Task { @MainActor in
+            do {
+                _ = try await manager.sync()
+                completion(nil)
+            } catch {
+                completion(error as NSError)
+            }
+        }
     }
 }

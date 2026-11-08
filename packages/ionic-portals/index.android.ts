@@ -1,33 +1,37 @@
 import { Utils } from '@nativescript/core';
-import { IonicPortalCommon, IonicPortalManagerCommon } from './common';
+import { definedValues, IonicPortalCommon, IonicPortalLiveUpdateConfig, IonicPortalManagerCommon } from './common';
 
 declare var com, kotlin;
 
 export class IonicPortalManager extends IonicPortalManagerCommon {
-  static register(apiKey: string) {
-    io.ionic.portals.PortalManager.register(apiKey);
-  }
-  static publishTopic(topic: string, data?: any) {
-    io.ionic.portals.PortalsPlugin.publish(topic, dataSerialize(data, true));
-  }
-  static syncNow(appIds: Array<string>, isParallel: boolean = false, complete: (status: string) => void = (status: string) => {}) {
-    io.ionic.liveupdates.LiveUpdateManager.sync(
-      Utils.android.getApplicationContext(),
-      Utils.dataSerialize(appIds),
-      isParallel,
-      new io.ionic.liveupdates.network.SyncCallback({
-        onAppComplete(status: io.ionic.liveupdates.data.model.SyncResult | io.ionic.liveupdates.data.model.FailResult) {
-          complete(status.toString());
-        },
-        onSyncComplete() {
-          complete('success');
-        },
-      })
-    );
+  static LiveUpdateManagers: { [portalId: string]: io.capawesome.capacitorjs.plugins.liveupdate.providers.ionic.LiveUpdateIonicManager } = {};
+
+  static configureLiveUpdates(portalId: string, config: IonicPortalLiveUpdateConfig) {
+    this.LiveUpdateManagers[portalId] = new io.capawesome.capacitorjs.plugins.liveupdate.providers.ionic.LiveUpdateIonicManager(Utils.android.getApplicationContext(), dataSerialize(definedValues(config), true));
   }
 
-  static getLastSync(appId: string): number {
-    return io.ionic.liveupdates.LiveUpdateManager.getLastSync(Utils.android.getApplicationContext(), appId);
+  static syncLiveUpdates(portalId: string): Promise<void> {
+    const manager = this.LiveUpdateManagers[portalId];
+    if (!manager) {
+      return Promise.reject(new Error(`No live updates configured for portal '${portalId}'.`));
+    }
+    return new Promise((resolve, reject) => {
+      org.nativescript.plugins.ionicportals.NSCIonicPortals.sync(
+        manager,
+        new org.nativescript.plugins.ionicportals.NSCIonicPortals.SyncCallback({
+          onSuccess() {
+            resolve();
+          },
+          onError(error) {
+            reject(new Error(error.getMessage()));
+          },
+        }),
+      );
+    });
+  }
+
+  static publishTopic(topic: string, data?: any) {
+    io.ionic.portals.PortalsPlugin.publish(topic, dataSerialize(data, true));
   }
 
   static subscribeToTopic(topic: string, callback: (data?: any) => void): number {
@@ -51,7 +55,7 @@ export class IonicPortalManager extends IonicPortalManagerCommon {
             }
           }
         },
-      })
+      }),
     );
     this.Listeners[topic].push({
       callback,
@@ -117,9 +121,9 @@ export class IonicPortal extends IonicPortalCommon {
     if (list) {
       builder.setPlugins(list);
     }
-    if (IonicPortalManager.LiveUpdateConfigs?.[this.id]) {
-      const config = IonicPortalManager.LiveUpdateConfigs[this.id];
-      builder.setLiveUpdateConfig(Utils.android.getApplicationContext(), new io.ionic.liveupdates.LiveUpdate(config.appId, config.channel, config.syncOnAdd));
+    const liveUpdateManager = IonicPortalManager.LiveUpdateManagers[this.id];
+    if (liveUpdateManager) {
+      builder.setLiveUpdateProviderManager(liveUpdateManager);
     }
     builder.create();
 
