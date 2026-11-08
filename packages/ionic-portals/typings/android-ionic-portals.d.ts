@@ -35,12 +35,9 @@ declare module io {
         public setInitialContext$IonicPortals_release(param0: any): void;
         public setStartDir(param0: string): void;
         public addPlugins(param0: java.util.List<any>): void;
-        public getLiveUpdateOnAppLoad(): boolean;
         public setInitialContext(param0: string): void;
-        public setLiveUpdateOnAppLoad(param0: boolean): void;
         public addPluginInstance(param0: com.getcapacitor.Plugin): void;
         public getPluginInstances$IonicPortals_release(): java.util.ArrayList<com.getcapacitor.Plugin>;
-        public getLiveUpdateConfig(): io.ionic.liveupdates.LiveUpdate;
         public getName(): string;
         public setInitialContext(param0: java.util.Map<string, any>): void;
         public addAssetMaps(param0: java.util.LinkedHashMap<string, io.ionic.portals.AssetMap>): void;
@@ -50,7 +47,6 @@ declare module io {
         public addPlugin(param0: java.lang.Class<any>): void;
         public getStartDir(): string;
         public setAssetMaps$IonicPortals_release(param0: java.util.LinkedHashMap<string, io.ionic.portals.AssetMap>): void;
-        public setLiveUpdateConfig(param0: io.ionic.liveupdates.LiveUpdate): void;
         public getPlugins$IonicPortals_release(): java.util.ArrayList<java.lang.Class<any>>;
         public addPluginInstances(param0: java.util.List<any>): void;
         public getAssetMaps$IonicPortals_release(): java.util.LinkedHashMap<string, io.ionic.portals.AssetMap>;
@@ -68,14 +64,13 @@ declare module io {
         public setStartDir(param0: string): io.ionic.portals.PortalBuilder;
         public addPlugin(param0: java.lang.Class<any>): io.ionic.portals.PortalBuilder;
         public create(): io.ionic.portals.Portal;
-        public setLiveUpdateConfig(param0: globalAndroid.content.Context, param1: io.ionic.liveupdates.LiveUpdate, param2: boolean): io.ionic.portals.PortalBuilder;
+        public setLiveUpdateProviderManager(param0: io.ionic.liveupdateprovider.ProviderManager): io.ionic.portals.PortalBuilder;
         public addAssetMap(param0: io.ionic.portals.AssetMap): io.ionic.portals.PortalBuilder;
         public setPortalFragmentType(param0: java.lang.Class<any>): io.ionic.portals.PortalBuilder;
         public setAssetMaps(param0: java.util.LinkedHashMap<string, io.ionic.portals.AssetMap>): io.ionic.portals.PortalBuilder;
         public getName(): string;
         public setPlugins(param0: java.util.List<java.lang.Class<any>>): io.ionic.portals.PortalBuilder;
         public constructor(param0: string);
-        public setLiveUpdateConfig(param0: globalAndroid.content.Context, param1: io.ionic.liveupdates.LiveUpdate): io.ionic.portals.PortalBuilder;
         public setInitialContext(param0: any): io.ionic.portals.PortalBuilder;
         public constructor(param0: string, param1: any);
         public addPluginInstance(param0: com.getcapacitor.Plugin): io.ionic.portals.PortalBuilder;
@@ -92,7 +87,6 @@ declare module io {
         public constructor(param0: io.ionic.portals.Portal);
         public getPORTAL_NAME(): string;
         public setPortal(param0: io.ionic.portals.Portal): void;
-        public getLiveUpdateFiles(): java.io.File;
         public constructor(param0: io.ionic.portals.Portal, param1: any, param2: any);
         public onPause(): void;
         public reload(): void;
@@ -109,7 +103,6 @@ declare module io {
         public setOnBridgeAvailable(param0: any): void;
         public addPluginInstance(param0: com.getcapacitor.Plugin): void;
         public onCreateView(param0: globalAndroid.view.LayoutInflater, param1: globalAndroid.view.ViewGroup, param2: globalAndroid.os.Bundle): globalAndroid.view.View;
-        public setLiveUpdateFiles(param0: java.io.File): void;
         public onSaveInstanceState(param0: globalAndroid.os.Bundle): void;
         public addWebViewListener(param0: com.getcapacitor.WebViewListener): void;
         public setInitialContext(param0: any): void;
@@ -131,10 +124,7 @@ declare module io {
         public static class: java.lang.Class<io.ionic.portals.PortalManager>;
         public static INSTANCE: io.ionic.portals.PortalManager;
         public static getPortal(param0: string): io.ionic.portals.Portal;
-        public static isRegistered(): boolean;
-        public isRegisteredError$IonicPortals_release(): boolean;
         public static size(): number;
-        public static register(param0: string): void;
         public static addPortal(param0: io.ionic.portals.Portal): void;
         public static newPortal(param0: string): io.ionic.portals.PortalBuilder;
       }
