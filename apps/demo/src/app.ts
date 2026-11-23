@@ -4,17 +4,12 @@ import { Application } from '@nativescript/core';
 // import { init } from '@nativescript/flutter';
 // init();
 
-// uncomment to test Ionic Portals
+// uncomment to test Ionic Portals live updates with Capawesome Cloud
 // import { IonicPortalManager } from '@nativescript/ionic-portals';
 // IonicPortalManager.configureLiveUpdates('ionicWebPortalSample', {
-//     appId: 'e29e2c2e',
+//     appId: '<capawesome-cloud-app-id>',
 //     channel: 'production',
-//     syncOnAdd: true
-// })
-
-// Application.on(Application.launchEvent, () => {
-// 	// Register IonicPortals
-// 	IonicPortalManager.register('<portal-api-key>');
 // });
+// IonicPortalManager.syncLiveUpdates('ionicWebPortalSample');
 
 Application.run({ moduleName: 'app-root' });

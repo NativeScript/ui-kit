@@ -1,17 +1,21 @@
 import { Application, OrientationChangedEventData, Utils } from '@nativescript/core';
-import { IonicPortalCommon, IonicPortalManagerCommon } from './common';
+import { definedValues, IonicPortalCommon, IonicPortalLiveUpdateConfig, IonicPortalManagerCommon } from './common';
 
 export class IonicPortalManager extends IonicPortalManagerCommon {
-  static register(apiKey: string) {
-    IONPortalsRegistrationManager.shared.registerWithKey(apiKey);
+  static configureLiveUpdates(portalId: string, config: IonicPortalLiveUpdateConfig) {
+    NSCIonicPortals.configureLiveUpdatesWithPortalIdConfigurationError(portalId, definedValues(config));
   }
 
-  static syncNow(appIds: Array<string>, isParallel: boolean = false, complete: (status: string) => void = (status: string) => {}) {
-    NSCIonicPortals.syncNowWithAppIdsIsParallelComplete(appIds, isParallel, complete);
-  }
-
-  static getLastSync(appId: string): number {
-    return NSCIonicPortals.getLastSyncWithAppId(appId).getTime();
+  static syncLiveUpdates(portalId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      NSCIonicPortals.syncLiveUpdatesWithPortalIdCompletion(portalId, (error) => {
+        if (error) {
+          reject(new Error(error.localizedDescription));
+        } else {
+          resolve();
+        }
+      });
+    });
   }
 
   static publishTopic(topic: string, data?: any) {
@@ -45,7 +49,6 @@ export class IonicPortalManager extends IonicPortalManagerCommon {
 }
 
 export class IonicPortal extends IonicPortalCommon {
-  private _portal: IONPortal;
   private _handleOrientationFn: (args: OrientationChangedEventData) => void;
 
   // @ts-ignore
@@ -57,12 +60,7 @@ export class IonicPortal extends IonicPortalCommon {
     if (!this.id) {
       throw new Error(`IonicPortal requires an 'id' property.`);
     }
-    this._portal = IONPortal.alloc().initWithNameStartDirInitialContext(this.id, this.id, IonicPortalManager.InitialContexts && IonicPortalManager.InitialContexts[this.id] ? IonicPortalManager.InitialContexts[this.id] : {});
-    if (IonicPortalManager.LiveUpdateConfigs?.[this.id]) {
-      const config = IonicPortalManager.LiveUpdateConfigs[this.id];
-      this._portal.setLiveUpdateConfigurationWithAppIdChannelSyncImmediately(config.appId, config.channel, config.syncOnAdd);
-    }
-    return IONPortalUIView.alloc().initWithPortal(this._portal);
+    return NSCIonicPortals.createPortalViewWithPortalIdInitialContext(this.id, IonicPortalManager.InitialContexts?.[this.id] ?? {});
   }
 
   initNativeView() {

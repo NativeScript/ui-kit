@@ -1,12 +1,8 @@
 import { IonicPortalCommon, IonicPortalManagerCommon, IonicPortalLiveUpdateConfig } from './common';
 
+export { IonicPortalLiveUpdateConfig } from './common';
+
 export declare class IonicPortalManager extends IonicPortalManagerCommon {
-  /**
-   * Register Portals when your app boots
-   * https://ionic.io/docs/portals/getting-started/guide#configure
-   * @param apiKey your portal api key
-   */
-  static register(apiKey: string): void;
   /**
    * Used to set the initial context of any portal id before the portal is shown
    * @param id portal id
@@ -19,26 +15,18 @@ export declare class IonicPortalManager extends IonicPortalManagerCommon {
    */
   static setAndroidPlugins(plugins: Array<string>): void;
   /**
-   * Configure Live Updates
+   * Configure Live Updates from Capawesome Cloud for a portal. Call it before the portal is shown.
+   * Throws when the configuration is invalid, for example when `appId` is missing.
    * @param portalId portal id
    * @param config live update configuration
    */
   static configureLiveUpdates(portalId: string, config: IonicPortalLiveUpdateConfig): void;
-
   /**
-   * Sync Live Updates for given app ids
-   * @param appIds portal ids to sync
-   * @param isParallel whether to sync in parallel or not
-   * @param complete callback to receive sync status when complete or errors
+   * Download the latest bundle for a portal from Capawesome Cloud.
+   * A portal that is already on screen keeps the current bundle and serves the new one on its next load.
+   * @param portalId portal id configured with `configureLiveUpdates()`
    */
-  static syncNow(appIds: Array<string>, isParallel: boolean = false, complete: (status: string) => void = (status: string) => {}): void;
-
-  /**
-   * Get last synced date from given portal id
-   * @param appId portal id
-   * @return datetimestamp
-   */
-  static getLastSync(appId: string): number;
+  static syncLiveUpdates(portalId: string): Promise<void>;
   /**
    * Send a message to any web portal via publishing a topic (aka. event)
    * @param topic name of topic/event

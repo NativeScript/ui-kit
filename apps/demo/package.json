@@ -4,6 +4,7 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
+    "@capawesome/capacitor-live-update": "^8.8.0",
     "@nativescript/core": "*",
     "@nativescript/morph-modal-kit": "file:../../packages/morph-modal-kit",
     "@nativescript/flutter": "file:../../packages/flutter",

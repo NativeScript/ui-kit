@@ -1,10 +1,10 @@
-repositories {
-    google()
-    jcenter()
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'io.ionic:portals:0.7.5'
-    implementation 'io.ionic:liveupdates:0.+'
+	def ionicPortalsVersion = project.hasProperty("ionicPortalsVersion") ? project.ionicPortalsVersion : "0.14.0"
+	implementation "io.ionic:portals:$ionicPortalsVersion"
+
+	def capawesomeLiveUpdateVersion = project.hasProperty("capawesomeLiveUpdateVersion") ? project.capawesomeLiveUpdateVersion : "8.8.0"
+	implementation "io.capawesome:capacitor-live-update:$capawesomeLiveUpdateVersion"
+
+	def kotlinxCoroutinesVersion = project.hasProperty("kotlinxCoroutinesVersion") ? project.kotlinxCoroutinesVersion : "1.11.0"
+	implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutinesVersion"
 }

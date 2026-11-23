@@ -1,3 +1,19 @@
-platform :ios, '13.0'
+platform :ios, '15.0'
 
-pod 'IonicPortals', '~> 0.7.3'
+pod 'IonicPortals', '~> 0.14.0'
+# The Capawesome Live Update SDK is a peer dependency of this plugin. Node resolves it, so hoisted and workspace layouts work too.
+# The root pod must be listed next to the subspec, otherwise CocoaPods creates the pod target without its sources.
+capawesome_live_update_path = File.dirname(`node --print "require.resolve('@capawesome/capacitor-live-update/package.json')"`.strip)
+pod 'CapawesomeCapacitorLiveUpdate', :path => capawesome_live_update_path
+pod 'CapawesomeCapacitorLiveUpdate/IonicProvider', :path => capawesome_live_update_path
+
+# Xcode 27 refuses to build pods with a deployment target below iOS 15 and Ionic Portals pulls in three of them.
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 15.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      end
+    end
+  end
+end

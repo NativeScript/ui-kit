@@ -18,8 +18,6 @@ declare class IONPortal extends NSObject {
   initWithNameStartDirBundleInitialContext(name: string, startDir: string, bundle: NSBundle, initialContext: NSDictionary<string, any>): this;
 
   initWithNameStartDirInitialContext(name: string, startDir: string, initialContext: NSDictionary<string, any>): this;
-
-  setLiveUpdateConfigurationWithAppIdChannelSyncImmediately(appId: string, channel: string, syncImmediately: boolean): void;
 }
 
 declare class IONPortalUIView extends UIView {
@@ -60,36 +58,6 @@ declare class IONPortalsPubSub extends NSObject {
   static unsubscribeFromTopicSubscriptionRef(topic: string, subscriptionRef: number): void;
 }
 
-declare class IONPortalsRegistrationManager extends NSObject {
-  static alloc(): IONPortalsRegistrationManager; // inherited from NSObject
-
-  static new(): IONPortalsRegistrationManager; // inherited from NSObject
-
-  readonly isRegistered: boolean;
-
-  static readonly shared: IONPortalsRegistrationManager;
-
-  registerWithKey(key: string): void;
-}
-
 declare var IonicPortalsVersionNumber: number;
 
 declare var IonicPortalsVersionString: interop.Reference<number>;
-
-declare class UnregisteredView extends UIView {
-  static alloc(): UnregisteredView; // inherited from NSObject
-
-  static appearance(): UnregisteredView; // inherited from UIAppearance
-
-  static appearanceForTraitCollection(trait: UITraitCollection): UnregisteredView; // inherited from UIAppearance
-
-  static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): UnregisteredView; // inherited from UIAppearance
-
-  static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): UnregisteredView; // inherited from UIAppearance
-
-  static appearanceWhenContainedIn(ContainerClass: typeof NSObject): UnregisteredView; // inherited from UIAppearance
-
-  static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | (typeof NSObject)[]): UnregisteredView; // inherited from UIAppearance
-
-  static new(): UnregisteredView; // inherited from NSObject
-}

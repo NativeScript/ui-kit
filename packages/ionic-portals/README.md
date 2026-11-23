@@ -5,11 +5,11 @@
 - [@nativescript/ionic-portals](#nativescriptionic-portals)
 	- [Contents](#contents)
 	- [Intro](#intro)
+	- [Requirements](#requirements)
 	- [Installation](#installation)
-	- [Enable Ionic portals in your app](#enable-ionic-portals-in-your-app)
-		- [1. Get a Portal API Key](#1-get-a-portal-api-key)
-		- [2. Register portals](#2-register-portals)
-		- [3. Add portals view to markup](#3-add-portals-view-to-markup)
+	- [Enable Ionic Portals in your app](#enable-ionic-portals-in-your-app)
+		- [1. Add your web app to the app resources](#1-add-your-web-app-to-the-app-resources)
+		- [2. Add the portal view to markup](#2-add-the-portal-view-to-markup)
 			- [Core](#core)
 			- [Angular](#angular)
 			- [Vue](#vue)
@@ -17,16 +17,20 @@
 		- [Send events from NativeScript to any web portal](#send-events-from-nativescript-to-any-web-portal)
 			- [Subscribe to events sent from web portals](#subscribe-to-events-sent-from-web-portals)
 			- [Unsubscribe from events sent from web portals](#unsubscribe-from-events-sent-from-web-portals)
+	- [Live Updates](#live-updates)
+		- [1. Create an app in Capawesome Cloud](#1-create-an-app-in-capawesome-cloud)
+		- [2. Configure live updates for a portal](#2-configure-live-updates-for-a-portal)
+		- [3. Sync on app start](#3-sync-on-app-start)
+		- [4. Publish an update](#4-publish-an-update)
+		- [Migrating from Ionic Appflow](#migrating-from-ionic-appflow)
 	- [IonicPortalManager API](#ionicportalmanager-api)
-		- [register()](#register)
 		- [setInitialContext()](#setinitialcontext)
 		- [setAndroidPlugins()](#setandroidplugins)
 		- [publishTopic()](#publishtopic)
 		- [subscribeToTopic()](#subscribetotopic)
 		- [unsubscribeFromTopic()](#unsubscribefromtopic)
 		- [configureLiveUpdates()](#configureliveupdates)
-		- [syncNow()](#syncnow)
-		- [getLastSync()](#getlastsync)
+		- [syncLiveUpdates()](#syncliveupdates)
 	- [Using Capacitor Plugins with Ionic Portals](#using-capacitor-plugins-with-ionic-portals)
 	- [Notes](#notes)
 	- [Additional Resources](#additional-resources)
@@ -40,39 +44,28 @@ A plugin that allows you to use [Ionic Portals](https://ionic.io/docs/portals) i
 
 ![Ionic Portal View](https://raw.githubusercontent.com/NativeScript/ui-kit/main/packages/ionic-portals/images/ionic-portal-ios.png)
 
+## Requirements
+
+The plugin ships Ionic Portals 0.14, which is built on Capacitor 8.
+
+* iOS: deployment target iOS 15 or later and Xcode 26 or later.
+* Android: JDK 21 and `minSdkVersion` 24 or higher.
+
+Ionic Portals no longer needs an API key or a registration call.
+
 ## Installation
 
 To install the plugin, run the following command from the root of your project:
 
 ```cli
-npm install @nativescript/ionic-portals
+npm install @nativescript/ionic-portals @capawesome/capacitor-live-update
 ```
 
-## Enable Ionic portals in your app
+`@capawesome/capacitor-live-update` is a peer dependency. On iOS the plugin compiles the Capawesome Live Update SDK from your `node_modules`. On Android it comes from Maven Central.
 
-Below are the steps to enable Ionic Portal in your app.
+## Enable Ionic Portals in your app
 
-### 1. Get a Portal API Key
-
-[Get a Portal API Key here](https://ionic.io/docs/portals/getting-started/guide). 
-
-### 2. Register portals
-
-Register your Ionic Portals, by calling the [IonicPortalManager] class's [register()](#register) method with the [Portal API key](#1-get-a-portal-api-key).
-
-```ts
-import { Application } from '@nativescript/core';
-
-import { IonicPortalManager } from '@nativescript/ionic-portals';
-
-Application.on(Application.launchEvent, () => {
-	// Register IonicPortals
-	IonicPortalManager.register('<portal-api-key>');
-});
-
-// boot app here, for example:
-Application.run({ moduleName: 'app-root' });
-```
+### 1. Add your web app to the app resources
 
 Create as many Portals as you need to use in your app.
 
@@ -81,9 +74,9 @@ The app will look for folders within its resources where the folder name is equa
 Given the following examples, ensure your web portal is built into the following folders:
 
 * For iOS: `App_Resources/iOS/webPortal`
-* For Android: `App_Resources/Android/src/main/asssets/webPortal`
+* For Android: `App_Resources/Android/src/main/assets/webPortal`
 
-### 3. Add portals view to markup
+### 2. Add the portal view to markup
 
 #### Core
 
@@ -122,7 +115,7 @@ registerElement('IonicPortal', () => IonicPortal);
 
 2. Add `IonicPortal` to markup.
 ```html
-<IonicPortal id="webPortal"></IonicPortal>;
+<IonicPortal id="webPortal"></IonicPortal>
 ```
 
 #### Vue
@@ -183,22 +176,63 @@ To unsubscribe from events sent from any web portal, call the [unsubscribeFromTo
 IonicPortalManager.unsubscribeFromTopic('useful-web-event', subscriptionId);
 ```
 
+## Live Updates
+
+Live updates let you ship a new build of a web portal to installed apps without an app store release.
+
+Ionic Portals 0.14 loads live updates through the [Ionic Live Update Provider SDK](https://github.com/ionic-team/live-update-provider-sdk). This plugin ships [Capawesome Cloud](https://capawesome.io/cloud/live-updates/) as the provider. Each web portal uses its own Capawesome Cloud app. See the [Capawesome Cloud guide for Ionic Portals](https://capawesome.io/docs/cloud/live-updates/ionic-portals/) for the full feature set, for example channels, rollbacks and code signing.
+
+### 1. Create an app in Capawesome Cloud
+
+Create an app in the [Capawesome Cloud Console](https://console.cloud.capawesome.io) for every web portal that you want to update and note its app id.
+
+### 2. Configure live updates for a portal
+
+Call [configureLiveUpdates()](#configureliveupdates) before the portal is shown, for example in the `Application.launchEvent` handler:
+
+```ts
+import { Application } from '@nativescript/core';
+import { IonicPortalManager } from '@nativescript/ionic-portals';
+
+Application.on(Application.launchEvent, () => {
+	IonicPortalManager.configureLiveUpdates('webPortal', {
+		appId: '<capawesome-cloud-app-id>',
+		channel: 'production',
+	});
+});
+
+Application.run({ moduleName: 'app-root' });
+```
+
+### 3. Sync on app start
+
+A portal only downloads an update when you ask for it. Call [syncLiveUpdates()](#syncliveupdates) once at app start for every configured portal:
+
+```ts
+IonicPortalManager.syncLiveUpdates('webPortal').catch((error) => {
+	console.log('Live update sync failed:', error);
+});
+```
+
+A portal that is already on screen keeps the current bundle and serves the new one on its next load, for example after `reload()` or an app restart.
+
+### 4. Publish an update
+
+Build your web portal and upload the output with the [Capawesome CLI](https://capawesome.io/cloud/cli/):
+
+```cli
+npx @capawesome/cli apps:liveupdates:upload --app-id <capawesome-cloud-app-id> --path ./dist --channel production
+```
+
+Ship the same build inside the app resources (see [step 1](#1-add-your-web-app-to-the-app-resources)), so the portal has content before the first sync.
+
+### Migrating from Ionic Appflow
+
+Ionic Appflow reaches end of life on December 31, 2027. Earlier versions of this plugin used Appflow for live updates. To migrate, replace the Appflow `appId` in `configureLiveUpdates()` with your Capawesome Cloud app id, drop `syncOnAdd`, and replace `syncNow()` with `syncLiveUpdates()`. The [migration guide](https://capawesome.io/blog/migrating-ionic-portals-live-updates-from-appflow-to-capawesome/) explains the differences in detail.
+
 ## IonicPortalManager API
 
 Allows you to interact with and configure portals via the following APIs.
-
-### register()
-
-```ts
-IonicPortalManager.register(apiKey)
-```
-
-Registers portals. Call it in the `main.ts` file, before the app boots, in the handler of the `Application.launchEvent` event.
-
-| Parameter | Type | Description
-|:----------|:-----|:-----------
-| `apiKey` | `string` | Your portal API key
-
 
 ### setInitialContext()
 ```ts
@@ -261,41 +295,38 @@ IonicPortalManager.unsubscribeFromTopic(topic, subscriptionId)
 
 ### configureLiveUpdates()
 
-Note: configure before displaying the portal.
+Note: configure before displaying the portal. Throws when the configuration is invalid, for example when `appId` is missing.
 
 ```ts
 IonicPortalManager.configureLiveUpdates('webPortal', {
-	appId: 'e2abc12',
+	appId: '<capawesome-cloud-app-id>',
 	channel: 'production',
-	syncOnAdd: true
+	publicKey: '-----BEGIN PUBLIC KEY-----MIGf...IDAQAB-----END PUBLIC KEY-----',
 })
 ```
 | Parameter | Type | Description
 |:----------|:-----|:-----------
 | `portalId` | ` string` | The portal id.
-| `config` | `IonicPortalLiveUpdateConfig` | Live update configuration.
+| `config` | `IonicPortalLiveUpdateConfig` | Live update configuration, see below.
 
-### syncNow()
+| Property | Type | Description
+|:---------|:-----|:-----------
+| `appId` | `string` | The Capawesome Cloud app id of the web portal.
+| `channel` | `string` | _Optional_: The channel to sync, for example `production`. Without it the server picks the app's default channel.
+| `publicKey` | `string` | _Optional_: The public key as a single-line PEM. With it, bundles without a valid signature are rejected. See [code signing](https://capawesome.io/docs/cloud/live-updates/code-signing/).
+| `serverDomain` | `string` | _Optional_: The API domain of the Capawesome Cloud server without scheme or path.
+| `httpTimeout` | `number` | _Optional_: The request timeout in milliseconds.
 
-```ts
-IonicPortalManager.syncNow(['e2abc12'], false, status => {
-	console.log('sync complete:', status)
-})
-```
-| Parameter | Type | Description
-|:----------|:-----|:-----------
-| `appIds` | `Array<string>` | Portal app ids to sync.
-| `isParallel` | `boolean` | Whether to sync in parallel or not.
-| `complete` | `(status: string) => void` | Complete callback.
-
-### getLastSync()
+### syncLiveUpdates()
 
 ```ts
-const lastSync = IonicPortalManager.getLastSync('e2abc12')
+await IonicPortalManager.syncLiveUpdates('webPortal')
 ```
+Downloads the latest bundle of the portal from Capawesome Cloud. The promise rejects when the portal has no live update configuration, the device is offline, or the download or signature check fails.
+
 | Parameter | Type | Description
 |:----------|:-----|:-----------
-| `appId` | `string` | Portal app id to check last sync.
+| `portalId` | `string` | The portal id configured with [configureLiveUpdates()](#configureliveupdates).
 
 ## Using Capacitor Plugins with Ionic Portals
 
@@ -304,13 +335,16 @@ Refer to [this blog post](https://blog.nativescript.org/ionic-portals-with-capac
 ## Notes
 
 > For iOS:
-> You may need to add `IPHONEOS_DEPLOYMENT_TARGET = 12.0` to your `App_Resources/iOS/build.xcconfig` file.
-> If your project contains `App_Resources/iOS/Podfile`, you may need to remove any post install handling which removes deployment targets, for example:
+> The plugin sets the deployment target to iOS 15.0. If your project contains `App_Resources/iOS/Podfile`, remove any post install handling which removes deployment targets, for example:
 > Remove anything like this: `config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'`
+
+> For Android:
+> Ionic Portals 0.14 depends on Capacitor 8, which is compiled for Java 21. Build your app with JDK 21.
 
 ## Additional Resources
 - You can learn more about Ionic Portals at [Opening Doors with Portals](https://www.youtube.com/watch?v=lGeeUjIMjTQ&t=609s)
 	- Find the video's repo [here](https://github.com/NathanWalker/ioniconf2022)
+- [Live Updates for Ionic Portals apps](https://capawesome.io/docs/cloud/live-updates/ionic-portals/) in the Capawesome Cloud docs
 
 ## License
 
