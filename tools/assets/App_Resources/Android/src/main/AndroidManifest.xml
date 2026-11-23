@@ -49,5 +49,21 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.tns.ErrorReportActivity"/>
-	</application>
+	
+    <!-- BEGIN NativeScript Widget: plugin_demo -->
+    <receiver
+        android:name="org.nativescript.plugindemo.PluginDemoWidgetProvider"
+        android:exported="true">
+        <intent-filter>
+			 <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+		<intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        </intent-filter>
+        <meta-data
+            android:name="android.appwidget.provider"
+            android:resource="@xml/ns_plugin_demo_widget_info" />
+    </receiver>
+    <!-- END NativeScript Widget: plugin_demo -->
+    </application>
 </manifest>

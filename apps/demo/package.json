@@ -11,7 +11,8 @@
     "@nativescript/jetpack-compose": "file:../../packages/jetpack-compose",
     "@nativescript/rive": "file:../../packages/rive",
     "@nativescript/swift-ui": "file:../../packages/swift-ui",
-    "@nativescript/ui-charts": "file:../../packages/ui-charts"
+    "@nativescript/ui-charts": "file:../../packages/ui-charts",
+    "@nativescript/widgets": "file:../../packages/widgets"
   },
   "devDependencies": {
     "@nativescript/android": "~8.9.0",

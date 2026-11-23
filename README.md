@@ -5,6 +5,7 @@
 - [@nativescript/rive](packages/rive/README.md)
 - [@nativescript/swift-ui](packages/swift-ui/README.md)
 - [@nativescript/ui-charts](packages/ui-charts/README.md)
+- [@nativescript/widgets](packages/widgets/README.md)
 
 # How to use?
 

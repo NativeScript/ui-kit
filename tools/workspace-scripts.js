@@ -114,6 +114,13 @@ module.exports = {
           description: '@nativescript/morph-modal-kit: Build',
         },
       },
+      // @nativescript/widgets
+      widgets: {
+        build: {
+          script: 'nx run widgets:build.all',
+          description: '@nativescript/widgets: Build',
+        },
+      },
       'build-all': {
         script: 'nx run-many --target=build.all --all',
         description: 'Build all packages',
@@ -151,6 +158,10 @@ module.exports = {
       'morph-modal-kit': {
         script: 'nx run morph-modal-kit:focus',
         description: 'Focus on @nativescript/morph-modal-kit',
+      },
+      widgets: {
+        script: 'nx run widgets:focus',
+        description: 'Focus on @nativescript/widgets',
       },
       reset: {
         script: 'nx g @nativescript/plugin-tools:focus-packages',
